@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace URIstudy
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int bill100 = 0;
+            int bill50 = 0;
+            int bill20 = 0;
+            int bill10 = 0;
+            int bill5 = 0;
+            int bill2 = 0;
+            int bill1 = 0;
+            int entryValue = Convert.ToInt32(Console.ReadLine());
+            do
+            {
+                bill100 = entryValue / 100;
+                entryValue = entryValue % 100;
+
+                bill50 = entryValue / 50;
+                entryValue %= 50;
+
+                bill20 = entryValue / 20;
+                entryValue %= 20;
+
+                bill10 = entryValue / 10;
+                entryValue %= 10;
+
+                bill5 = entryValue / 5;
+                entryValue %= 5;
+
+                bill2 = entryValue / 2;
+                entryValue %= 2;
+
+                bill1 = entryValue / 1;
+                entryValue %= 1;
+
+            } while (entryValue != 0);
+
+            Console.WriteLine("{0} nota(s) de R$ 100,00", bill100);
+            Console.WriteLine("{0} nota(s) de R$ 50,00", bill50);
+            Console.WriteLine("{0} nota(s) de R$ 20,00", bill20);
+            Console.WriteLine("{0} nota(s) de R$ 10,00", bill10);
+            Console.WriteLine("{0} nota(s) de R$ 5,00", bill5);
+            Console.WriteLine("{0} nota(s) de R$ 2,00", bill2);
+            Console.WriteLine("{0} nota(s) de R$ 1,00", bill1);
+            Console.ReadKey();
+        }
+    }
+}

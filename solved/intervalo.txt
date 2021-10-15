@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace URIstudy
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double entryValue = Convert.ToDouble(Console.ReadLine());
+
+            if (entryValue >= 0 && entryValue <= 100)
+            {
+                if(entryValue >= 0.00 && entryValue <= 25.00)
+                {
+                    Console.WriteLine("Intervalo [0,25]");
+                }
+
+                if (entryValue >= 25.01 && entryValue <= 50.00)
+                {
+                    Console.WriteLine("Intervalo (25,50]");
+                }
+
+                if (entryValue >= 50.01 && entryValue <= 75.00)
+                {
+                    Console.WriteLine("Intervalo (50,75]");
+                }
+
+                if (entryValue >= 75.01 && entryValue <= 100.00)
+                {
+                    Console.WriteLine("Intervalo (75,100]");
+                }
+            } 
+            else
+            {
+                Console.WriteLine("Fora de intervalo");
+            }
+        }
+    }
+}

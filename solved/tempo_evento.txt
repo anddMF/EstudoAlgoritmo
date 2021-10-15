@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace URIstudy
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Dia ");
+            var diaInicio = Convert.ToInt32(Console.ReadLine());
+            Console.Write("");
+            DateTime horaInicio;
+            DateTime.TryParse(Console.ReadLine(), out horaInicio);
+
+            Console.Write("Dia ");
+            var diaFim = Convert.ToInt32(Console.ReadLine());
+            Console.Write("");
+            DateTime horaFim;
+            DateTime.TryParse(Console.ReadLine(), out horaFim);
+
+            DateTime dateInicio = new DateTime(2010, 05, diaInicio, horaInicio.Hour, horaInicio.Minute, horaInicio.Second);
+            DateTime dateFim = new DateTime(2010, 05, diaFim, horaFim.Hour, horaFim.Minute, horaFim.Second);
+            var resultado = dateFim.Subtract(dateInicio);
+
+            Console.WriteLine(resultado.Days + " dia(s)");
+            Console.WriteLine(resultado.Hours + " hora(s)");
+            Console.WriteLine(resultado.Minutes + " minuto(s)");
+            Console.WriteLine(resultado.Seconds + " segundos(s)");
+            Console.ReadKey();
+        }
+    }
+}

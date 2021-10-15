@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace URIstudy
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Insira o numero: ");
+            int entryFirstNumber = Convert.ToInt32(Console.ReadLine());
+            int entrySecondNumber = Convert.ToInt32(Console.ReadLine());
+            int sum = 0;
+            // entryFirstNumber < entrySecondNumber ? i-- : i++ para quando o segundo numero for menor o for descer até ele
+            for (int i = entryFirstNumber; i != entrySecondNumber; i++)
+            {
+                if(i % 2 != 0)
+                {
+                    sum += i;
+                }
+            }
+
+            Console.WriteLine(sum);
+            Console.ReadKey();
+        }
+    }
+}
