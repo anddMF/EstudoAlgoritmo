@@ -16,6 +16,10 @@ namespace URIstudy
             List<int> numberList2 = new List<int> { 2, 1, 3, 5, 3, 2 };
             int sum = 13;
 
+            List<int> teste = new List<int> { 3, 4, 3, 1, 6, 5 };
+            
+            countMaximumTeams(teste);
+
             //FirstDuplicated(numberList2);
             //Uri1061();
             //MatrizHigherNumber();
@@ -23,7 +27,7 @@ namespace URIstudy
             Console.ReadKey();
         }
 
-        // Encontra uma determinada somatória de números dentro da array
+        // E01: Encontra uma determinada somatória de números em sequencia dentro da array
         static bool CheckSum(List<int> numberList, int totalSum)
         {
             for (int i = 0; i < numberList.Count; i++)
@@ -47,6 +51,7 @@ namespace URIstudy
             return false;
         }
 
+        // E02
         static bool Uri1061()
         {
             var datevalue1 = new DateTime(2021, 4, 5);
@@ -74,7 +79,7 @@ namespace URIstudy
             return false;
         }
 
-        // Encontra o primeiro número que se repetir dentro de array
+        // E03: Encontra o primeiro número que se repetir dentro de array
         static bool FirstDuplicated(List<int> numberList)
         {
             var otherList = new List<int>();
@@ -93,7 +98,7 @@ namespace URIstudy
             return false;
         }
 
-        // Devolve o indice linha e coluna do maior número da matriz
+        // E04: Devolve o indice linha e coluna do maior número da matriz
         static bool MatrizHigherNumber()
         {
             int[,] matriz = new int[3, 3];
@@ -124,16 +129,16 @@ namespace URIstudy
             return false;
         }
 
-        // Troca a cor de um pixel da matriz (troca o número de uma coordenada) e também a dos adjacentes 
+        // E05: Troca a cor de um pixel da matriz (troca o número de uma coordenada) e também a dos adjacentes 
         // com mesma cor desta matriz
         static void PaintBrushMatrix()
         {
             // coordenadas para a pintura
             int x = 4, y = 4;
             // [8,8]
-            int[,] matriz = {{1, 1, 1, 2, 5, 1, 1, 1},
-                             {1, 1, 4, 2, 2, 7, 0, 0},
-                             {1, 0, 0, 1, 6, 0, 1, 1},
+            int[,] matriz = {{1, 1, 1, 2, 1, 1, 1, 1},
+                             {1, 1, 1, 2, 2, 1, 0, 0},
+                             {1, 0, 0, 1, 1, 0, 1, 1},
                              {1, 2, 2, 2, 2, 0, 1, 0},
                              {1, 1, 1, 2, 2, 0, 1, 0},
                              {1, 1, 1, 2, 2, 2, 2, 0},
@@ -153,7 +158,7 @@ namespace URIstudy
             Console.ReadLine();
         }
 
-        // Recursivo para navegar norte, sul, leste e oeste das coordenadas da matriz e ir pintando se
+        // E05: Recursivo para navegar norte, sul, leste e oeste das coordenadas da matriz e ir pintando se
         // atender a condição
         static int[,] PaintCloseOnes(int[,] matrizInicial, int x, int y, int numberToChange, int newNumber)
         {
@@ -181,6 +186,7 @@ namespace URIstudy
             return matrizInicial;
         }
 
+        // E05
         static void ShowMatrix(int[,] matriz, int maxX, int maxY)
         {
             Console.WriteLine("---------------");
@@ -198,6 +204,55 @@ namespace URIstudy
                 Console.WriteLine("");
             }
             Console.WriteLine("---------------");
+        }
+
+        public static int countMaximumTeams(List<int> skill, int teamSize = 3, int maxDiff = 2)
+        {
+            // skill = [3, 4, 3, 1,6, 5]
+
+            int possibleTeams = 0;
+            var arr = new List<int> { };
+
+            skill.Sort();
+
+            int differentTeams = skill.Count / teamSize;
+
+            for(int j = 1; j <= differentTeams; j++)
+            {
+                arr.Add(skill[0]);
+                for (int i = 1; i < skill.Count && arr.Count < teamSize; i++)
+                {
+                    if (skill[0] - skill[i] <= maxDiff)
+                    {
+                        arr.Add(skill[i]);
+                    }
+                }
+
+                if (arr.Count == teamSize)
+                    possibleTeams++;
+
+                foreach(var value in arr)
+                {
+                    skill.Remove(value);
+                }
+                arr = new List<int> { };
+            }
+
+            return possibleTeams;
+        }
+
+        static List<int> GetSingleTeam(List<int> skillArray, int initialIndex, int maxDiff, int teamSize)
+        {
+            if(skillArray[initialIndex] - skillArray[initialIndex - 1] <= maxDiff)
+            {
+
+            }
+
+            for (int i = initialIndex; i < skillArray.Count && i >= 0; i++)
+            {
+
+            }
+            return null;
         }
 
 
