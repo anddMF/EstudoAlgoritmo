@@ -16,14 +16,13 @@ namespace URIstudy
             List<int> numberList2 = new List<int> { 2, 1, 3, 5, 3, 2 };
             int sum = 13;
 
-            List<int> teste = new List<int> { 3, 4, 3, 1, 6, 5 };
-            
-            countMaximumTeams(teste);
+            //List<int> testeMaxTeams = new List<int> { 3, 4, 3, 1, 6, 5 };
+            //countMaximumTeams(testeMaxTeams);
 
             //FirstDuplicated(numberList2);
             //Uri1061();
             //MatrizHigherNumber();
-            PaintBrushMatrix();
+            PlusMinus();
             Console.ReadKey();
         }
 
@@ -206,6 +205,7 @@ namespace URIstudy
             Console.WriteLine("---------------");
         }
 
+        // E06 ainda não resolvido 100%
         public static int countMaximumTeams(List<int> skill, int teamSize = 3, int maxDiff = 2)
         {
             // skill = [3, 4, 3, 1,6, 5]
@@ -217,7 +217,7 @@ namespace URIstudy
 
             int differentTeams = skill.Count / teamSize;
 
-            for(int j = 1; j <= differentTeams; j++)
+            for (int j = 1; j <= differentTeams; j++)
             {
                 arr.Add(skill[0]);
                 for (int i = 1; i < skill.Count && arr.Count < teamSize; i++)
@@ -231,7 +231,7 @@ namespace URIstudy
                 if (arr.Count == teamSize)
                     possibleTeams++;
 
-                foreach(var value in arr)
+                foreach (var value in arr)
                 {
                     skill.Remove(value);
                 }
@@ -241,20 +241,48 @@ namespace URIstudy
             return possibleTeams;
         }
 
-        static List<int> GetSingleTeam(List<int> skillArray, int initialIndex, int maxDiff, int teamSize)
+        // E07 retorna fração de números positivos, negativos e zeros dentro da array de entrada, o resultado vem com
+        // seis números após a virgula
+        public static void PlusMinus()
         {
-            if(skillArray[initialIndex] - skillArray[initialIndex - 1] <= maxDiff)
+            List<int> arr = new List<int> { -4, 3, -9, 0, 4, 1 };
+            List<string> finalList = new List<string>();
+
+            int initiallength = arr.Count;
+
+            double positives = 0;
+            double negatives = 0;
+            double zeros = 0;
+            string fmt = "0.######";
+
+            for (int i = 0; i < initiallength; i++)
             {
-
+                if (arr[i] > 0)
+                    positives++;
+                else if (arr[i] < 0)
+                    negatives++;
+                else
+                    zeros++;
             }
+            string positiveF = (positives / initiallength).ToString(fmt);
+            string negativeF = (negatives / initiallength).ToString(fmt);
+            string zerosF = (zeros / initiallength).ToString(fmt);
 
-            for (int i = initialIndex; i < skillArray.Count && i >= 0; i++)
+            finalList.AddRange(new[] { positiveF, negativeF, zerosF });
+
+
+            for (int i = 0; i < finalList.Count; i++)
             {
-
+                if (finalList[i].Length < 8)
+                {
+                    while (finalList[i].Length < 8)
+                    {
+                        finalList[i] = finalList[i] + "0";
+                    }
+                }
+                Console.WriteLine(finalList[i]);
             }
-            return null;
+            Console.ReadLine();
         }
-
-
     }
 }
