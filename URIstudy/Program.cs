@@ -14,6 +14,7 @@ namespace URIstudy
             Console.WriteLine("------------- S T A R T ----------------");
             List<int> numberList = new List<int> { 4, 2, 3, 7, 2, 4, 2 };
             List<int> numberList2 = new List<int> { 2, 1, 3, 5, 3, 2 };
+            List<int> arr = new List<int> { -4, 3, -9, 0, 4, 1 };
             int sum = 13;
 
             //List<int> testeMaxTeams = new List<int> { 3, 4, 3, 1, 6, 5 };
@@ -22,7 +23,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //Uri1061();
             //MatrizHigherNumber();
-            PlusMinus();
+            PlusMinus(arr);
             Console.ReadKey();
         }
 
@@ -243,9 +244,9 @@ namespace URIstudy
 
         // E07 retorna fração de números positivos, negativos e zeros dentro da array de entrada, o resultado vem com
         // seis números após a virgula
-        public static void PlusMinus()
+        public static void PlusMinus(List<int> arr)
         {
-            List<int> arr = new List<int> { -4, 3, -9, 0, 4, 1 };
+            
             List<string> finalList = new List<string>();
 
             int initiallength = arr.Count;
@@ -284,5 +285,6 @@ namespace URIstudy
             }
             Console.ReadLine();
         }
+
     }
 }
