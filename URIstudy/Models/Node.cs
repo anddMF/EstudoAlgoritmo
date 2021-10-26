@@ -10,24 +10,27 @@ namespace URIstudy.Models
     {
         public Node left, right;
         public int data;
-        
+
         public void insert(int value)
         {
-            if(value <= data)
+            if (value <= data)
             {
-                if(left != null)
+                if (left != null)
                 {
                     left.insert(value);
-                } else
+                }
+                else
                 {
                     left.data = value;
                 }
-            } else
+            }
+            else
             {
-                if(right != null)
+                if (right != null)
                 {
                     right.insert(value);
-                } else
+                }
+                else
                 {
                     right.data = value;
                 }
@@ -36,30 +39,49 @@ namespace URIstudy.Models
 
         public bool contains(int value)
         {
-            if(value == data)
+            if (value == data)
             {
                 return true;
             }
-            
-            if(value <= data)
+
+            if (value <= data)
             {
-                if(left != null)
+                if (left != null)
                 {
                     return left.contains(value);
-                } else
-                {
-                    return false;
                 }
-            } else
-            {
-                if(right != null)
-                {
-                    return right.contains(value);
-                } else
+                else
                 {
                     return false;
                 }
             }
+            else
+            {
+                if (right != null)
+                {
+                    return right.contains(value);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public void PrintInOrder()
+        {
+            if(left != null)
+            {
+                left.PrintInOrder();
+            }
+
+            Console.WriteLine(data);
+
+            if(right != null)
+            {
+                right.PrintInOrder();
+            }
+
         }
 
     }
