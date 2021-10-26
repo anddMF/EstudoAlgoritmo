@@ -21,9 +21,9 @@ namespace URIstudy
             //countMaximumTeams(testeMaxTeams);
 
             //FirstDuplicated(numberList2);
-            //Uri1061();
-            //MatrizHigherNumber();
-            PlusMinus(arr);
+            //PlusMinus(arr);
+
+            LinkedListExample();
             Console.ReadKey();
         }
 
@@ -286,5 +286,39 @@ namespace URIstudy
             Console.ReadLine();
         }
 
+        // E08
+        public static void MiniMaxSum()
+        {
+            List<int> arr = new List<int> {  3, 7, 1, 5, 9 };
+
+            arr.Sort();
+
+            int response = 0;
+
+            for(int i = 0; i < arr.Count; i++)
+            {
+                response += arr[i];
+            }
+
+            Console.WriteLine("Min" + (response - arr.Last()) + " Max: " + (response - arr.First()));
+        }
+
+        public static void LinkedListExample()
+        {
+            LinkedList<string> list = new LinkedList<string>();
+
+            list.AddFirst("Sofá");
+            list.AddFirst("Televisão");
+            list.AddFirst("Poltrona");
+            list.AddLast("Mesa");
+
+            LinkedListNode<string> node = list.Find("Televisão");
+            list.AddAfter(node, "Tapete");
+
+            foreach(string item in list)
+            {
+                Console.WriteLine("Item: {0}", item);
+            }
+        }
     }
 }
