@@ -23,7 +23,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
 
-            LinkedListExample();
+            var testes = SparseArrays();
             Console.ReadKey();
         }
 
@@ -319,6 +319,25 @@ namespace URIstudy
             {
                 Console.WriteLine("Item: {0}", item);
             }
+        }
+
+        //E09 Retorna uma lista com a contagem de quantas vezes cada item da queries aparece na input,
+        // no exemplo comentado a resposta seria [2,1,0]
+        public static List<int> SparseArrays(List<string> input, List<string> queries)
+        {
+            //List<string> input = new List<string> {"ab", "ab", "abc"};
+            //List<string> queries = new List<string> {"ab", "abc", "bc"};
+
+            List<int> result = new List<int>();
+
+            for(int i = 0; i < queries.Count; i++)
+            {
+                var finded = input.FindAll(a => a == queries[i]);
+
+                result.Add(finded.Count);
+            }
+
+            return result;
         }
     }
 }
