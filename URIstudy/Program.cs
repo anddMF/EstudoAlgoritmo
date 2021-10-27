@@ -23,7 +23,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
 
-            var testes = SparseArrays();
+            var testes = LonelyInteger();
             Console.ReadKey();
         }
 
@@ -338,6 +338,22 @@ namespace URIstudy
             }
 
             return result;
+        }
+
+        //E10 Identifica o elemento que não se repete na array de entrada
+        public static int LonelyInteger(List<int> a)
+        {
+            //List<int> a = new List<int> { 1, 2, 3, 4, 3, 2, 1 };
+
+            for(int i = 0; i < a.Count; i++)
+            { 
+                List<int> element = a.FindAll(number => number == a[i]);
+
+                if (element.Count == 1)
+                    return a[i];
+            }
+
+            return -1;
         }
     }
 }
