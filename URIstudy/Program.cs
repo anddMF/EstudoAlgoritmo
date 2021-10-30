@@ -24,18 +24,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
 
-            LinkedListN head1 = new LinkedListN();
-            LinkedListN head2 = new LinkedListN();
-
-            head1.AddNodeToFront(7);
-            head1.AddNodeToFront(3);
-            head1.AddNodeToFront(1);
-
-
-            head2.AddNodeToFront(2);
-            head2.AddNodeToFront(1);
-
-            var responde = MergeListsSorted(head1.head, head2.head);
+            TesteQueue();
             Console.ReadKey();
         }
 
@@ -385,7 +374,7 @@ namespace URIstudy
 
         }
 
-        // E11 
+        // E11 Recebe duas linked lists e retorna uma unica com os elementos ordenados de ambas. Premissa dos inputs estarem ordenados
         public static LinkedListNodeN MergeListsSorted(LinkedListNodeN head1, LinkedListNodeN head2)
         {
             var runner1 = head1;
@@ -426,6 +415,37 @@ namespace URIstudy
                 responseRunner.next = runner1;
 
             return response;
+        }
+
+        // E12 Exercicio meio especifico, 'Queue using two stacks' do harcker rank
+        public static void QueueExercise()
+        {
+            QueueN<int> queue = new QueueN<int>(); 
+            int queries = 0;
+            int value = 0;
+            string cmd = "";
+
+            Console.Write("numero queries ");
+            queries = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < queries; i++)
+            {
+                Console.Write("Comando: ");
+                cmd = Console.ReadLine();
+                var split = cmd.Split(' ');
+
+                if(split.Length > 1)
+                {
+                    queue.Enqueue(Convert.ToInt32(split[1]));
+                }
+
+                if(Convert.ToInt32(split[0]) == 2)
+                    queue.Dequeue();
+
+                if (Convert.ToInt32(split[0]) == 3)
+                    queue.PrintFirstElement();
+
+            }
         }
     }
 }
