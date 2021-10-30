@@ -11,6 +11,11 @@ namespace URIstudy.Models
         public int data;
         public LinkedListNodeN next;
 
+        public LinkedListNodeN()
+        {
+
+        }
+
         public LinkedListNodeN(int x)
         {
             data = x;
@@ -20,7 +25,7 @@ namespace URIstudy.Models
 
     public class LinkedListN
     {
-        LinkedListNodeN head;
+        public LinkedListNodeN head;
 
         public LinkedListN()
         {

@@ -24,7 +24,18 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
 
-            TesteLinkedList();
+            LinkedListN head1 = new LinkedListN();
+            LinkedListN head2 = new LinkedListN();
+
+            head1.AddNodeToFront(7);
+            head1.AddNodeToFront(3);
+            head1.AddNodeToFront(1);
+
+
+            head2.AddNodeToFront(2);
+            head2.AddNodeToFront(1);
+
+            var responde = MergeListsSorted(head1.head, head2.head);
             Console.ReadKey();
         }
 
@@ -372,6 +383,49 @@ namespace URIstudy
 
             list.PrintNodes();
 
+        }
+
+        // E11 
+        public static LinkedListNodeN MergeListsSorted(LinkedListNodeN head1, LinkedListNodeN head2)
+        {
+            var runner1 = head1;
+            var runner2 = head2;
+            var initial = new LinkedListNodeN();
+
+            if(head1.data <= head2.data)
+            {
+                initial = head1;
+                runner1 = runner1.next;
+            } else
+            {
+                initial = head2;
+                runner2 = runner2.next;
+            }
+
+            LinkedListNodeN response = new LinkedListNodeN(initial.data);
+            LinkedListNodeN responseRunner = response;
+
+            while(runner1 != null && runner2 != null)
+            {
+                if(runner1 != null && runner1.data <= runner2.data)
+                {
+                    responseRunner.next = new LinkedListNodeN { data = runner1.data, next = null };
+                    runner1 = runner1.next;
+                } else if (runner2 != null && runner2.data <= runner1.data)
+                {
+
+                    responseRunner.next = new LinkedListNodeN { data = runner2.data, next = null };
+                    runner2 = runner2.next;
+                }
+                responseRunner = responseRunner.next;
+            }
+
+            if (runner1 == null)
+                responseRunner.next = runner2;
+            else
+                responseRunner.next = runner1;
+
+            return response;
         }
     }
 }
