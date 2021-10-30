@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using URIstudy.Models;
 
 namespace URIstudy
 {
@@ -23,7 +24,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
 
-            var testes = LonelyInteger();
+            TesteLinkedList();
             Console.ReadKey();
         }
 
@@ -354,6 +355,19 @@ namespace URIstudy
             }
 
             return -1;
+        }
+
+        public static void TesteLinkedList()
+        {
+            LinkedListN list = new LinkedListN();
+
+            list.AddNodeToFront(8);
+            list.AddNodeToFront(3);
+            list.AddNodeToFront(4);
+
+            list.AddNodeToBack(7);
+
+            list.PrintNodes();
         }
     }
 }
