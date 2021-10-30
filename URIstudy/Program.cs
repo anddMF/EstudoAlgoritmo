@@ -360,6 +360,7 @@ namespace URIstudy
         public static void TesteLinkedList()
         {
             LinkedListN list = new LinkedListN();
+            LinkedListN list2 = new LinkedListN();
 
             list.AddNodeToFront(8);
             list.AddNodeToFront(3);
@@ -367,7 +368,10 @@ namespace URIstudy
 
             list.AddNodeToBack(7);
 
+            list.DeleteNodeFromFront();
+
             list.PrintNodes();
+
         }
     }
 }

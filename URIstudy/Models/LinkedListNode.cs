@@ -51,6 +51,23 @@ namespace URIstudy.Models
             runner.next = node;
         }
 
+        public void DeleteNodeFromBack()
+        {
+            var runner = head;
+
+            while (runner.next.next != null)
+            {
+                runner = runner.next;
+            }
+
+            runner.next = null;
+        }
+
+        public void DeleteNodeFromFront()
+        {
+            head = head.next;
+        }
+
         public void PrintNodes()
         {
             LinkedListNodeN runner = head;
