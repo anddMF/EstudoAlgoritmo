@@ -24,7 +24,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
 
-            TesteQueue();
+            AreBracketsBalanced();
             Console.ReadKey();
         }
 
@@ -247,7 +247,7 @@ namespace URIstudy
         // seis números após a virgula
         public static void PlusMinus(List<int> arr)
         {
-            
+
             List<string> finalList = new List<string>();
 
             int initiallength = arr.Count;
@@ -290,13 +290,13 @@ namespace URIstudy
         // E08
         public static void MiniMaxSum()
         {
-            List<int> arr = new List<int> {  3, 7, 1, 5, 9 };
+            List<int> arr = new List<int> { 3, 7, 1, 5, 9 };
 
             arr.Sort();
 
             int response = 0;
 
-            for(int i = 0; i < arr.Count; i++)
+            for (int i = 0; i < arr.Count; i++)
             {
                 response += arr[i];
             }
@@ -316,7 +316,7 @@ namespace URIstudy
             LinkedListNode<string> node = list.Find("Televisão");
             list.AddAfter(node, "Tapete");
 
-            foreach(string item in list)
+            foreach (string item in list)
             {
                 Console.WriteLine("Item: {0}", item);
             }
@@ -331,7 +331,7 @@ namespace URIstudy
 
             List<int> result = new List<int>();
 
-            for(int i = 0; i < queries.Count; i++)
+            for (int i = 0; i < queries.Count; i++)
             {
                 var finded = input.FindAll(a => a == queries[i]);
 
@@ -346,8 +346,8 @@ namespace URIstudy
         {
             //List<int> a = new List<int> { 1, 2, 3, 4, 3, 2, 1 };
 
-            for(int i = 0; i < a.Count; i++)
-            { 
+            for (int i = 0; i < a.Count; i++)
+            {
                 List<int> element = a.FindAll(number => number == a[i]);
 
                 if (element.Count == 1)
@@ -381,11 +381,12 @@ namespace URIstudy
             var runner2 = head2;
             var initial = new LinkedListNodeN();
 
-            if(head1.data <= head2.data)
+            if (head1.data <= head2.data)
             {
                 initial = head1;
                 runner1 = runner1.next;
-            } else
+            }
+            else
             {
                 initial = head2;
                 runner2 = runner2.next;
@@ -394,13 +395,14 @@ namespace URIstudy
             LinkedListNodeN response = new LinkedListNodeN(initial.data);
             LinkedListNodeN responseRunner = response;
 
-            while(runner1 != null && runner2 != null)
+            while (runner1 != null && runner2 != null)
             {
-                if(runner1 != null && runner1.data <= runner2.data)
+                if (runner1 != null && runner1.data <= runner2.data)
                 {
                     responseRunner.next = new LinkedListNodeN { data = runner1.data, next = null };
                     runner1 = runner1.next;
-                } else if (runner2 != null && runner2.data <= runner1.data)
+                }
+                else if (runner2 != null && runner2.data <= runner1.data)
                 {
 
                     responseRunner.next = new LinkedListNodeN { data = runner2.data, next = null };
@@ -420,7 +422,7 @@ namespace URIstudy
         // E12 Exercicio meio especifico, 'Queue using two stacks' do harcker rank
         public static void QueueExercise()
         {
-            QueueN<int> queue = new QueueN<int>(); 
+            QueueN<int> queue = new QueueN<int>();
             int queries = 0;
             int value = 0;
             string cmd = "";
@@ -434,18 +436,60 @@ namespace URIstudy
                 cmd = Console.ReadLine();
                 var split = cmd.Split(' ');
 
-                if(split.Length > 1)
+                if (split.Length > 1)
                 {
                     queue.Enqueue(Convert.ToInt32(split[1]));
                 }
 
-                if(Convert.ToInt32(split[0]) == 2)
+                if (Convert.ToInt32(split[0]) == 2)
                     queue.Dequeue();
 
                 if (Convert.ToInt32(split[0]) == 3)
                     queue.PrintFirstElement();
 
             }
+        }
+
+        public static string AreBracketsBalanced()
+        {
+            string response = "YES";
+            string querie = Console.ReadLine();
+            Stack<string> stack = new Stack<string>();
+
+            var split = querie.ToCharArray();
+
+            if ((split.Length % 2) > 0)
+                return response = "NO";
+
+            for (int i = 0; i < split.Length; i++)
+            {
+                string currentBracket = split[i].ToString();
+
+                if (currentBracket == "{" || currentBracket == "[" || currentBracket == "(")
+                {
+                    stack.Push(currentBracket);
+                }
+                else
+                {
+                    var peek = stack.Peek();
+
+                    if (currentBracket == "}" && peek == "{")
+                        stack.Pop();
+                    else if (currentBracket == "]" && peek == "[")
+                        stack.Pop();
+                    else if (currentBracket == ")" && peek == "(")
+                        stack.Pop();
+                    else
+                        response = "NO";
+
+                }
+
+                if(response == "NO")
+                    return response;
+
+            }
+
+            return response;
         }
     }
 }
