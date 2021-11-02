@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using URIstudy.Models;
+using System.Collections;
 
 namespace URIstudy
 {
@@ -23,8 +24,7 @@ namespace URIstudy
 
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
-
-            AreBracketsBalanced();
+            FindStringInMatrix();
             Console.ReadKey();
         }
 
@@ -149,7 +149,7 @@ namespace URIstudy
 
             int numberToChange = matriz[x, y];
 
-            ShowMatrix(matriz, 8, 8);
+            //ShowMatrix(matriz, 8, 8);
             Console.WriteLine();
 
             matriz = PaintCloseOnes(matriz, x, y, numberToChange, 8);
@@ -188,12 +188,12 @@ namespace URIstudy
         }
 
         // E05
-        static void ShowMatrix(int[,] matriz, int maxX, int maxY)
+        static void ShowMatrix(int[,] matriz, int maxX, int maxY) // 4    5
         {
             Console.WriteLine("---------------");
-            for (int i = 0; i < maxX; i++)
+            for (int i = 0; i < maxY; i++)
             {
-                for (int j = 0; j < maxY; j++)
+                for (int j = 0; j < maxX; j++)
                 {
                     //int currentNumber = matriz[i, j];
                     //if (currentNumber == numberToChange)
@@ -450,6 +450,7 @@ namespace URIstudy
             }
         }
 
+        // E13
         public static string AreBracketsBalanced()
         {
             string response = "YES";
@@ -491,5 +492,58 @@ namespace URIstudy
 
             return response;
         }
+
+        // E14 Encontra caracteres de uma string dentro de uma matriz e salva as coordenadas numa hastable
+        public static void FindStringInMatrix()
+        {
+            string[,] matrix = {{"D", "E", "M", "X", "B"},
+                                {"A", "O", "E", "P", "E"},
+                                {"D", "D", "C", "O", "D"},
+                                {"E", "B", "E", "D", "S"},
+                                {"C", "P", "Y", "E", "N"},
+                                {"A", "2", "3", "4", "5"}
+                                };
+
+            string queryToFind = "CODE";
+
+            // IDEIA: usar dfs, começar do primeiro mesmo e usar recursão pra navegar primeiro em tudo pra baixo e depois pra direita.
+            // diferente do flood fill, como inicio na 0,0 posso navegar somenta sul e leste
+
+            NavigateMatrix(matrix, 0, 0, queryToFind);
+        }
+
+        // E14 
+        public static void NavigateMatrix(string[,] matrix, int y, int x, string query)
+        {
+            int edgeY = matrix.GetLength(0); // Retorna y 6
+            int edgeX = matrix.GetLength(1); // Retorna x 5
+
+            Hashtable htResponse = new Hashtable();
+
+            var queryArr = query.ToList();
+
+            for (int i = 0; i < edgeY; i++)
+            {
+                for (int j = 0; j < edgeX; j++)
+                {
+                    var current = matrix[i, j];
+
+                    var find = queryArr.Find(letter => letter.ToString() == current).ToString();
+
+                    if(find != "\0")
+                    {
+                        if(!htResponse.ContainsKey(find))
+                            htResponse.Add(find, j + "," + i);
+                        else
+                            htResponse[find] = htResponse[find] + "; " + j + "," + i;
+                    }
+
+                    Console.Write(matrix[i, j] + " ");
+                }
+
+                Console.WriteLine("");
+            }
+        }
+
     }
 }
