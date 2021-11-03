@@ -24,7 +24,7 @@ namespace URIstudy
 
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
-            FindStringInMatrix();
+            int response = DiagonalDifference();
             Console.ReadKey();
         }
 
@@ -485,7 +485,7 @@ namespace URIstudy
 
                 }
 
-                if(response == "NO")
+                if (response == "NO")
                     return response;
 
             }
@@ -530,9 +530,9 @@ namespace URIstudy
 
                     var find = queryArr.Find(letter => letter.ToString() == current).ToString();
 
-                    if(find != "\0")
+                    if (find != "\0")
                     {
-                        if(!htResponse.ContainsKey(find))
+                        if (!htResponse.ContainsKey(find))
                             htResponse.Add(find, j + "," + i);
                         else
                             htResponse[find] = htResponse[find] + "; " + j + "," + i;
@@ -545,5 +545,36 @@ namespace URIstudy
             }
         }
 
+        // E15 Calcula a diferença das diagonais de uma matriz quadrática
+        public static int DiagonalDifference()
+        {
+            // outro jeito de fazer matriz
+            List<List<int>> arr = new List<List<int>>();
+            arr.Add(new List<int> { 1, 2, 3, 4 });
+            arr.Add(new List<int> { 5, 6, 7, 8 });
+            arr.Add(new List<int> { 9, 10, 11, 12 });
+            arr.Add(new List<int> { 13, 14, 15, 16 });
+
+            int lastIndex = arr.Count - 1;
+            int firstIndex = 0;
+
+            int leftDiagonal = 0;
+            int rightDiagonal = 0;
+
+
+            for (int i = 0; i < arr.Count; i++)
+            {
+                List<int> currentArr = arr[i];
+
+                rightDiagonal += currentArr[lastIndex];
+
+                leftDiagonal += currentArr[firstIndex];
+
+                firstIndex++;
+                lastIndex--;
+            }
+
+            return System.Math.Abs(leftDiagonal - rightDiagonal);
+        }
     }
 }
