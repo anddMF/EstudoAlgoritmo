@@ -24,7 +24,7 @@ namespace URIstudy
 
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
-            int response = DiagonalDifference();
+            int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
             Console.ReadKey();
         }
 
@@ -159,7 +159,7 @@ namespace URIstudy
             Console.ReadLine();
         }
 
-        // E05: Recursivo para navegar norte, sul, leste e oeste das coordenadas da matriz e ir pintando se
+        // E05-COMPLEMENTO: Recursivo para navegar norte, sul, leste e oeste das coordenadas da matriz e ir pintando se
         // atender a condição
         static int[,] PaintCloseOnes(int[,] matrizInicial, int x, int y, int numberToChange, int newNumber)
         {
@@ -187,7 +187,7 @@ namespace URIstudy
             return matrizInicial;
         }
 
-        // E05
+        // E05-COMPLEMENTO
         static void ShowMatrix(int[,] matriz, int maxX, int maxY) // 4    5
         {
             Console.WriteLine("---------------");
@@ -512,7 +512,7 @@ namespace URIstudy
             NavigateMatrix(matrix, 0, 0, queryToFind);
         }
 
-        // E14 
+        // E14-COMPLEMENTO
         public static void NavigateMatrix(string[,] matrix, int y, int x, string query)
         {
             int edgeY = matrix.GetLength(0); // Retorna y 6
@@ -575,6 +575,66 @@ namespace URIstudy
             }
 
             return System.Math.Abs(leftDiagonal - rightDiagonal);
+        }
+
+        // E16 Encontra o menor caminho na transformacao da beginWord para a endWord usando a worList e podendo alterar somente um caracter por vezes
+        public static int WordLadder(string beginWord, string endWord, List<string> wordList)
+        {
+            //string beginWord = "hit";
+            //string endWord = "cog";
+            //List<string> wordList = new List<string> { "hot", "dot", "dog", "lot", "log", "cog" };
+            var supList = new List<string> { beginWord };
+
+            if (!wordList.Contains(endWord))
+                return 0;
+
+            string last = beginWord;
+
+            while(wordList.Count > 0)
+            {
+                var lastChar = last.ToCharArray().ToList();
+                string result = CheckIntersect(wordList, lastChar);
+
+                if(result == "")
+                {
+                    // significa que nao encontrou na lista, nunca vai cair nisso visto que valida o ultimo mas para caso eu use no futuro
+                    return 0;
+                } else
+                {
+                    supList.Add(result);
+
+                    if (result == wordList.Last())
+                        return supList.Count;
+
+                    last = result;
+                    wordList.RemoveAt(wordList.FindIndex(x => x == result));
+                }
+            }
+
+            return 0;
+        }
+
+        // E16-COMPLEMENTO Pega a lista disponivel de palavras e checa se com apenas um alterado já chega no final da transformation, caso nao
+        // checa pela resto da wordList a mesma coisa para ir avancando na mesma
+        public static string CheckIntersect(List<string> wordList, List<char> lastChar)
+        {
+            // tem que achar o caminho mais curto para a transformation, entao preciso sempre checar com a ultima palavra da lista se ja consigo finalizar
+            var lastTransformation = wordList.Last().ToCharArray().ToList();
+            var final = lastTransformation.Intersect(lastChar);
+            if (final.Count() == lastChar.Count - 1)
+                return wordList.Last();
+
+            foreach (string word in wordList)
+            {
+                var sup = word.ToCharArray().ToList();
+                // checa por elementos da lastChar dentro da sup
+                var result = sup.Intersect(lastChar);
+
+                if (result.Count() == lastChar.Count - 1)
+                    return word;
+            }
+
+            return "";
         }
     }
 }
