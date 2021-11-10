@@ -25,7 +25,6 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            var r = CanCompleteCircuit();
             Console.ReadKey();
         }
 
@@ -681,20 +680,21 @@ namespace URIstudy
             return initialIndex;
         }
 
-        public int majorityElement(List<int> A)
+        // E18 Retorna o elemento que aparece mais em uma array de tamanho n, para ter o resultado o elemento precisa aparecer mais do que floor(n/2)
+        public static int MajorityElement(List<int> A)
         {
+            //List<int> A = new List<int> { 2, 1, 2 };
             int n = A.Count / 2;
-            int appear = 0;
             int result = 0;
 
             for (int i = 0; i < A.Count; i++)
             {
                 var partialResult = A.FindAll(x => x == A[i]);
 
-                if (partialResult.Count > appear)
+                if (partialResult.Count > n)
                 {
                     result = A[i];
-                    appear = partialResult.Count;
+                    return result;
                 }
             }
 
