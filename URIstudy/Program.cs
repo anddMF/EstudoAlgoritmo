@@ -24,7 +24,8 @@ namespace URIstudy
 
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
-            int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
+            //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
+            var r = CanCompleteCircuit();
             Console.ReadKey();
         }
 
@@ -635,6 +636,74 @@ namespace URIstudy
             }
 
             return "";
+        }
+
+        // E17 https://www.interviewbit.com/problems/gas-station
+        public static int CanCompleteCircuit( )
+        {
+            List<int> A = new List<int> { 1, 2, 2 };
+            List<int> B = new List<int> { 2, 1, 2 };
+            int gasUnit = 0;
+            int initialIndex = -1;
+
+            // A = quantidade de gás disponivel no posto
+            // B = quantidade de gás necessária para o proximo posto
+
+            //checa se gasUnit + A[i] <= B[i] pra saber se consegue ir para o próximo posto
+            // a subtração de (gasUnit + A[i]) - B[i] tem que sempre ser positiva
+
+            for(int i = 0; i < A.Count && initialIndex != i; i++)
+            {
+                if (initialIndex == -1)
+                    initialIndex = i;
+
+                gasUnit = gasUnit + (A[i] - B[i]);
+
+                // ficou sem combustivel para o posto, entao posso reiniciar a partir de outro
+                if (gasUnit < 0)
+                {
+                    if (initialIndex == A.Count - 1)
+                        return -1;
+
+                    i = initialIndex;
+                    // passo -1 para ele alterar o initial index e não sair da condição do FOR initialIndex != i
+                    initialIndex = -1;
+                    gasUnit = 0;
+                } else
+                {
+                    // para voltar ao inicio do array
+                    if (i == A.Count - 1)
+                        i = -1;
+                }
+
+            }
+
+            return initialIndex;
+        }
+
+        public int majorityElement(List<int> A)
+        {
+            int n = A.Count / 2;
+            int appear = 0;
+            int result = 0;
+
+            for (int i = 0; i < A.Count; i++)
+            {
+                var partialResult = A.FindAll(x => x == A[i]);
+
+                if (partialResult.Count > appear)
+                {
+                    result = A[i];
+                    appear = partialResult.Count;
+                }
+            }
+
+            return result;
+        }
+
+        public static void BinaryTree()
+        {
+
         }
     }
 }
