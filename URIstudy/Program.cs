@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            deleteDuplicates();
+ 
             Console.ReadKey();
         }
 
@@ -706,7 +706,7 @@ namespace URIstudy
 
         // E19 Recebe uma lista com preços de stocks dia a dia, o método retorna o 'valor' com máximo de lucro possível a partir da lista fazendo operações de compra
         // e venda nos períodos de baixa e alta. Só pode fazer uma compra por vez, sem operações paralelas.
-        public int maxProfit(List<int> A)
+        public int MaxProfit(List<int> A)
         {
             int result = 0;
 
@@ -721,13 +721,8 @@ namespace URIstudy
             return result;
         }
 
-        public static void BinaryTree()
-        {
-
-        }
-
         // E20 Deleta nodes duplicados em uma sorted linkedList
-        public static ListNode deleteDuplicates()
+        public static ListNode DeleteDuplicates()
         {
             var list = new List<int> { 1, 1, 2, 3, 3 };
             ListNode A = new ListNode(list[0]);
@@ -768,6 +763,79 @@ namespace URIstudy
             public int val;
             public ListNode next;
             public ListNode(int x) { this.val = x; this.next = null; }
+        }
+
+        // E21 Inverte elementos de dois em dois dentro de uma linkedList. Entao de eu tenho a lista 1 -> 2 -> 3 -> 4 ela vira 2 -> 1 -> 4 -> 3
+        public static ListNode SwapNodesInPair()
+        {
+            var list = new List<int> { 1, 2,3,4,5 };
+            ListNode A = new ListNode(list[0]);
+            var current = A;
+            // como o current eu vou correr, o result armazena o head dele
+            var result = current;
+
+            // montei uma linkedList aqui mas é para receber de param
+            for (int i = 1; i < list.Count; i++)
+            {
+                A.next = new ListNode(list[i]);
+                A = A.next;
+            }
+
+
+            while (current != null)
+            {
+                // if necessário para caso venha uma linkedList com numero de elementos ímpar
+                if(current.next != null)
+                {
+                    int nextVal = current.next.val;
+                    current.next.val = current.val;
+                    current.val = nextVal;
+
+                    current = current.next.next;
+                }
+                else
+                {
+                    current = current.next;
+                }
+            }
+            return result;
+        }
+
+        // E encontra o valor do B° node saindo da metade para o inicio da linkedList. Se nao tiver como, ou seja, da metade da linkedList para o inicio nao existir B elementos, retorna -1;
+        public static int KthNodeFromMiddle(ListNode A, int B)
+        {
+            //int B = 3;
+            //var list = new List<int> { 1, 14, 6, 16, 4, 10 };
+            //ListNode A = new ListNode(list[0]);
+            var current = A;
+            var numbers = new List<int>();
+            int result = 0;
+
+            // montei uma linkedList aqui mas é para receber de param
+            //for (int i = 1; i < list.Count; i++)
+            //{
+            //    A.next = new ListNode(list[i]);
+            //    A = A.next;
+            //}
+
+            while(current != null)
+            {
+                numbers.Add(current.val);
+                current = current.next;
+            }
+
+            int halfLength = (numbers.Count / 2);
+            if (B > halfLength)
+                result = -1;
+            else
+                result = numbers[halfLength - B];
+
+            return result;
+        }
+
+        public static void BinaryTree()
+        {
+
         }
     }
 }
