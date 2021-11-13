@@ -25,6 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
+            deleteDuplicates();
             Console.ReadKey();
         }
 
@@ -590,16 +591,17 @@ namespace URIstudy
 
             string last = beginWord;
 
-            while(wordList.Count > 0)
+            while (wordList.Count > 0)
             {
                 var lastChar = last.ToCharArray().ToList();
                 string result = CheckIntersect(wordList, lastChar);
 
-                if(result == "")
+                if (result == "")
                 {
                     // significa que nao encontrou na lista, nunca vai cair nisso visto que valida o ultimo mas para caso eu use no futuro
                     return 0;
-                } else
+                }
+                else
                 {
                     supList.Add(result);
 
@@ -638,7 +640,7 @@ namespace URIstudy
         }
 
         // E17 https://www.interviewbit.com/problems/gas-station
-        public static int CanCompleteCircuit( )
+        public static int CanCompleteCircuit()
         {
             List<int> A = new List<int> { 1, 2, 2 };
             List<int> B = new List<int> { 2, 1, 2 };
@@ -651,7 +653,7 @@ namespace URIstudy
             //checa se gasUnit + A[i] <= B[i] pra saber se consegue ir para o próximo posto
             // a subtração de (gasUnit + A[i]) - B[i] tem que sempre ser positiva
 
-            for(int i = 0; i < A.Count && initialIndex != i; i++)
+            for (int i = 0; i < A.Count && initialIndex != i; i++)
             {
                 if (initialIndex == -1)
                     initialIndex = i;
@@ -668,7 +670,8 @@ namespace URIstudy
                     // passo -1 para ele alterar o initial index e não sair da condição do FOR initialIndex != i
                     initialIndex = -1;
                     gasUnit = 0;
-                } else
+                }
+                else
                 {
                     // para voltar ao inicio do array
                     if (i == A.Count - 1)
@@ -701,9 +704,70 @@ namespace URIstudy
             return result;
         }
 
+        // E19 Recebe uma lista com preços de stocks dia a dia, o método retorna o 'valor' com máximo de lucro possível a partir da lista fazendo operações de compra
+        // e venda nos períodos de baixa e alta. Só pode fazer uma compra por vez, sem operações paralelas.
+        public int maxProfit(List<int> A)
+        {
+            int result = 0;
+
+            // começo o for a partir do i = 1 porque estou comparando com o elementao anterior para tirar a diferença do valor caso seja maior.
+            for (int i = 1; i < A.Count; i++)
+            {
+                // como eu posso vender e comprar no mesmo dia (A[i]), tiro a diferença do resultado comparando somente com o dia anterior (compra e venda)
+                if (A[i] > A[i - 1])
+                    result += A[i] - A[i - 1];
+            }
+
+            return result;
+        }
+
         public static void BinaryTree()
         {
 
+        }
+
+        // E20 Deleta nodes duplicados em uma sorted linkedList
+        public static ListNode deleteDuplicates()
+        {
+            var list = new List<int> { 1, 1, 2, 3, 3 };
+            ListNode A = new ListNode(list[0]);
+            var current = A;
+            // como o current eu vou correr, o result armazena o head dele
+            var result = current;
+
+            // montei uma linkedList aqui mas é para receber de param
+            for (int i = 1; i < list.Count; i++)
+            {
+                A.next = new ListNode(list[i]);
+                A = A.next;
+            }
+
+            // essa temp serve para usar o next.next e pular um node
+            ListNode temp = new ListNode(A.val);
+
+            while (current.next != null)
+            {
+                // valor repetido
+                if (current.next.val == current.val)
+                {
+                    temp = current.next.next;
+                    current.next = null;
+                    current.next = temp;
+                }
+                else
+                {
+                    current = current.next;
+                }
+            }
+            return result;
+        }
+
+        // E20-COMPLEMENTO
+        public class ListNode
+        {
+            public int val;
+            public ListNode next;
+            public ListNode(int x) { this.val = x; this.next = null; }
         }
     }
 }
