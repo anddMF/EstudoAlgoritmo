@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
- 
+            MergeTwoSortedLinkedLists();
             Console.ReadKey();
         }
 
@@ -768,7 +768,7 @@ namespace URIstudy
         // E21 Inverte elementos de dois em dois dentro de uma linkedList. Entao de eu tenho a lista 1 -> 2 -> 3 -> 4 ela vira 2 -> 1 -> 4 -> 3
         public static ListNode SwapNodesInPair()
         {
-            var list = new List<int> { 1, 2,3,4,5 };
+            var list = new List<int> { 1, 2, 3, 4, 5 };
             ListNode A = new ListNode(list[0]);
             var current = A;
             // como o current eu vou correr, o result armazena o head dele
@@ -785,7 +785,7 @@ namespace URIstudy
             while (current != null)
             {
                 // if necessário para caso venha uma linkedList com numero de elementos ímpar
-                if(current.next != null)
+                if (current.next != null)
                 {
                     int nextVal = current.next.val;
                     current.next.val = current.val;
@@ -801,7 +801,7 @@ namespace URIstudy
             return result;
         }
 
-        // E encontra o valor do B° node saindo da metade para o inicio da linkedList. Se nao tiver como, ou seja, da metade da linkedList para o inicio nao existir B elementos, retorna -1;
+        // E22 encontra o valor do B° node saindo da metade para o inicio da linkedList. Se nao tiver como, ou seja, da metade da linkedList para o inicio nao existir B elementos, retorna -1;
         public static int KthNodeFromMiddle(ListNode A, int B)
         {
             //int B = 3;
@@ -818,7 +818,7 @@ namespace URIstudy
             //    A = A.next;
             //}
 
-            while(current != null)
+            while (current != null)
             {
                 numbers.Add(current.val);
                 current = current.next;
@@ -829,6 +829,79 @@ namespace URIstudy
                 result = -1;
             else
                 result = numbers[halfLength - B];
+
+            return result;
+        }
+
+        // E23 Junta e ordena duas linkedLists em uma.
+        public static ListNode MergeTwoSortedLinkedLists()
+        {
+            var list = new List<int> { 5, 8, 20 };
+            ListNode A = new ListNode(list[0]);
+
+            var listB = new List<int> { 4, 11, 15 };
+            ListNode B = new ListNode(listB[0]);
+
+            var runner1 = A;
+            var runner2 = B;
+            int initial = 0;
+
+            // criar as linkedLists mas são parametros
+            for (int i = 1; i < list.Count; i++)
+            {
+                A.next = new ListNode(list[i]);
+                A = A.next;
+            }
+
+            for (int i = 1; i < listB.Count; i++)
+            {
+                B.next = new ListNode(listB[i]);
+                B = B.next;
+            }
+
+            if (runner1.val <= runner2.val)
+            {
+                initial = runner1.val;
+                runner1 = runner1.next;
+            }
+            else
+            {
+                initial = runner2.val;
+                runner2 = runner2.next;
+            }
+
+            var current = new ListNode(initial);
+
+            // como o current eu vou correr, o result armazena o head dele
+            var result = current;
+
+            while (runner1 != null || runner2 != null)
+            {
+                if (runner1 == null)
+                {
+                    current.next = runner2;
+                    return result;
+                }
+
+                if (runner2 == null)
+                {
+                    current.next = runner1;
+                    return result;
+                }
+
+                if (runner1.val <= runner2.val)
+                {
+                    current.next = new ListNode(runner1.val);
+                    runner1 = runner1.next;
+                    current = current.next;
+                }
+                else
+                {
+                    current.next = new ListNode(runner2.val);
+                    runner2 = runner2.next;
+                    current = current.next;
+                }
+            }
 
             return result;
         }
