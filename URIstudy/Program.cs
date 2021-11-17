@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            MergeTwoSortedLinkedLists();
+            var a = DistributeCady();
             Console.ReadKey();
         }
 
@@ -906,9 +906,186 @@ namespace URIstudy
             return result;
         }
 
+        public static ListNode RemoveNthFromEnd(int B)
+        {
+            var list = new List<int> { 1,2,3,4,5 };
+            ListNode listA = new ListNode(list[0]);
+            var A = listA;
+            // como o current eu vou correr, o result armazena o head dele
+            var runner = A;
+            ListNode result = new ListNode(0);
+            ListNode head = result;
+            int length = 0;
+            
+            int count = 0;
+
+            // montei uma linkedList aqui mas é para receber de param
+            for (int i = 1; i < list.Count; i++)
+            {
+                listA.next = new ListNode(list[i]);
+                listA = listA.next;
+            }
+
+            while(A != null)
+            {
+                A = A.next;
+                length++;
+            }
+
+            // subtrai o length com o que vem do B, roda de novo a lista e quando chegar no node, remove
+            int subtraction = length - B;
+
+            //if(subtraction == 0)
+            //    return result;
+
+            if (subtraction <= 0)
+            {
+                result = runner.next;
+                return result;
+            }
+            
+
+            while (runner != null)
+            {
+                if (count != subtraction)
+                {
+                    result.next = runner;
+                    result = runner;
+                }
+
+                runner = runner.next;
+                count++;
+            }
+
+            if (subtraction <= 0)
+            {
+                // remove o primeiro
+                var next = runner.next.next;
+                runner.val = runner.next.val;
+                runner.next = null;
+                runner.next = next;
+            } else
+            {
+                while(runner.next != null)
+                {
+                    if(count == subtraction)
+                    {
+                        var next = runner.next.next;
+                        runner.val = runner.next.val;
+                        runner.next = null;
+                        runner.next = next;
+                        return result;
+                    }
+                        
+                    runner = runner.next;
+                    count++;
+                }
+            }
+
+            return head.next;
+        }
+
+        public int GetLength(ListNode head)
+        {
+            int len = 0;
+            while (head != null)
+            {
+                len++;
+                head = head.next;
+            }
+
+            return len;
+        }
+
+        public ListNode removeNthFromEnd(ListNode A, int B)
+        {
+            ListNode head = new ListNode(0);
+            ListNode prev = head;
+
+            int i = 0;
+            int k = GetLength(A) - B;
+
+            k = k < 0 ? 0 : k;
+
+            if (k == 0)
+                return A.next;
+
+            while (A != null)
+            {
+                if (i != k)
+                {
+                    prev.next = A;
+                    prev = A;
+                }
+
+                A = A.next;
+                i++;
+            }
+
+            if (B == 1)
+            {
+                prev.next = null;
+            }
+
+            return head.next;
+        }
         public static void BinaryTree()
         {
 
+        }
+
+        public static int DistributeCady()
+        {
+            var A = new List<int> { 1, 2,3 };
+            //posso começar do segundo, se o anterior for menor e o posterior também, eu somo 4 no resultado 1 -> 2 -> 1
+
+            //verifica um por um, vizinho de tras é < tu adiciona dois, vizinho da frente é maior que o de tras, adiciona 3
+
+            // talvez um recursivo validando se é maior ou menor e somando ao resultado final
+
+            int result = 0;
+            int lastResult = 0;
+
+            for(int i = 0; i < A.Count; i++)
+            {
+                if(i != 0)
+                {
+                    int current = A[i];
+                    int sum = 1;
+                    // checo anterior e posterior
+                    if(A[i-1] < current)
+                    {
+                        sum = sum + (lastResult - sum) + 1;
+                    }
+
+                    if(i < A.Count - 1)
+                    {
+                        if (current > A[i + 1])
+                        {
+                            sum += 1;
+                        }
+                    }
+
+                    if (current > A[i - 1] && sum <= lastResult)
+                        sum = sum + (lastResult - sum) + 1;
+
+                    if (current < A[i - 1] && sum >= lastResult)
+                        sum = sum + (sum - lastResult) + 1;
+
+                    result += sum;
+                    lastResult = sum;
+                }
+
+                if (i == 0)
+                {
+                    // checo posterior
+                    if (A[i + 1] > A[i])
+                        result += 1;
+                    else
+                        result += 2;
+                }
+            }
+            return result;
         }
     }
 }
