@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            var a = LongestIncreasingSubArray();
+            var a = MaxProfitOneOperation();
             Console.ReadKey();
         }
 
@@ -979,6 +979,31 @@ namespace URIstudy
                     result = counter;
 
                 counter = 0;
+            }
+
+            return result;
+        }
+
+        // E26 A partir de uma lista onde os ith são os preços das ações em cada dia, determina, com apenas uma operações de compra e venda, o maior lucro que se pode obter
+        public static int MaxProfitOneOperation()
+        {
+            var A = new List<int> { 2,1 };
+            if (A.Count == 0)
+                return 0;
+
+            int result = 0;
+            for (int i = 0; i < A.Count; i++)
+            {
+                int current = A[i];
+
+                for (int j = i; j < A.Count; j++)
+                {
+                    if (A[j] > current)
+                    {
+                        int sub = A[j] - current;
+                        result = sub > result ? sub : result;
+                    }
+                }
             }
 
             return result;
