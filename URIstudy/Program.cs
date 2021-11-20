@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            var a = ClimbStairs(2);
+            var a = LongestIncreasingSubArray();
             Console.ReadKey();
         }
 
@@ -928,6 +928,60 @@ namespace URIstudy
                 dp[i] = dp[i - 1] + dp[i - 2];
             }
             return dp[A];
+        }
+
+        // E25 Dentro de uma lista, encontra a maior sequencia crescente de subarray
+        public static int LongestIncreasingSubArray()
+        {
+            var A = new List<int> { 1, 2, 1, 5 };
+
+            if (A.Count == 1)
+                return 1;
+
+            // uso hashtable para usar keys e values, armazeno nas keys o indice de cada item da lista, depois eu ordeno a lista
+            // mas mantenho os indices para fazer a verificação da sub-array crescente mais longa
+            var ht = new Hashtable();
+            for (int i = 0; i < A.Count; i++)
+            {
+                ht.Add(i, A[i]);
+            }
+            // arrays necessárias para conseguir ordenar as keys juntamente com os values, já que só os values precisam estar na ordem crescente
+            int[] arrValues = new int[ht.Count];
+            int[] arrKeys = new int[ht.Count];
+
+            ht.Keys.CopyTo(arrKeys, 0);
+            ht.Values.CopyTo(arrValues, 0);
+
+            Array.Sort(arrValues, arrKeys);
+
+            int counter = 0;
+            int result = 0;
+            int currentKey = 0;
+
+            // faz a contagem da sequencia mais longa comparando um item inicial com o resto da lista;
+            for(int j = 0; j < arrKeys.Length; j++)
+            {
+                if (j == arrKeys.Length - 1)
+                    return result;
+
+                counter++;
+                currentKey = arrKeys[j];
+                for(int k = j + 1; k < arrKeys.Length; k++)
+                {
+                    if (arrKeys[k] > currentKey)
+                    {
+                        counter++;
+                        currentKey = arrKeys[k];
+                    }
+                }
+
+                if (counter > result)
+                    result = counter;
+
+                counter = 0;
+            }
+
+            return result;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
