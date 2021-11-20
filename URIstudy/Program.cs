@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            var a = DistributeCady();
+            var a = ClimbStairs(2);
             Console.ReadKey();
         }
 
@@ -906,6 +906,30 @@ namespace URIstudy
             return result;
         }
 
+        // E24 Recebe quantos degraus de uma escada irá subir pelo int A, só pode subir 1 ou 2 degraus de uma vez. Sabendo disso, o código 
+        // retorna quantas maneiras distintas consegue subir A degraus.
+        public static int ClimbStairs(int A)
+        {
+            var dp = new int[ A + 1 >= 3 ? A + 1 : 3];
+
+            // dp para resolver sub problems, jeito de subir zero degrau é 1, de subir um degrau é 1 e de subir dois degraus é 2 ([1,1], [2])
+            // uso essas resoluções de sub para ter base na fórmula dos ´próximos degraus
+            dp[0] = 1;
+            dp[1] = 1;
+            dp[2] = 2;
+
+            if (dp.Length >= A && dp[A] != 0)
+                return dp[A];
+
+            for(int i = 3; i <= A; i++)
+            {
+                // como o máximo que pode subir é 2 degraus por vez, para chegar em determinado degrau ele soma quantas formas existem para
+                // chegar em dois degraus antes [i - 2] com um degrau antes [i - 1]
+                dp[i] = dp[i - 1] + dp[i - 2];
+            }
+            return dp[A];
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1,2,3,4,5 };
@@ -1034,6 +1058,7 @@ namespace URIstudy
 
         }
 
+        // E
         public static int DistributeCady()
         {
             var A = new List<int> { 1, 2,3 };
