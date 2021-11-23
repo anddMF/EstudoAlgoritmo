@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            var a = MaxProfitOneOperation();
+            var a = MaxSubArray();
             Console.ReadKey();
         }
 
@@ -1007,6 +1007,27 @@ namespace URIstudy
             }
 
             return result;
+        }
+
+        // E27 Kadane's Algorithm, encontrar a maior soma em uma subarray continua e retornar esse valor. Exemplo: input = [1,2,3,4,-10] vai
+        // ter como resposta o 10 porque 1+2+3+4 é a maior soma possível dentro do array.
+        public static int MaxSubArray(List<int> a)
+        {
+            //var A = new List<int> { 1, 2, 3, 4, -10 };
+            int currentMax = a[0];
+            int totalMax = a[0];
+
+            for(int i = 1; i < a.Count; i++)
+            {
+                // currentMax assume o que é maior: a soma dos subarrays anteriores + o atual, ou somente o atual pois apenas um
+                // elemento também considerado subarray
+                currentMax = System.Math.Max(a[i], currentMax + a[i]);
+
+                if (currentMax > totalMax)
+                    totalMax = currentMax;
+            }
+
+            return totalMax;   
         }
 
         public static ListNode RemoveNthFromEnd(int B)
