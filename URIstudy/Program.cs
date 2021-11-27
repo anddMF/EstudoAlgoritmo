@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-
+            int a = Knapsack();
             Console.ReadKey();
         }
 
@@ -1045,6 +1045,38 @@ namespace URIstudy
                 previous = A[i];
             }
             return -1;
+        }
+
+        // E29 A lista weights possui o peso de N itens, já a lista profits possui o valor destes N itens. Obtenha o máximo de lucro colocando dois destes itens em uma mochila,
+        // sem repetir itens e respeitando o peso máximo colocado no capacity.
+        public static int Knapsack()
+        {
+            var weights = new List<int> { 2, 3, 1, 4 };
+            var profits = new List<int> { 4, 5, 3, 7 };
+            int capacity = 5;
+            int maxProfit = 0;
+
+            // seleciono um item no primeiro for e comparo com o resto de itens no segundo for
+            for(int i = 0; i < weights.Count; i++)
+            {
+                int currentWeight = weights[i];
+                for(int j = 0; j < weights.Count; j++)
+                {
+                    // if para não repetir o item na mochila
+                    if(j != i)
+                    {
+                        int compareWeight = weights[j];
+                        int totalWeight = currentWeight + compareWeight;
+                        if (totalWeight <= capacity)
+                        {
+                            int totalProfit = profits[i] + profits[j];
+                            maxProfit = totalProfit > maxProfit ? totalProfit : maxProfit;
+                        }
+                    }
+                }
+            }
+
+            return maxProfit;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
