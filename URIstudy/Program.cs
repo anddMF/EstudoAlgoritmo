@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            int a = Knapsack();
+            int a = LongestCommonSubarray();
             Console.ReadKey();
         }
 
@@ -1077,6 +1077,82 @@ namespace URIstudy
             }
 
             return maxProfit;
+        }
+
+        // E30 Dada duas strings, retorne a maior sequencia em comum de caracters entre as duas. Retorno é o número de 
+        // caracteres da maior sequencia
+        public static int LongestCommonSubarray()
+        {
+            string A = "abbcdgf";
+            string B = "bbadcgf";
+
+            var charA = A.ToList();
+            var charB = B.ToList();
+
+            int firstIndex = -1;
+            int maxAdd = 0;
+            int longest = 0;
+            int result = 0;
+
+            for (int i = 0; i<charA.Count; i++)
+            {
+                longest = 0;
+                string current = charA[i].ToString();
+
+                firstIndex = charB.FindIndex(a => a.ToString() == current);
+                maxAdd = (charA.Count - i) - 1;
+                int currentAdd = 1;
+                int lastIndexVisited = -1;
+                if(firstIndex != -1)
+                {
+                    longest++;
+                    lastIndexVisited = firstIndex;
+
+                    /* outro método
+                    var mockB = charB;
+                    mockB.RemoveRange(0, firstIndex + 1);
+                    int index = -1;
+                    while(currentAdd <= maxAdd || mockB.Count > 0)
+                    {
+                        string a = charA[i + currentAdd].ToString();
+                        index = mockB.FindIndex(x => x.ToString() == a);
+
+                        if(index > -1)
+                        {
+                            longest++;
+                            lastIndexVisited = index;
+                            mockB.RemoveRange(0, index + 1);
+                        }
+                        currentAdd++;
+                    }
+                    */
+
+                    // Percorro toda o resto da lista, depois de selecionar um item, para verificar a sequencia existente
+                    for(int j = firstIndex + 1; j < charB.Count || currentAdd == maxAdd; j++)
+                    {
+                        // uso o currentAdd para navegar pela array A e trocar o primeiro comparador
+                        string a = charA[i + currentAdd].ToString();
+                        string b = charB[j].ToString();
+                        if (charA[i + currentAdd] == charB[j])
+                        {
+                            longest++;
+                            currentAdd++;
+                            lastIndexVisited = j;
+                        }
+
+                        // if para verificar se chegou no final da string comparando com um determinado item da list A,
+                        // se chegou ao final, avança um item na A e volta do último caracter em comum (lastIndexVisited)
+                        if(j == charB.Count - 1 && currentAdd < maxAdd)
+                        {
+                            currentAdd++;
+                            j = lastIndexVisited + 1;
+                        }
+                    }
+                }
+
+                result = System.Math.Max(longest, result);
+            }
+            return result;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
