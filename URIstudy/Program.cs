@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            int a = LongestCommonSubarray();
+            var a = AddOneNumber();
             Console.ReadKey();
         }
 
@@ -1152,6 +1152,29 @@ namespace URIstudy
 
                 result = System.Math.Max(longest, result);
             }
+            return result;
+        }
+
+        // E31
+        public static List<int> AddOneNumber()
+        {
+            var A = new List<int> { 0 };
+
+            string inputNumber = "";
+            for(int i = 0; i < A.Count; i++)
+            {
+                inputNumber = inputNumber + A[i].ToString();
+            }
+
+            int number = Convert.ToInt32(inputNumber) + 1;
+            string stringNumber = number.ToString();
+            stringNumber.ToCharArray();
+            var result = new List<int>();
+            foreach(char a in stringNumber)
+            {
+                result.Add(Convert.ToInt32(a));
+            }
+
             return result;
         }
 
