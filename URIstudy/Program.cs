@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            var a = AddOneNumber();
+            var a = Brackets();
             Console.ReadKey();
         }
 
@@ -1176,6 +1176,53 @@ namespace URIstudy
             }
 
             return result;
+        }
+
+        // E32 Reformulação para solução mais fechada do que o E13
+        public static int Brackets()
+        {
+            string A = "([";
+            var stack = new Stack<string>();
+
+            var arr = A.ToCharArray();
+            for(int i = 0; i < arr.Length; i++)
+            {
+                string elem = arr[i].ToString();
+
+                if (elem == "[" || elem == "(" || elem == "{")
+                    stack.Push(elem);
+                else
+                {
+                    string peek = "";
+                    if (stack.Count > 0)
+                        peek = stack.Peek();
+                    else
+                        return 0;
+
+                    switch (elem)
+                    {
+                        case "]":
+                            if (peek == "[")
+                                stack.Pop();
+                            else
+                                return 0;
+                            break;
+                        case ")":
+                            if (peek == "(")
+                                stack.Pop();
+                            else
+                                return 0;
+                            break;
+                        case "}":
+                            if (peek == "{")
+                                stack.Pop();
+                            else
+                                return 0;
+                            break;
+                    }
+                }
+            }
+            return stack.Count > 0 ? 0 : 1;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
