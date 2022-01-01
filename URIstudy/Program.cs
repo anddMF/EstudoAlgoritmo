@@ -1348,6 +1348,78 @@ namespace URIstudy
             return matrixI;
         }
 
+        // E34 Retornar uma lista mostrando os itens da matriz em espiral. No Exemplo 1 o retorno seria: [1,2,3, 6,9, 8,7, 4, 5]
+        public static List<int> SpiralOrder()
+        {
+            List<List<int>> matrix = new List<List<int>>();
+
+            // Exemplo 1
+            //matrix.Add(new List<int> { 1, 2, 3 });
+            //matrix.Add(new List<int> { 4, 5, 6 });
+            //matrix.Add(new List<int> { 7, 8, 9 });
+
+            //matrix.Add(new List<int> { 1, 2 });
+            //matrix.Add(new List<int> { 3, 4 });
+            //matrix.Add(new List<int> { 5, 6 });
+
+            matrix.Add(new List<int> { 1 });
+            matrix.Add(new List<int> { 2 });
+            matrix.Add(new List<int> { 3 });
+
+            // deep copy
+            var clone = matrix.ConvertAll(obj => new List<int>(obj));
+
+            var result = new List<int>();
+
+            int x = 0;
+            int y = matrix[0].Count - 1;
+
+            while (clone.Count > 0)
+            {
+                result.AddRange(clone[0]);
+                clone.RemoveAt(0);
+
+                if (clone.Count == 0)
+                    return result;
+
+                // navegar pra baixo
+                for (int i = 0; i < clone.Count; i++)
+                {
+                    result.Add(clone[i][y]);
+                    clone[i].RemoveAt(y);
+                }
+
+                clone.RemoveAll(obj => obj.Count == 0);
+                if (clone.Count == 0)
+                    return result;
+
+                //navegar pra esquerda
+                x = clone.Count - 1;
+                for (int i = clone[x].Count - 1; i >= 0; i--)
+                {
+                    result.Add(clone[x][i]);
+                    clone[x].RemoveAt(i);
+                    //if (clone[x].Count == 0)
+                    //    clone.RemoveAt(x);
+                }
+
+                clone.RemoveAll(obj => obj.Count == 0);
+                if (clone.Count == 0)
+                    return result;
+
+                // navegar pra cima
+                y = 0;
+                for (int i = clone.Count - 1; i >= 0; i--)
+                {
+                    result.Add(clone[i][y]);
+                    clone[i].RemoveAt(y);
+                }
+            }
+
+            return result;
+        }
+
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1,2,3,4,5 };
