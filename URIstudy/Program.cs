@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            var a = Brackets();
+            
             Console.ReadKey();
         }
 
@@ -37,14 +37,14 @@ namespace URIstudy
                 var elem1 = numberList[i];
                 var partialSum = elem1;
 
-                for (int i2 = numberList.FindIndex(a => a == elem1) + 1; i2 < numberList.Count && partialSum < totalSum; i2++)
+                for (int j = i+1; j < numberList.Count && partialSum < totalSum; j++)
                 {
-                    var number = numberList[i2];
-                    partialSum += numberList[i2];
+                    var number = numberList[j];
+                    partialSum += numberList[j];
 
                     if (partialSum == totalSum)
                     {
-                        Console.WriteLine("Index inicio: " + i + "\nIndex fim: " + i2);
+                        Console.WriteLine("Index inicio: " + i + "\nIndex fim: " + j);
                         return true;
                     }
                 }
@@ -142,7 +142,7 @@ namespace URIstudy
                              {1, 1, 1, 2, 2, 1, 0, 0},
                              {1, 0, 0, 1, 1, 0, 1, 1},
                              {1, 2, 2, 2, 2, 0, 1, 0},
-                             {1, 1, 1, 2, 2, 0, 1, 0},
+                             {1, 1, 1, 2,  2 , 0, 1, 0},
                              {1, 1, 1, 2, 2, 2, 2, 0},
                              {1, 1, 1, 1, 1, 2, 1, 1},
                              {1, 1, 1, 1, 1, 2, 2, 1},
@@ -166,6 +166,8 @@ namespace URIstudy
         {
             int currentNumber = matrizInicial[x, y];
 
+            Console.Write("Num: " + currentNumber + " | ");
+
             if (currentNumber == numberToChange)
             {
                 matrizInicial[x, y] = newNumber;
@@ -184,7 +186,7 @@ namespace URIstudy
 
                 return matrizInicial;
             }
-
+            Console.WriteLine("\n Num diferente");
             return matrizInicial;
         }
 
@@ -363,16 +365,31 @@ namespace URIstudy
             LinkedListN list = new LinkedListN();
             LinkedListN list2 = new LinkedListN();
 
-            list.AddNodeToFront(8);
-            list.AddNodeToFront(3);
             list.AddNodeToFront(4);
+            list.AddNodeToFront(3);
+            list.AddNodeToFront(1);
 
-            list.AddNodeToBack(7);
+            list.AddNodeToBack(9);
 
-            list.DeleteNodeFromFront();
+            //list.DeleteNodeFromFront();
+
+            list2.AddNodeToFront(7);
+            list2.AddNodeToFront(5);
+            list2.AddNodeToFront(2);
+
+            list2.AddNodeToBack(10);
 
             list.PrintNodes();
+            list2.PrintNodes();
 
+           var res = MergeListsSorted(list.head, list2.head);
+
+            while (res != null)
+            {
+                Console.WriteLine(res.data);
+
+                res = res.next;
+            }
         }
 
         // E11 Recebe duas linked lists e retorna uma unica com os elementos ordenados de ambas. Premissa dos inputs estarem ordenados
@@ -421,12 +438,25 @@ namespace URIstudy
         }
 
         // E12 Exercicio meio especifico, 'Queue using two stacks' do harcker rank
+        // no inicio o user digita o número de inputs que irá fazer (queries). Os inputs seguem os seguintes parametros:
+        // - "1 X" comando para adicionar um número X na fila
+        // - "2" comando para remover o primeiro objeto da fila
+        // - "3" comando para printar o primeiro item da fila
         public static void QueueExercise()
         {
             QueueN<int> queue = new QueueN<int>();
             int queries = 0;
-            int value = 0;
             string cmd = "";
+            
+            // teste hashset
+            var hs = new HashSet<int>();
+            hs.Add(1);
+            hs.Add(2);
+            hs.Add(3);
+            hs.Add(4);
+            hs.Add(5);
+            
+            hs.ExceptWith(new List<int> { 1, 2, 3, 8 });
 
             Console.Write("numero queries ");
             queries = Convert.ToInt32(Console.ReadLine());
@@ -438,20 +468,17 @@ namespace URIstudy
                 var split = cmd.Split(' ');
 
                 if (split.Length > 1)
-                {
                     queue.Enqueue(Convert.ToInt32(split[1]));
-                }
 
                 if (Convert.ToInt32(split[0]) == 2)
                     queue.Dequeue();
 
                 if (Convert.ToInt32(split[0]) == 3)
                     queue.PrintFirstElement();
-
             }
         }
 
-        // E13
+        // E13 
         public static string AreBracketsBalanced()
         {
             string response = "YES";
@@ -494,6 +521,55 @@ namespace URIstudy
             return response;
         }
 
+        // E13 outra forma
+        public int isValid(string A)
+        {
+            var arr = A.ToCharArray().ToList();
+            if ((arr.Count % 2) > 0)
+                return 0;
+
+            Stack<string> stack = new Stack<string>();
+
+            for (int i = 0; i < arr.Count; i++)
+            {
+                string current = arr[i].ToString();
+
+                if (current == "(" || current == "{" || current == "[")
+                {
+                    stack.Push(current);
+                }
+                else
+                {
+                    if (stack.Count <= 0)
+                        return 0;
+
+                    string peek = stack.Peek();
+
+                    switch (current) {
+                    case ")":
+                        if (peek == "(")
+                            stack.Pop();
+                        else
+                            return 0;
+                        break;
+                    case "}":
+                        if (peek == "}")
+                            stack.Pop();
+                        else
+                            return 0;
+                        break;
+                    case "]":
+                        if (peek == "]")
+                            stack.Pop();
+                        else
+                            return 0;
+                        break;
+                    }
+                }
+            }
+            return stack.Count > 0 ? 0 : 1;
+        }
+
         // E14 Encontra caracteres de uma string dentro de uma matriz e salva as coordenadas numa hastable
         public static void FindStringInMatrix()
         {
@@ -510,15 +586,16 @@ namespace URIstudy
             // IDEIA: usar dfs, começar do primeiro mesmo e usar recursão pra navegar primeiro em tudo pra baixo e depois pra direita.
             // diferente do flood fill, como inicio na 0,0 posso navegar somenta sul e leste
 
-            NavigateMatrix(matrix, 0, 0, queryToFind);
+            Hashtable res = NavigateMatrix(matrix, 0, 0, queryToFind);
         }
 
         // E14-COMPLEMENTO
-        public static void NavigateMatrix(string[,] matrix, int y, int x, string query)
+        public static Hashtable NavigateMatrix(string[,] matrix, int y, int x, string query)
         {
             int edgeY = matrix.GetLength(0); // Retorna y 6
             int edgeX = matrix.GetLength(1); // Retorna x 5
 
+            // hashtable para usar o containsKey
             Hashtable htResponse = new Hashtable();
 
             var queryArr = query.ToList();
@@ -527,10 +604,11 @@ namespace URIstudy
             {
                 for (int j = 0; j < edgeX; j++)
                 {
-                    var current = matrix[i, j];
+                    string current = matrix[i, j];
 
-                    var find = queryArr.Find(letter => letter.ToString() == current).ToString();
+                    string find = queryArr.Find(letter => letter.ToString() == current).ToString();
 
+                    // se não encontra, o find fica com valor "\0"
                     if (find != "\0")
                     {
                         if (!htResponse.ContainsKey(find))
@@ -544,6 +622,8 @@ namespace URIstudy
 
                 Console.WriteLine("");
             }
+
+            return htResponse;
         }
 
         // E15 Calcula a diferença das diagonais de uma matriz quadrática
