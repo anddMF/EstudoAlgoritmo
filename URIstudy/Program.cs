@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            
+            var res = PascalTriangle(4);
             Console.ReadKey();
         }
 
@@ -1419,6 +1419,48 @@ namespace URIstudy
             return result;
         }
 
+        // E35 Gera o triangulo de pascal em uma matrix, onde seu número de linhas é determinado pelo parametro 'row'
+        public static List<List<int>> PascalTriangle(int row)
+        {
+            // input: int com numero de linhas para gerar, que também é a quantidade de itens dentro da última linha
+            // todas as linhas iniciam e terminam com o 1
+            List<List<int>> pascal = new List<List<int>>();
+            int runner = 1;
+
+            // vai armezar as somas necessárias para preenchar a próxima linha do triangulo
+            var previousSum = new List<int>();
+
+            // uso o runner para ir subindo na matriz de resposta e ir adicionando linha por linha
+            while(runner <= row)
+            {
+                // instancio e adiciono o primeiro elemento da linha que será adicionada ao triangulo
+                var list = new List<int>();
+                list.Add(1);
+
+                // loop para inserir os elementos da linha acima
+                for (int i = 1; i < runner; i++)
+                {
+                    // SE estiver no último elemento da linha, adiciona o 1 que é determinação do triangulo
+                    if(i == runner - 1)
+                    {
+                        list.Add(1);
+                        // o previous sum só aumenta de tamanho aqui, adicionando a soma do 1 com o anterior
+                        previousSum.Add(list[i - 1] + list[i]);
+                    } else
+                    {
+                        // adiciona o item na linha e depois atualizo o valor do elemento na previous sum para 
+                        // a próxima linha utilizar
+                        list.Add(previousSum[i - 1]);
+                        previousSum[i - 1] = list[i - 1] + list[i];
+                    }
+                }
+
+                pascal.Add(list);
+                runner++;
+            }
+
+            return pascal;
+        }
 
         public static ListNode RemoveNthFromEnd(int B)
         {
