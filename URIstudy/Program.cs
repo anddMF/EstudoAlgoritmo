@@ -1305,6 +1305,49 @@ namespace URIstudy
             return stack.Count > 0 ? 0 : 1;
         }
 
+        // E33 Com uma matriz quadrática, se encontrar um 0 deve transformar a linha e coluna deste em 0 também
+        // retornar a própria matriz caso não tenha 0
+        public static int[,] SetMatrixZeros()
+        {
+            var matrix = new int[,] { { 1, 0, 1 },
+                                      { 1, 1, 1 },
+                                      { 1, 0, 1 }};
+            // clone serve para não utilizar o mesmo espaço de memória que a var matrix
+            // deep copy
+            int[,] result = (int[,])matrix.Clone();
+
+            int length = matrix.GetLength(0);
+            int x = 0;
+            int y = 0;
+            for (int i = x; i < length; i++)
+            {
+                for (int j = y; j < length; j++)
+                {
+                    int current = matrix[i, j];
+
+                    if (current == 0)
+                    {
+                        result = SetZeros(result, length, i, j);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        // E33-COMPLEMENTO
+        public static int[,] SetZeros(int[,] matrixI, int maxLength, int x, int y)
+        {
+            for (int i = 0; i < maxLength; i++)
+            {
+                matrixI[x, i] = 0;
+                matrixI[i, y] = 0;
+            }
+            ShowMatrix(matrixI, maxLength, maxLength);
+
+            return matrixI;
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1,2,3,4,5 };
