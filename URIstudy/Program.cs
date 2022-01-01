@@ -478,7 +478,7 @@ namespace URIstudy
             }
         }
 
-        // E13 
+        // E13 Verifica se os brackets ('[] {} ()') estão equilibrados
         public static string AreBracketsBalanced()
         {
             string response = "YES";
@@ -1585,12 +1585,7 @@ namespace URIstudy
 
             return head.next;
         }
-        public static void BinaryTree()
-        {
 
-        }
-
-        // E
         public static int DistributeCady()
         {
             var A = new List<int> { 1, 2,3 };
