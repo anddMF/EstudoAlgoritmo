@@ -1508,16 +1508,16 @@ namespace URIstudy
             int curMax = 0;
             int n = A.Count - 1;
             A.Sort();
+            // multiplica os mais baixos
             curMax = A[0] * A[1] * A[2];
 
             // reverte para tentar capturar algum negativo alto no caso de uma lista misturando positivos e negativos
             A.Reverse();
 
             curMax = Math.Max(curMax, A[0] * A[1] * A[2]);
-            
-            //Console.WriteLine(curMax);
+
             // tenta capturar o resultado mais positivo possível, visto que 3 negativos em uma equação daria negativo
-            // então ele tenta pegar pelo menos um positivo no (A[n] * A[n-1]) para multiplicar com o possível negativo
+            // então ele tenta pegar pelo menos um positivo no A[0] para multiplicar com dois possiveis negativos (A[n] * A[n-1])
             return Math.Max(curMax, A[0] * A[n] * A[n - 1]);
 
         }
