@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            var res = KthRowPascalsTriangle(2);
+            var res = HighestProduct();
             Console.ReadKey();
         }
 
@@ -37,7 +37,7 @@ namespace URIstudy
                 var elem1 = numberList[i];
                 var partialSum = elem1;
 
-                for (int j = i+1; j < numberList.Count && partialSum < totalSum; j++)
+                for (int j = i + 1; j < numberList.Count && partialSum < totalSum; j++)
                 {
                     var number = numberList[j];
                     partialSum += numberList[j];
@@ -382,7 +382,7 @@ namespace URIstudy
             list.PrintNodes();
             list2.PrintNodes();
 
-           var res = MergeListsSorted(list.head, list2.head);
+            var res = MergeListsSorted(list.head, list2.head);
 
             while (res != null)
             {
@@ -447,7 +447,7 @@ namespace URIstudy
             QueueN<int> queue = new QueueN<int>();
             int queries = 0;
             string cmd = "";
-            
+
             // teste hashset
             var hs = new HashSet<int>();
             hs.Add(1);
@@ -455,7 +455,7 @@ namespace URIstudy
             hs.Add(3);
             hs.Add(4);
             hs.Add(5);
-            
+
             hs.ExceptWith(new List<int> { 1, 2, 3, 8 });
 
             Console.Write("numero queries ");
@@ -545,25 +545,26 @@ namespace URIstudy
 
                     string peek = stack.Peek();
 
-                    switch (current) {
-                    case ")":
-                        if (peek == "(")
-                            stack.Pop();
-                        else
-                            return 0;
-                        break;
-                    case "}":
-                        if (peek == "}")
-                            stack.Pop();
-                        else
-                            return 0;
-                        break;
-                    case "]":
-                        if (peek == "]")
-                            stack.Pop();
-                        else
-                            return 0;
-                        break;
+                    switch (current)
+                    {
+                        case ")":
+                            if (peek == "(")
+                                stack.Pop();
+                            else
+                                return 0;
+                            break;
+                        case "}":
+                            if (peek == "}")
+                                stack.Pop();
+                            else
+                                return 0;
+                            break;
+                        case "]":
+                            if (peek == "]")
+                                stack.Pop();
+                            else
+                                return 0;
+                            break;
                     }
                 }
             }
@@ -990,7 +991,7 @@ namespace URIstudy
         // retorna quantas maneiras distintas consegue subir A degraus.
         public static int ClimbStairs(int A)
         {
-            var dp = new int[ A + 1 >= 3 ? A + 1 : 3];
+            var dp = new int[A + 1 >= 3 ? A + 1 : 3];
 
             // dp para resolver sub problems, jeito de subir zero degrau é 1, de subir um degrau é 1 e de subir dois degraus é 2 ([1,1], [2])
             // uso essas resoluções de sub para ter base na fórmula dos ´próximos degraus
@@ -1001,7 +1002,7 @@ namespace URIstudy
             if (dp.Length >= A && dp[A] != 0)
                 return dp[A];
 
-            for(int i = 3; i <= A; i++)
+            for (int i = 3; i <= A; i++)
             {
                 // como o máximo que pode subir é 2 degraus por vez, para chegar em determinado degrau ele soma quantas formas existem para
                 // chegar em dois degraus antes [i - 2] com um degrau antes [i - 1]
@@ -1039,14 +1040,14 @@ namespace URIstudy
             int currentKey = 0;
 
             // faz a contagem da sequencia mais longa comparando um item inicial com o resto da lista;
-            for(int j = 0; j < arrKeys.Length; j++)
+            for (int j = 0; j < arrKeys.Length; j++)
             {
                 if (j == arrKeys.Length - 1)
                     return result;
 
                 counter++;
                 currentKey = arrKeys[j];
-                for(int k = j + 1; k < arrKeys.Length; k++)
+                for (int k = j + 1; k < arrKeys.Length; k++)
                 {
                     if (arrKeys[k] > currentKey)
                     {
@@ -1067,7 +1068,7 @@ namespace URIstudy
         // E26 A partir de uma lista onde os ith são os preços das ações em cada dia, determina, com apenas uma operações de compra e venda, o maior lucro que se pode obter
         public static int MaxProfitOneOperation()
         {
-            var A = new List<int> { 2,1 };
+            var A = new List<int> { 2, 1 };
             if (A.Count == 0)
                 return 0;
 
@@ -1098,7 +1099,7 @@ namespace URIstudy
             int currentMax = a[0];
             int totalMax = a[0];
 
-            for(int i = 1; i < a.Count; i++)
+            for (int i = 1; i < a.Count; i++)
             {
                 // currentMax assume o que é maior: a soma dos subarrays anteriores + o atual,
                 //ou somente o atual pois apenas um elemento também considerado subarray
@@ -1108,7 +1109,7 @@ namespace URIstudy
                     totalMax = currentMax;
             }
 
-            return totalMax;   
+            return totalMax;
         }
 
         // E28 Retornar o duplicado na lista mas utilizando O(n) no tempo e traversing sequencial O(1)
@@ -1117,7 +1118,7 @@ namespace URIstudy
             // Ordeno a lista para poder comparar com o anterior e não precisar de find ou outro for
             A.Sort();
             int previous = A[0];
-            for(int i = 1; i < A.Count; i++)
+            for (int i = 1; i < A.Count; i++)
             {
                 if (A[i] == previous)
                     return A[i];
@@ -1137,13 +1138,13 @@ namespace URIstudy
             int maxProfit = 0;
 
             // seleciono um item no primeiro for e comparo com o resto de itens no segundo for
-            for(int i = 0; i < weights.Count; i++)
+            for (int i = 0; i < weights.Count; i++)
             {
                 int currentWeight = weights[i];
-                for(int j = 0; j < weights.Count; j++)
+                for (int j = 0; j < weights.Count; j++)
                 {
                     // if para não repetir o item na mochila
-                    if(j != i)
+                    if (j != i)
                     {
                         int compareWeight = weights[j];
                         int totalWeight = currentWeight + compareWeight;
@@ -1174,7 +1175,7 @@ namespace URIstudy
             int longest = 0;
             int result = 0;
 
-            for (int i = 0; i<charA.Count; i++)
+            for (int i = 0; i < charA.Count; i++)
             {
                 longest = 0;
                 string current = charA[i].ToString();
@@ -1183,7 +1184,7 @@ namespace URIstudy
                 maxAdd = (charA.Count - i) - 1;
                 int currentAdd = 1;
                 int lastIndexVisited = -1;
-                if(firstIndex != -1)
+                if (firstIndex != -1)
                 {
                     longest++;
                     lastIndexVisited = firstIndex;
@@ -1208,7 +1209,7 @@ namespace URIstudy
                     */
 
                     // Percorro toda o resto da lista, depois de selecionar um item, para verificar a sequencia existente
-                    for(int j = firstIndex + 1; j < charB.Count || currentAdd == maxAdd; j++)
+                    for (int j = firstIndex + 1; j < charB.Count || currentAdd == maxAdd; j++)
                     {
                         // uso o currentAdd para navegar pela array A e trocar o primeiro comparador
                         string a = charA[i + currentAdd].ToString();
@@ -1222,7 +1223,7 @@ namespace URIstudy
 
                         // if para verificar se chegou no final da string comparando com um determinado item da list A,
                         // se chegou ao final, avança um item na A e volta do último caracter em comum (lastIndexVisited)
-                        if(j == charB.Count - 1 && currentAdd < maxAdd)
+                        if (j == charB.Count - 1 && currentAdd < maxAdd)
                         {
                             currentAdd++;
                             j = lastIndexVisited + 1;
@@ -1241,7 +1242,7 @@ namespace URIstudy
             var A = new List<int> { 0 };
 
             string inputNumber = "";
-            for(int i = 0; i < A.Count; i++)
+            for (int i = 0; i < A.Count; i++)
             {
                 inputNumber = inputNumber + A[i].ToString();
             }
@@ -1250,7 +1251,7 @@ namespace URIstudy
             string stringNumber = number.ToString();
             stringNumber.ToCharArray();
             var result = new List<int>();
-            foreach(char a in stringNumber)
+            foreach (char a in stringNumber)
             {
                 result.Add(Convert.ToInt32(a));
             }
@@ -1265,7 +1266,7 @@ namespace URIstudy
             var stack = new Stack<string>();
 
             var arr = A.ToCharArray();
-            for(int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
                 string elem = arr[i].ToString();
 
@@ -1431,7 +1432,7 @@ namespace URIstudy
             var previousSum = new List<int>();
 
             // uso o runner para ir subindo na matriz de resposta e ir adicionando linha por linha
-            while(runner <= row)
+            while (runner <= row)
             {
                 // instancio e adiciono o primeiro elemento da linha que será adicionada ao triangulo
                 var list = new List<int>();
@@ -1441,12 +1442,13 @@ namespace URIstudy
                 for (int i = 1; i < runner; i++)
                 {
                     // SE estiver no último elemento da linha, adiciona o 1 que é determinação do triangulo
-                    if(i == runner - 1)
+                    if (i == runner - 1)
                     {
                         list.Add(1);
                         // o previous sum só aumenta de tamanho aqui, adicionando a soma do 1 com o anterior
                         previousSum.Add(list[i - 1] + list[i]);
-                    } else
+                    }
+                    else
                     {
                         // adiciona o item na linha e depois atualizo o valor do elemento na previous sum para 
                         // a próxima linha utilizar
@@ -1470,20 +1472,21 @@ namespace URIstudy
             List<int> result = new List<int>();
             List<int> previousSum = new List<int>();
             int runner = 1;
-            while(runner <= row)
+            while (runner <= row)
             {
                 List<int> pascalLine = new List<int>();
                 pascalLine.Add(1);
-                for(int i = 1; i < runner; i++)
+                for (int i = 1; i < runner; i++)
                 {
                     if (i == runner - 1)
                     {
                         pascalLine.Add(1);
                         previousSum.Add(pascalLine[i - 1] + pascalLine[i]);
-                    } else
+                    }
+                    else
                     {
                         pascalLine.Add(previousSum[i - 1]);
-                        previousSum[i-1] = pascalLine[i - 1] + pascalLine[i];
+                        previousSum[i - 1] = pascalLine[i - 1] + pascalLine[i];
                     }
                 }
                 result = pascalLine;
@@ -1495,9 +1498,33 @@ namespace URIstudy
             return result;
         }
 
+        // E37 Retorna a multiplicação mais alta
+        public static int HighestProduct()
+        {
+
+            List<int> A = new List<int> { 0, -1, 3, 100, -70, -50 };
+
+            var newArr = A.ConvertAll(x => x < 0 ? Math.Abs(x) : x);
+            int curMax = 0;
+            int n = A.Count - 1;
+            A.Sort();
+            curMax = A[0] * A[1] * A[2];
+
+            // reverte para tentar capturar algum negativo alto no caso de uma lista misturando positivos e negativos
+            A.Reverse();
+
+            curMax = Math.Max(curMax, A[0] * A[1] * A[2]);
+            
+            //Console.WriteLine(curMax);
+            // tenta capturar o resultado mais positivo possível, visto que 3 negativos em uma equação daria negativo
+            // então ele tenta pegar pelo menos um positivo no (A[n] * A[n-1]) para multiplicar com o possível negativo
+            return Math.Max(curMax, A[0] * A[n] * A[n - 1]);
+
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
-            var list = new List<int> { 1,2,3,4,5 };
+            var list = new List<int> { 1, 2, 3, 4, 5 };
             ListNode listA = new ListNode(list[0]);
             var A = listA;
             // como o current eu vou correr, o result armazena o head dele
@@ -1505,7 +1532,7 @@ namespace URIstudy
             ListNode result = new ListNode(0);
             ListNode head = result;
             int length = 0;
-            
+
             int count = 0;
 
             // montei uma linkedList aqui mas é para receber de param
@@ -1515,7 +1542,7 @@ namespace URIstudy
                 listA = listA.next;
             }
 
-            while(A != null)
+            while (A != null)
             {
                 A = A.next;
                 length++;
@@ -1532,7 +1559,7 @@ namespace URIstudy
                 result = runner.next;
                 return result;
             }
-            
+
 
             while (runner != null)
             {
@@ -1553,11 +1580,12 @@ namespace URIstudy
                 runner.val = runner.next.val;
                 runner.next = null;
                 runner.next = next;
-            } else
+            }
+            else
             {
-                while(runner.next != null)
+                while (runner.next != null)
                 {
-                    if(count == subtraction)
+                    if (count == subtraction)
                     {
                         var next = runner.next.next;
                         runner.val = runner.next.val;
@@ -1565,7 +1593,7 @@ namespace URIstudy
                         runner.next = next;
                         return result;
                     }
-                        
+
                     runner = runner.next;
                     count++;
                 }
@@ -1621,7 +1649,7 @@ namespace URIstudy
 
         public static int DistributeCady()
         {
-            var A = new List<int> { 1, 2,3 };
+            var A = new List<int> { 1, 2, 3 };
             //posso começar do segundo, se o anterior for menor e o posterior também, eu somo 4 no resultado 1 -> 2 -> 1
 
             //verifica um por um, vizinho de tras é < tu adiciona dois, vizinho da frente é maior que o de tras, adiciona 3
@@ -1631,19 +1659,19 @@ namespace URIstudy
             int result = 0;
             int lastResult = 0;
 
-            for(int i = 0; i < A.Count; i++)
+            for (int i = 0; i < A.Count; i++)
             {
-                if(i != 0)
+                if (i != 0)
                 {
                     int current = A[i];
                     int sum = 1;
                     // checo anterior e posterior
-                    if(A[i-1] < current)
+                    if (A[i - 1] < current)
                     {
                         sum = sum + (lastResult - sum) + 1;
                     }
 
-                    if(i < A.Count - 1)
+                    if (i < A.Count - 1)
                     {
                         if (current > A[i + 1])
                         {
