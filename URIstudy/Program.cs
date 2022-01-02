@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            var res = PascalTriangle(4);
+            var res = KthRowPascalsTriangle(2);
             Console.ReadKey();
         }
 
@@ -1460,6 +1460,39 @@ namespace URIstudy
             }
 
             return pascal;
+        }
+
+        // E36 Retorna os números da linha de um triangulo de pascal a partir do input kthRow, onde o mesmo é baseado em 0
+        public static List<int> KthRowPascalsTriangle(int kthRow)
+        {
+            int row = kthRow > 0 ? kthRow + 1 : 1;
+
+            List<int> result = new List<int>();
+            List<int> previousSum = new List<int>();
+            int runner = 1;
+            while(runner <= row)
+            {
+                List<int> pascalLine = new List<int>();
+                pascalLine.Add(1);
+                for(int i = 1; i < runner; i++)
+                {
+                    if (i == runner - 1)
+                    {
+                        pascalLine.Add(1);
+                        previousSum.Add(pascalLine[i - 1] + pascalLine[i]);
+                    } else
+                    {
+                        pascalLine.Add(previousSum[i - 1]);
+                        previousSum[i-1] = pascalLine[i - 1] + pascalLine[i];
+                    }
+                }
+                result = pascalLine;
+                if (runner == row)
+                    return result;
+
+                runner++;
+            }
+            return result;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
