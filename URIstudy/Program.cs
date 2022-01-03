@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            var res = HighestProduct();
+            
             Console.ReadKey();
         }
 
@@ -1520,6 +1520,32 @@ namespace URIstudy
             // então ele tenta pegar pelo menos um positivo no A[0] para multiplicar com dois possiveis negativos (A[n] * A[n-1])
             return Math.Max(curMax, A[0] * A[n] * A[n - 1]);
 
+        }
+
+        // E38 Retorna o valor da maior sequencia de números imediatamente consecutivos dentro do array de input
+        public static int LongestConsecutiveSequence(List<int> list)
+        {
+            //List<int> list = new List<int> { 100, 4, 200, 1, 3, 2 };
+            //List<int> list = new List<int> { -167, -166, -165, -11, -10, 10, 11, 12, 13, 14, 15 };
+            int result = 1;
+            int partialResult = 1;
+
+            list.Sort();
+
+            for(int i = 0; i < list.Count; i++)
+            {
+                if(i > 0)
+                {
+                    if(list[i] != list[i - 1])
+                    {
+                        partialResult = list[i] - 1 == list[i - 1] ? partialResult + 1 : 1;
+                        if (partialResult > result)
+                            result = partialResult;
+                    }
+                }
+            }
+
+            return result;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
