@@ -1548,6 +1548,60 @@ namespace URIstudy
             return result;
         }
 
+        // E39 Dentro da array de input, encontra dois números, que somados darão o target, e retorna seus respectivos indices em
+        // uma list (não é zero based). Entretando, se existirem múltiplas soluções dentro da array, a preferência é pelo minimo 
+        // valor do SEGUNDO indice, e se existir múltiplas soluções no segundo indice mínimo, a mesma condição para para o primeiro
+        public static List<int> TwoSum(List<int> list, int target)
+        {
+            //List<int> list = new List<int> { 11, 15, 2, 7 };
+            // List<int> list = new List<int> { 31, 4, 7, -4, 2, 2, 2, 3, -5, -3, 9, -4, 9, -7, 7, -1, 9, 9, 4, 1, -4, -2, 3, -3, -5, 4, -7, 7, 9, -4, 4,-8 };
+            // int target = -3;
+            int index1 = -1;
+            int index2 = -1;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                int firstNumber = list[i];
+                if(i < list.Count - 2)
+                {
+                    for (int j = i + 1; j < list.Count; j++)
+                    {
+                        int second = list[j];
+                        if (firstNumber + list[j] == target)
+                        {
+                            // cadeia de ifs para acatar os parametros de 'indice mínimo'
+
+                            // para a primeira alteração do index2
+                            if(index2 == -1)
+                            {
+                                index1 = i;
+                                index2 = j;
+                            }
+
+                            // a preferencia de na resposta é o menor index2
+                            if(j < index2)
+                            {
+                                index1 = i;
+                                index2 = j;
+                            }
+
+                            // se tiver mais de uma solução no indice 2, a diretiva é pegar o menor indice 1
+                            if(j == index2)
+                            {
+                                if(i < index1)
+                                {
+                                    index1 = i;
+                                    index2 = j;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return index1 == -1 ? new List<int>() : new List<int> { index1 + 1, index2 + 1 };
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
