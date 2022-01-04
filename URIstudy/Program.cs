@@ -25,7 +25,6 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            
             Console.ReadKey();
         }
 
@@ -1623,6 +1622,25 @@ namespace URIstudy
             }
 
             return hs.Count;
+        }
+
+        // E41 Retorna a frequencia em que os numeros aparecem na arr em uma outra array, onde cada frequencia
+        // é registrada em seu específico index e com um limite de 100 numeros, por isso a freq é iniciada
+        // com 100 elementos com o valor 0
+        // Exemplo: arr = [ 1, 1, 3, 2, 1], resposta freq = [ 0, 3, 1, 1, ... 0]
+        public static List<int> CountingSort(List<int> arr)
+        {
+            //List<int> arr = new List<int> { 1, 1, 3, 2, 1 };
+            // inicia a list com 100 elementos contendo cada um o valor 0
+            List<int> freq = new List<int>(new int[100]);
+
+            for (int i = 0; i < arr.Count; i++)
+            {
+                int current = arr[i];
+                freq[current] += 1;
+            }
+
+            return freq;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
