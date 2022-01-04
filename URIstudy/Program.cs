@@ -25,6 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
+            //var a = Pangram();
             Console.ReadKey();
         }
 
@@ -1641,6 +1642,24 @@ namespace URIstudy
             }
 
             return freq;
+        }
+
+        // E42 Pangram é uma string que contém todas as letras do alfabeto. O código retorna se a string de input é um 
+        // pangram ou não, com os retornos "pangram" e "not pangram"
+        public static string Pangram(string s)
+        {
+            //string s = "The quick brown fox jumps over the lazy dog";
+            // hashset para busca mais eficiente
+            var arr = s.ToLower().ToList();
+            HashSet<char> hs = new HashSet<char>("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToLower().ToList());
+
+            for(int i = 0; i < arr.Count; i++)
+            {
+                if (hs.Contains(arr[i]))
+                    hs.Remove(arr[i]);
+            }
+
+            return hs.Count > 0 ? "not pangram" : "pangram";
         }
 
         public static ListNode RemoveNthFromEnd(int B)
