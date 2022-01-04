@@ -1667,7 +1667,7 @@ namespace URIstudy
         // 2. A soma de todos os itens da subarray precisa se igual a do input 'd'
         public static int Birthday(List<int> s, int d, int m)
         {
-            //List<int> s = new List<int> { 2,2,1,3,2 };
+            //List<int> s = new List<int> { 2, 2, 1, 3, 2 };
             //int d = 4; // sum
             //int m = 2; // length
 
@@ -1692,7 +1692,8 @@ namespace URIstudy
 
                 partial += s[i];
 
-                if (partial == d)
+                // validação para que as diretrizes de sum e length, respectivamente, sejam atendidas
+                if (partial == d && i - first == m - 1)
                     result++;
             }
 
