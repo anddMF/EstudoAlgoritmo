@@ -1602,6 +1602,29 @@ namespace URIstudy
             return index1 == -1 ? new List<int>() : new List<int> { index1 + 1, index2 + 1 };
         }
 
+        // E40 Retorna o length da maior substring em que os caracters não se repetem
+        public static int LengthLongestSubstring(string input)
+        {
+            //string input = "daD9ddb9cAy";
+            var arr = input.ToList();
+            // hashset para busca mais eficiente
+            HashSet<string> hs = new HashSet<string>();
+
+            if (arr.Count == 0)
+                return 0;
+
+            hs.Add(arr[0].ToString().ToLower());
+
+            for (int i = 1; i < arr.Count; i++)
+            {
+                if (!hs.Contains(arr[i].ToString().ToLower()))
+                    hs.Add(arr[i].ToString());
+                
+            }
+
+            return hs.Count;
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
