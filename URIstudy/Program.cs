@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            //var a = Pangram();
+            
             Console.ReadKey();
         }
 
@@ -1660,6 +1660,43 @@ namespace URIstudy
             }
 
             return hs.Count > 0 ? "not pangram" : "pangram";
+        }
+
+        // E43 Retorna o número de subarrays possíveis para as seguintes condições:
+        // 1. O length da array tem que ser do tamanho do input 'm'
+        // 2. A soma de todos os itens da subarray precisa se igual a do input 'd'
+        public static int Birthday(List<int> s, int d, int m)
+        {
+            //List<int> s = new List<int> { 2,2,1,3,2 };
+            //int d = 4; // sum
+            //int m = 2; // length
+
+            int result = 0;
+            int first = 0;
+            int partial = 0;
+
+            // janela deslizante / sliding window
+            for(int i = 0; i < s.Count; i++)
+            {
+                // percorri a lista usando um for e esse if para controlar 
+                // o length dos elementos somados
+                if(i - first >= m)
+                {
+                    // se cair aqui, o length da subarray passou do permitido, então eu subtraio
+                    // o primeiro item que estava sendo somado na subarray
+                    partial = partial - s[first];
+                    
+                    // aumento em 1 o index do primeiro item da subarray
+                    first++;
+                }
+
+                partial += s[i];
+
+                if (partial == d)
+                    result++;
+            }
+
+            return result;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
