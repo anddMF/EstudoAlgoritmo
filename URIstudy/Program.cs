@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            
+
             Console.ReadKey();
         }
 
@@ -1725,6 +1725,35 @@ namespace URIstudy
             }
 
             return result;
+        }
+
+        // E45 Imaginando um livro com suas páginas numeradas 1 ; 2,3 ; 4,5 ... onde quem está à esquerda na vírgula
+        // é a página da esquerda. Para alcançar uma página X você pode iniciar pelo ínicio ou fim do livro e contando
+        // o número de páginas viradas.
+        // Com esse info, o exercício passa quantas páginas o livro tem (n) e em qual o leitor quer chegar (p). O 
+        // retorno é o menor valor de viradas de página entre abrir pelo ínicio e fim do livro.
+        public static int PageCount(int n, int p)
+        {
+            // Exemplo \/
+            // int n = 5;
+            // int p = 3;
+            // resposta é 1
+
+            int pagesFromStart = 0;
+            int pagesFromBack = 0;
+
+            // 0,1 - 2,3 - 4,5 - 6,7 - 8,9 - 10,11 - 12
+
+            // aplico a fórmula transformando o p em par com o p-1, visto que ele fica no mesmo flip
+            //  de pages que o ímpar
+            pagesFromStart = p % 2 > 0 ? (p - 1) / 2 : p / 2;
+
+            // transformo eles em pares para a fórmula funcionar
+            int newN = n % 2 > 0 ? n - 1 : n;
+            int newP = p % 2 > 0 ? p - 1 : p;
+            pagesFromBack =  (newN - newP) / 2;
+
+            return Math.Min(pagesFromStart, pagesFromBack);
         }
 
         public static ListNode RemoveNthFromEnd(int B)
