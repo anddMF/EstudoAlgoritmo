@@ -1700,6 +1700,33 @@ namespace URIstudy
             return result;
         }
 
+        // E44 Verifica quantos pares de 'meias coloridas' existem dentro da lista de input, onde cada cor é representada por um
+        // número diferente, então no exempo [ 1, 3, 1, 2, 3 ]  a resposta seria 2 (pares 1-1, 3-3 e uma 2 solitária)
+        public static int SockMerchant(int n, List<int> ar)
+        {
+            // List<int> ar = new List<int> { 1,2,1,2,1,3,2 };
+            // int n = 7;
+
+            int result = 0;
+            HashSet<int> hs = new HashSet<int>();
+
+            for(int i = 0; i < ar.Count; i++)
+            {
+                // consulto se já existe no hs, se exister removo e incremento o contador de pares
+                // se não existir, adiciono
+                if (hs.Contains(ar[i]))
+                {
+                    hs.Remove(ar[i]);
+                    result++;
+                } else
+                {
+                    hs.Add(ar[i]);
+                }
+            }
+
+            return result;
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
