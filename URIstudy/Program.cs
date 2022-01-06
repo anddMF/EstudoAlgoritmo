@@ -1817,6 +1817,42 @@ namespace URIstudy
             return result;
         }
 
+        // E47 Dada uma array de entrada (arr), retorna YES para caso seja uma array com somas balanceadas, ou seja:
+        // Se, a partir de x ponto da array, as soma da esquerda e direita desse ponto sejam iguais. Por exemplo:
+        // arr = [ 1, 2, 3, 3] no index 2 ela é uma array balanceada pois 1 + 2 (subarray à esquerda) é igual
+        // a 3 (subarray da direita)
+        public static string BalancedSums()
+        {
+            var arr = new List<int> { 4, 8, 3, 3 };
+            int totalSum = 0;
+            int leftSum = 0;
+            int rigthSum = 0;
+
+            // faço a soma total dos itens da array
+            for(int i = 0; i<arr.Count; i++)
+            {
+                totalSum += arr[i];
+            }
+
+            // essa atribuição parte da premissa de iniciar do index 1, já que não
+            // tem uma subarray à esquerda do index 0. Mas o exercício considera como subarray, então 
+            // é só colocar 0 aqui e no for um int j = 0
+            leftSum = arr[0];
+            for(int j = 1; j<arr.Count - 1; j++)
+            {
+                // calculo a soma da direita subtraindo os elementos da esquerda e o index atual
+                rigthSum = totalSum - leftSum - arr[j];
+
+                if (leftSum == rigthSum)
+                    return "YES";
+
+                // incremento a soma da esquerda com o elemento atual
+                leftSum += arr[j];
+            }
+
+            return "NO";
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
