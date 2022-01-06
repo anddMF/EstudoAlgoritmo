@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            var a = SuperDigit();
+            
             Console.ReadKey();
         }
 
@@ -1856,10 +1856,11 @@ namespace URIstudy
         // E48 O super digit de um int x é definido pela soma dígitos de x, até que se tenha somente um dígito
         // Exemplo: x = 985, superDigit = 9 + 8 + 5 = 22 ; superDigit = 2 + 2 = 4
         // O método retorna o superDigit da string n que é repetida k vezes para ter o número final
-        public static int SuperDigit()
+        public static int SuperDigit(string n, int k)
         {
-            string n = " 9875".Trim();
-            int k = 4;
+            //string n = " 9875".Trim();
+            //int k = 4;
+            // resultado = 8
             string digit = "";
 
             // para ter o número final tem que fazer n + n em k vezes
@@ -1881,6 +1882,28 @@ namespace URIstudy
 
             return result;
             // fim com recurssão
+
+            /* Sem recurssão
+
+            var toConvert = digit.ToList();
+            // result recebe também o 'digit' porque dentro do while ele vai ser utilizado para continuar 
+            // a soma dos digitos ao invés do 'digit'
+            long result = Convert.ToInt64(digit);
+            if (toConvert.Count > 1)
+            { 
+                while(result.ToString().Length > 1)
+                {
+                    toConvert = result.ToString().ToList();
+                    result = 0;
+                    // soma dos dígitos
+                    for (int j = 0; j < toConvert.Count; j++)
+                    {
+                        result += Convert.ToInt64(toConvert[j].ToString());
+                    }
+                }
+            }
+            return Convert.ToInt32(result);
+            */
         }
 
         // E48
