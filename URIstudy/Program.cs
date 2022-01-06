@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            var a = CaesarCipher();
+            var a = SuperDigit();
             Console.ReadKey();
         }
 
@@ -1851,6 +1851,52 @@ namespace URIstudy
             }
 
             return "NO";
+        }
+
+        // E48 O super digit de um int x é definido pela soma dígitos de x, até que se tenha somente um dígito
+        // Exemplo: x = 985, superDigit = 9 + 8 + 5 = 22 ; superDigit = 2 + 2 = 4
+        // O método retorna o superDigit da string n que é repetida k vezes para ter o número final
+        public static int SuperDigit()
+        {
+            string n = " 9875".Trim();
+            int k = 4;
+            string digit = "";
+
+            // para ter o número final tem que fazer n + n em k vezes
+            for(int i = 0; i < k; i++)
+            {
+                digit += n;
+            }
+
+            // com recurssão
+            int result = 0;
+
+            if(digit.Length > 1)
+            {
+                result = RecursiveSuperDigit(digit);
+            } else
+            {
+                result = Convert.ToInt32(digit);
+            }
+
+            return result;
+            // fim com recurssão
+        }
+
+        // E48
+        public static int RecursiveSuperDigit(string digit)
+        {
+            var toConvert = digit.ToString().ToList();
+            long result = 0;
+
+            // soma de todos os dígitos
+            for (int j = 0; j < toConvert.Count; j++)
+            {
+                result += Convert.ToInt64(toConvert[j].ToString());
+            }
+
+            // se ainda tiver mais de um dígito, chama novamente o método até ter um único
+            return result.ToString().Length > 1 ? RecursiveSuperDigit(result.ToString()) : Convert.ToInt32(result);
         }
 
         public static ListNode RemoveNthFromEnd(int B)
