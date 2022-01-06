@@ -25,7 +25,7 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-
+            var a = CaesarCipher();
             Console.ReadKey();
         }
 
@@ -1754,6 +1754,67 @@ namespace URIstudy
             pagesFromBack =  (newN - newP) / 2;
 
             return Math.Min(pagesFromStart, pagesFromBack);
+        }
+
+        // E46 Descriptografar a string s usando o Caesar Cipher que muda cada letra a partir de um determinado número (k)
+        // Exemplo: em um k = 2, o alfabeto com os indices alterados para o cipher ficaria como cdefghijklmnopqrstuvwxyzab
+        // quando fosse buscar a letra 'm', seu indice no cipher seria a letra 'o'
+        public static string CaesarCipher()
+        {
+            //string s = "lcfd";
+            string s = "Always-Look-on-the-Bright-Side-of-Life";
+            float k = 5;
+            // return = Fqbfdx-Qttp-ts-ymj-Gwnlmy-Xnij-tk-Qnkj
+
+            string cipher = "abcdefghijklmnopqrstuvwxyz";
+            var arr = cipher.ToList();
+            float count = arr.Count;
+
+            // essa conta vai servir pra saber quantas vezes as 26 letras do alfabeto cabem dentro do K,
+            // porque em caso de k > 26, eu preciso saber somente quantas casas depois do 26 tenho que andar
+            float times = k / count > 0 ? k / count : 1;
+            int a = (int)Math.Round(times,0) <= 0 ? 1 : (int)Math.Round(times, 0);
+            if (a > 1)
+                a--;
+
+            string result = "";
+
+            for(int i = 0; i < s.Length; i++)
+            {
+                // validação de maiúscula para manter o mesmo resultado
+                bool isUppercase = Char.IsUpper(s[i]);
+                char letter = Char.ToLower(s[i]);
+                int index = arr.FindIndex(x => x == letter);
+
+                if(index >= 0)
+                {
+                    int realIndex = index + (int)k;
+                    // realIndex = realIndex > count - 1 ? realIndex - count * times : realIndex;
+
+                    // funciona para transformar um indice muito elevado e acima do count 
+                    // para um equivalento dentro dos 26 caracteres do alfabeto
+                    if(realIndex > count - 1)
+                    {
+                        int final = realIndex - (int)count * a;
+                        if (final >= 26)
+                            final = final - 26;
+
+                        realIndex = final;
+                    }
+                    
+                    letter = arr[realIndex];
+                    if (isUppercase)
+                        letter = Char.ToUpper(letter);
+
+                    result += letter;
+                } else
+                {
+                    result += letter;
+                }
+
+            }
+
+            return result;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
