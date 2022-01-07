@@ -1532,11 +1532,11 @@ namespace URIstudy
 
             list.Sort();
 
-            for(int i = 0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
-                if(i > 0)
+                if (i > 0)
                 {
-                    if(list[i] != list[i - 1])
+                    if (list[i] != list[i - 1])
                     {
                         partialResult = list[i] - 1 == list[i - 1] ? partialResult + 1 : 1;
                         if (partialResult > result)
@@ -1562,7 +1562,7 @@ namespace URIstudy
             for (int i = 0; i < list.Count; i++)
             {
                 int firstNumber = list[i];
-                if(i < list.Count - 2)
+                if (i < list.Count - 2)
                 {
                     for (int j = i + 1; j < list.Count; j++)
                     {
@@ -1572,23 +1572,23 @@ namespace URIstudy
                             // cadeia de ifs para acatar os parametros de 'indice mínimo'
 
                             // para a primeira alteração do index2
-                            if(index2 == -1)
+                            if (index2 == -1)
                             {
                                 index1 = i;
                                 index2 = j;
                             }
 
                             // a preferencia de na resposta é o menor index2
-                            if(j < index2)
+                            if (j < index2)
                             {
                                 index1 = i;
                                 index2 = j;
                             }
 
                             // se tiver mais de uma solução no indice 2, a diretiva é pegar o menor indice 1
-                            if(j == index2)
+                            if (j == index2)
                             {
-                                if(i < index1)
+                                if (i < index1)
                                 {
                                     index1 = i;
                                     index2 = j;
@@ -1619,7 +1619,7 @@ namespace URIstudy
             {
                 if (!hs.Contains(arr[i].ToString().ToLower()))
                     hs.Add(arr[i].ToString());
-                
+
             }
 
             return hs.Count;
@@ -1653,7 +1653,7 @@ namespace URIstudy
             var arr = s.ToLower().ToList();
             HashSet<char> hs = new HashSet<char>("ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToLower().ToList());
 
-            for(int i = 0; i < arr.Count; i++)
+            for (int i = 0; i < arr.Count; i++)
             {
                 if (hs.Contains(arr[i]))
                     hs.Remove(arr[i]);
@@ -1676,16 +1676,16 @@ namespace URIstudy
             int partial = 0;
 
             // janela deslizante / sliding window
-            for(int i = 0; i < s.Count; i++)
+            for (int i = 0; i < s.Count; i++)
             {
                 // percorri a lista usando um for e esse if para controlar 
                 // o length dos elementos somados
-                if(i - first >= m)
+                if (i - first >= m)
                 {
                     // se cair aqui, o length da subarray passou do permitido, então eu subtraio
                     // o primeiro item que estava sendo somado na subarray
                     partial = partial - s[first];
-                    
+
                     // aumento em 1 o index do primeiro item da subarray
                     first++;
                 }
@@ -1710,7 +1710,7 @@ namespace URIstudy
             int result = 0;
             HashSet<int> hs = new HashSet<int>();
 
-            for(int i = 0; i < ar.Count; i++)
+            for (int i = 0; i < ar.Count; i++)
             {
                 // consulto se já existe no hs, se exister removo e incremento o contador de pares
                 // se não existir, adiciono
@@ -1718,7 +1718,8 @@ namespace URIstudy
                 {
                     hs.Remove(ar[i]);
                     result++;
-                } else
+                }
+                else
                 {
                     hs.Add(ar[i]);
                 }
@@ -1751,7 +1752,7 @@ namespace URIstudy
             // transformo eles em pares para a fórmula funcionar
             int newN = n % 2 > 0 ? n - 1 : n;
             int newP = p % 2 > 0 ? p - 1 : p;
-            pagesFromBack =  (newN - newP) / 2;
+            pagesFromBack = (newN - newP) / 2;
 
             return Math.Min(pagesFromStart, pagesFromBack);
         }
@@ -1773,27 +1774,27 @@ namespace URIstudy
             // essa conta vai servir pra saber quantas vezes as 26 letras do alfabeto cabem dentro do K,
             // porque em caso de k > 26, eu preciso saber somente quantas casas depois do 26 tenho que andar
             float times = k / count > 0 ? k / count : 1;
-            int a = (int)Math.Round(times,0) <= 0 ? 1 : (int)Math.Round(times, 0);
+            int a = (int)Math.Round(times, 0) <= 0 ? 1 : (int)Math.Round(times, 0);
             if (a > 1)
                 a--;
 
             string result = "";
 
-            for(int i = 0; i < s.Length; i++)
+            for (int i = 0; i < s.Length; i++)
             {
                 // validação de maiúscula para manter o mesmo resultado
                 bool isUppercase = Char.IsUpper(s[i]);
                 char letter = Char.ToLower(s[i]);
                 int index = arr.FindIndex(x => x == letter);
 
-                if(index >= 0)
+                if (index >= 0)
                 {
                     int realIndex = index + (int)k;
                     // realIndex = realIndex > count - 1 ? realIndex - count * times : realIndex;
 
                     // funciona para transformar um indice muito elevado e acima do count 
                     // para um equivalento dentro dos 26 caracteres do alfabeto
-                    if(realIndex > count - 1)
+                    if (realIndex > count - 1)
                     {
                         int final = realIndex - (int)count * a;
                         if (final >= 26)
@@ -1801,13 +1802,14 @@ namespace URIstudy
 
                         realIndex = final;
                     }
-                    
+
                     letter = arr[realIndex];
                     if (isUppercase)
                         letter = Char.ToUpper(letter);
 
                     result += letter;
-                } else
+                }
+                else
                 {
                     result += letter;
                 }
@@ -1829,7 +1831,7 @@ namespace URIstudy
             int rigthSum = 0;
 
             // faço a soma total dos itens da array
-            for(int i = 0; i<arr.Count; i++)
+            for (int i = 0; i < arr.Count; i++)
             {
                 totalSum += arr[i];
             }
@@ -1838,7 +1840,7 @@ namespace URIstudy
             // tem uma subarray à esquerda do index 0. Mas o exercício considera como subarray, então 
             // é só colocar 0 aqui e no for um int j = 0
             leftSum = arr[0];
-            for(int j = 1; j<arr.Count - 1; j++)
+            for (int j = 1; j < arr.Count - 1; j++)
             {
                 // calculo a soma da direita subtraindo os elementos da esquerda e o index atual
                 rigthSum = totalSum - leftSum - arr[j];
@@ -1913,7 +1915,7 @@ namespace URIstudy
             */
         }
 
-        // E48
+        // E48-COMPLEMENTO
         public static int RecursiveSuperDigit(string digit)
         {
             var toConvert = digit.ToString().ToList();
@@ -1927,6 +1929,39 @@ namespace URIstudy
 
             // se ainda tiver mais de um dígito, chama novamente o método até ter um único
             return result.ToString().Length > 1 ? RecursiveSuperDigit(result.ToString()) : Convert.ToInt32(result);
+        }
+
+        // E49 Identifica o mínimo de unfainess na array de input. Unfainess é definido pelo max(arr) - min(arr),
+        // o MaxMin recebe k que é o length necessário da subarray para calcular o unfairness. Exemplo:
+        // arr = [ 1, 4, 7, 2] ; k = 2; pegando aleatórios a = [ 1, 7] o unfairness seria 7 - 1 = 6, mas o minimo
+        // seria com [ 1, 2 ], sem utilizando subarray com length == k
+        public static int MaxMin(int k, List<int> arr)
+        {
+            // List<int> arr = new List<int> { 300, 100, 200,350,400,401,402 };
+            // int k = 3;
+            // resposta = 2;
+
+            // ordeno para ter os numeros aproximados
+            arr.Sort();
+
+            int result = int.MaxValue;
+            // subarray de suporte para a conta de unfairness
+            var countArr = new List<int>();
+
+            for (int i = 0; i < arr.Count; i++)
+            {
+                countArr.Add(arr[i]);
+
+                if (countArr.Count == k)
+                {
+                    // como a lista está ordenada, só fazer a subtração assim
+                    int unfairness = countArr[k -1] - countArr[0];
+                    result = unfairness < result ? unfairness : result;
+
+                    countArr.RemoveAt(0);
+                }
+            }
+            return result;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
