@@ -1863,22 +1863,27 @@ namespace URIstudy
             // resultado = 8
             string digit = "";
 
+            // com recurssão
+
             // para ter o número final tem que fazer n + n em k vezes
-            for(int i = 0; i < k; i++)
+            /* for(int i = 0; i < k; i++)
             {
                 digit += n;
-            }
+            } */
 
-            // com recurssão
             int result = 0;
-
-            if(digit.Length > 1)
+            if (digit.Length > 1)
             {
                 result = RecursiveSuperDigit(digit);
-            } else
+            }
+            else
             {
                 result = Convert.ToInt32(digit);
             }
+
+            result = result * k;
+            if (result.ToString().Length > 1)
+                return RecursiveSuperDigit(result.ToString());
 
             return result;
             // fim com recurssão
@@ -1900,6 +1905,8 @@ namespace URIstudy
                     {
                         result += Convert.ToInt64(toConvert[j].ToString());
                     }
+                    
+                    result = result * k;
                 }
             }
             return Convert.ToInt32(result);
