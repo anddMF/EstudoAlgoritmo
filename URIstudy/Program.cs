@@ -2008,6 +2008,36 @@ namespace URIstudy
             return result;
         }
 
+        // E50-VERSÃO-SLIM
+        public static SinglyLinkedListNode ReverseLinkedListSlim(SinglyLinkedListNode llist)
+        {
+            if (llist == null || llist.next == null)
+                return null;
+
+            SinglyLinkedListNode runner = llist;
+
+            // instancia como null porque eu vou ir adicionando nele pelo inicio da linked list, então
+            // esse primeiro null será o último item da lista
+            SinglyLinkedListNode prev = null;
+
+            while (runner != null)
+            {
+                // salva o next em outro espaço de memória pra não ser afetado no shallow copy
+                var next = runner.next;
+
+                // shallow copy
+                var current = runner;
+                // node atual referenciando o anterior
+                current.next = prev;
+                // node prev atualizado com o reverse mais recente
+                prev = current;
+
+                runner = next;
+            }
+
+            return prev;
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
