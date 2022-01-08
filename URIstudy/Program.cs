@@ -26,7 +26,7 @@ namespace URIstudy
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
 
-            var list = new List<int> { 1, 2, 3, 4, 5 };
+            var list = new List<int> { 1, 2, 3 };
             var llist = new SinglyLinkedListNode { data = list[0], next = null };
             var head = llist;
             for (int i = 1; i < list.Count; i++)
@@ -34,7 +34,7 @@ namespace URIstudy
                 llist.next = new SinglyLinkedListNode { data = list[i], next = null };
                 llist = llist.next;
             }
-            var revss = ReverseLinkedList(head);
+            var revss = InsertNodeAtPosition(head, 4, 2);
             Console.ReadKey();
         }
 
@@ -2037,6 +2037,43 @@ namespace URIstudy
 
             return prev;
         }
+
+        // E51 Insere um node novo na llist a partir da posição inserida no position e o valor do data de input
+        public static SinglyLinkedListNode InsertNodeAtPosition(SinglyLinkedListNode llist, int data, int position)
+        {
+            if (llist == null)
+                return null;
+
+            SinglyLinkedListNode runner = llist;
+            SinglyLinkedListNode prev = null;
+
+            int counter = 0;
+
+            while(counter <= position)
+            {
+                // novo node tem que referenciar o atual e o anterior referenciar o novo node
+                // new node.next = current node
+                // prev.next = new node
+                if (counter == position)
+                {
+                    SinglyLinkedListNode next = runner;
+                    SinglyLinkedListNode newNode = new SinglyLinkedListNode { data = data, next = next };
+                    prev.next = newNode;
+                    return llist;
+                }
+
+                // como o runner referencia a llist, o prev vai alterar ela também
+                // prev está sempre um node antes do runner
+                prev = runner;
+                // corro o runner
+                runner = runner.next;
+                counter++;
+            }
+
+            // não é pra chegar aqui se a position for válida
+            return llist;
+        }
+
 
         public static ListNode RemoveNthFromEnd(int B)
         {
