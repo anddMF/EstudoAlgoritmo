@@ -44,7 +44,7 @@ namespace URIstudy
                 llist2 = llist2.next;
             }
 
-            var revss = MergeLists(head, head2);
+            MinimumBribes();
             Console.ReadKey();
         }
 
@@ -2146,6 +2146,40 @@ namespace URIstudy
             }
 
         }
+
+        // E53 Cada elemento da lista é uma pessoa, onde a lista é a fila em ordem de chegada. Cada pessoa usa o número de sua posição inicial de 1 até n,
+        // as pessoas podem subornar a outra imediatamente a sua frente para avançar um lugar, mas ainda utilizando seu número da posição inicial. Exemplo:
+        // q = [ 1, 2, 4, 3, 7, 5, 6], a pessoa 4 subornou a 3 e a pessoas 7 subournou a 5 e 6
+        // O método printa o número de subornos acontecidos na fila ou "Too chaotic" caso uma pessoa tenha subornado mais de duas
+        public static void MinimumBribes()
+        {
+            //posição na fila:      1  2  3  4  5  6  7  8
+            var q = new List<int> { 1, 2, 5, 3, 7, 8, 6, 4 };
+            // f = q[i] > i+1 = fez bribe, então bribes = q[i] - i+1 = numero de posições que subiu
+            // se o bribes > 2, print Too chaotic
+
+            int bribes = 0;
+
+            for(int i = 0; i< q.Count; i++)
+            {
+                // teve bribe
+                if(q[i] > i + 1)
+                {
+                    int currentBribe = q[i] - (i + 1);
+                    if(currentBribe > 2)
+                    {
+                        Console.WriteLine("Too chaotic");
+                        return;
+                    }
+
+                    bribes += currentBribe;
+                }
+            }
+
+            Console.WriteLine(bribes);
+            //return bribes;
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
