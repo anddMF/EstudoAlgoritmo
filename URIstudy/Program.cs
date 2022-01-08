@@ -25,7 +25,16 @@ namespace URIstudy
             //FirstDuplicated(numberList2);
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
-            
+
+            var list = new List<int> { 1, 2, 3, 4, 5 };
+            var llist = new SinglyLinkedListNode { data = list[0], next = null };
+            var head = llist;
+            for (int i = 1; i < list.Count; i++)
+            {
+                llist.next = new SinglyLinkedListNode { data = list[i], next = null };
+                llist = llist.next;
+            }
+            var revss = ReverseLinkedList(head);
             Console.ReadKey();
         }
 
@@ -1955,12 +1964,47 @@ namespace URIstudy
                 if (countArr.Count == k)
                 {
                     // como a lista está ordenada, só fazer a subtração assim
-                    int unfairness = countArr[k -1] - countArr[0];
+                    int unfairness = countArr[k - 1] - countArr[0];
                     result = unfairness < result ? unfairness : result;
 
                     countArr.RemoveAt(0);
                 }
             }
+            return result;
+        }
+
+        // E50-COMPLEMENTO
+        public class SinglyLinkedListNode
+        {
+            public int data { get; set; }
+            public SinglyLinkedListNode next { get; set; }
+            //int data;
+            //SinglyLinkedListNode next;
+        }
+
+        // E50 Reverte uma linked list com stack
+        public static SinglyLinkedListNode ReverseLinkedList(SinglyLinkedListNode llist)
+        {
+            if (llist == null || llist.next == null)
+                return null;
+
+            Stack<int> stack = new Stack<int>();
+            SinglyLinkedListNode runner = llist;
+
+            while (runner != null)
+            {
+                stack.Push(runner.data);
+                runner = runner.next;
+            }
+
+            SinglyLinkedListNode result = new SinglyLinkedListNode { data = stack.Pop(), next = null};
+            SinglyLinkedListNode runner2 = result;
+            while (stack.Count > 0)
+            {
+                runner2.next = new SinglyLinkedListNode { data = stack.Pop(), next = null };
+                runner2 = runner2.next;
+            }
+
             return result;
         }
 
