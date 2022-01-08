@@ -26,7 +26,7 @@ namespace URIstudy
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
 
-            var list = new List<int> { 1, 2, 3 };
+            var list = new List<int> { 1, 3, 7};
             var llist = new SinglyLinkedListNode { data = list[0], next = null };
             var head = llist;
             for (int i = 1; i < list.Count; i++)
@@ -34,7 +34,17 @@ namespace URIstudy
                 llist.next = new SinglyLinkedListNode { data = list[i], next = null };
                 llist = llist.next;
             }
-            var revss = InsertNodeAtPosition(head, 4, 2);
+
+            var list2 = new List<int> { 1, 2 };
+            var llist2 = new SinglyLinkedListNode { data = list2[0], next = null };
+            var head2 = llist2;
+            for (int i = 1; i < list2.Count; i++)
+            {
+                llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
+                llist2 = llist2.next;
+            }
+
+            var revss = MergeLists(head, head2);
             Console.ReadKey();
         }
 
@@ -2074,7 +2084,68 @@ namespace URIstudy
             return llist;
         }
 
+        // E52 O(n) merge de duas linkedList em ordem crescente
+        static SinglyLinkedListNode MergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2)
+        {
+            if (head1 == null)
+                return head2;
 
+            if (head2 == null)
+                return head1;
+
+            SinglyLinkedListNode runner1 = head1;
+            SinglyLinkedListNode runner2 = head2;
+
+            SinglyLinkedListNode headResult = null;
+
+            // inicia o headResult com o menor primeiro numero das listas
+            if(runner1.data < runner2.data)
+            {
+                headResult = new SinglyLinkedListNode { data = runner1.data, next = null };
+                runner1 = runner1.next;
+            } else
+            {
+                headResult = new SinglyLinkedListNode { data = runner2.data, next = null };
+                runner2 = runner2.next;
+            }
+
+            // shallow copy para alterar o result e salvar o head
+            var result = headResult;
+
+            // while rola até uma das listas estar no final, depois disso é só adicionar a lista restando no resultado
+            while(runner1 != null && runner2 != null)
+            {
+                if (runner1.data < runner2.data)
+                {
+                    // usar o .next ao invés do result para não alterar o endereço de memória já preenchido
+                    result.next = new SinglyLinkedListNode { data = runner1.data, next = null };
+                    // avança o result
+                    result = result.next;
+
+                    runner1 = runner1.next;
+                }
+                else
+                {
+                    // usar o .next ao invés do result para não alterar o endereço de memória já preenchido
+                    result.next = new SinglyLinkedListNode { data = runner2.data, next = null };
+                    result = result.next ;
+
+                    runner2 = runner2.next;
+                }
+            }
+
+            // add a lista restante no resultado
+            if (runner1 == null)
+            {
+                result.next = runner2;
+                return headResult;
+            }else
+            {
+                result.next = runner1;
+                return headResult;
+            }
+
+        }
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
