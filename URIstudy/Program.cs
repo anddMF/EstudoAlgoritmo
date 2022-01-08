@@ -1985,7 +1985,7 @@ namespace URIstudy
         // E50 Reverte uma linked list com stack
         public static SinglyLinkedListNode ReverseLinkedList(SinglyLinkedListNode llist)
         {
-            if (llist == null || llist.next == null)
+            if (llist == null)
                 return null;
 
             Stack<int> stack = new Stack<int>();

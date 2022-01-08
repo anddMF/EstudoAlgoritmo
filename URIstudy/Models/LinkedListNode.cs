@@ -85,5 +85,24 @@ namespace URIstudy.Models
             }
         }
 
+        public LinkedListNodeN ReverseLinkedList(LinkedListNodeN head)
+        {
+            LinkedListNodeN runner = head;
+            LinkedListNodeN prev = null;
+
+            while(runner != null)
+            {
+                LinkedListNodeN next = runner.next;
+
+                LinkedListNodeN current = runner;
+                current.next = prev;
+                prev = current;
+
+                runner = next;
+            }
+
+            return prev;
+        }
+
     }
 }
