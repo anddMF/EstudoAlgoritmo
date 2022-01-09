@@ -44,7 +44,7 @@ namespace URIstudy
                 llist2 = llist2.next;
             }
 
-            MinimumBribes();
+            var a = IsValid();
             Console.ReadKey();
         }
 
@@ -2177,7 +2177,67 @@ namespace URIstudy
             }
 
             Console.WriteLine(bribes);
-            //return bribes;
+        }
+
+        // E54 Nesse exercício, uma string é considerada valida se: 
+        // - todos os caracteres aparecem o mesmo número de vezes
+        // - se remover apenas um caracter, o resto da string aparece o mesmo número de vezes
+        public static string IsValid()
+        {
+            // validar se todos os elementos da string aparecem o mesmo número de vezes
+            // se um elemento tiver apenas uma aparição a mais que os outros, ainda é uma string válida
+
+            // percorrer a string removendo os elementos já contados, salvar em dois ints o número de repetições que cada letra tem e quantas letras
+            // tem repetições a mais. Validar dentro da lista se tiver duas repetições a mais que o resto pois já retorna "NO" come essa condição
+
+            string s = "abc";
+            var arr = s.ToList();
+
+            // lista que vai armazer a frequencia de todos os caracteres
+            var countList = new List<int>();
+
+            while(arr.Count > 0)
+            {
+                string current = arr[0].ToString();
+                // armazeno quantas vezes a letra apareceu
+                var times = arr.FindAll(x => x.ToString() == current);
+                countList.Add(times.Count);
+
+                arr.RemoveAll(x => x.ToString() == current);
+            }
+
+            // quantas frequencias distintas existem na string
+            var dis = countList.Distinct();
+
+            // se tiver só uma, string tá equalizada
+            if (dis.Count() == 1)
+                return "YES";
+            // se tiver mais de duas, não tem como equalizar a string
+            if (dis.Count() > 2)
+                return "NO";
+
+            countList.Sort();
+
+            int freq1 = countList.FindAll(x => x == countList.First()).Count;
+            int freq2 = countList.FindAll(y => y == countList.Last()).Count;
+
+            // valido se o elemento é 1, o que dá pra remover, ou se o elemento é um a menos que o elemento mais comum
+            if(freq1 == 1)
+            {
+                if (countList.First() == 1 || countList.Last() - countList.First() == 1)
+                    return "YES";
+                else
+                    return "NO";
+            }
+            if (freq2 == 1)
+            {
+                if (countList.Last() == 1 || countList.Last() - countList.First() == 1)
+                    return "YES";
+                else
+                    return "NO";
+            }
+
+            return "NO";
         }
 
         public static ListNode RemoveNthFromEnd(int B)
