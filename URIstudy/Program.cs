@@ -2260,8 +2260,77 @@ namespace URIstudy
                         return new List<int> { i+1, j+1 };
                 }
             }
-
             return new List<int>();
+        }
+
+        // E56 Recebe três listas com cilindros que possuem tamanhos diferentes, a somatória dos tamanhos dos cilindros é o tamanho da lista.
+        // Podendo tirar somente o primeiro cilindro (topo de uma stack), o código tenta equalizar as listas, caso possível, removendo ou
+        // não cilindros até que todas possuam a mesma somatória de tamanho retirando o mínimo possível de cilindros, pois a resposta 0 ainda 
+        // é válida.
+        public static int EqualStacks(List<int> h1, List<int> h2, List<int> h3)
+        {
+            //var h1 = new List<int> { 1,2,1,1};
+            //var h2 = new List<int> { 1,1,2};
+            //var h3 = new List<int> { 1,1};
+            // resposta: 2
+
+            //var h1 = new List<int> { 1, 1, 1, 1, 2 };
+            //var h2 = new List<int> { 3,7 };
+            //var h3 = new List<int> { 1,3,1 };
+            // resposta: 0
+
+            if (h1.Count == 0)
+                return 0;
+
+            if (h2.Count == 0)
+                return 0;
+
+            if (h3.Count == 0)
+                return 0;
+
+            // coleto a soma do tamanho total dos cilindros para depois ir subtraindos destes a cada retirada da lista
+            int sum1 = SumAllElements(h1);
+            int sum2 = SumAllElements(h2);
+            int sum3 = SumAllElements(h3);
+
+            while(sum1 > 0 || sum2 > 0 || sum3 > 0)
+            {
+                if (sum1 == sum2 && sum1 == sum3)
+                    return sum1;
+
+                // possui esse ternário pois alguma das listas pode ter sido zerada entre as operações
+                int c1 = h1.Count > 0 ? h1[0] : 0; // 1
+                int c2 = h2.Count > 0 ? h2[0] : 0; // 1
+                int c3 = h3.Count > 0 ? h3[0] : 0 ; // 1
+
+                // verifico qual das listas tem a maior somatória no momento remove dela o cilindro 
+                if(sum1 >= sum2 && sum1 >= sum3)
+                {
+                    h1.RemoveAt(0);
+                    sum1 = sum1 - c1;
+                } else if(sum2 >= sum1 && sum2 >= sum3)
+                {
+                    h2.RemoveAt(0);
+                    sum2 = sum2 - c2;
+                } else if(sum3 >= sum1 && sum3 >= sum2)
+                {
+                    h3.RemoveAt(0);
+                    sum3 = sum3 - c3;
+                }
+            }
+            
+            return 0;
+        }
+
+        // E56-COMPLEMENTO
+        public static int SumAllElements(List<int> list)
+        {
+            int sum = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                sum += list[i];
+            }
+            return sum;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
