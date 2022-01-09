@@ -2240,6 +2240,30 @@ namespace URIstudy
             return "NO";
         }
 
+        // E55 A lista arr contem os valores de sorvetes e o int m o dinheiro total que pretendem gastar na sorveteria.
+        // Com os requisitos de que precisam gastar todo o dinheiro e em dois sabores diferentes, o método retorna os 
+        // indices (1 based) dos dois sovetes que atendam estes requisitos, caso não tenha, retorna uma lista vazia.
+        public static List<int> IceCreamParlor(int m, List<int> arr)
+        {
+            // var arr = new List<int> { 1, 3, 4, 5, 6 };
+            // int m = 6;
+            // resultado: [1, 4]
+
+            for(int i = 0; i < arr.Count - 1; i++)
+            {
+                int first = arr[i];
+                for(int j = i + 1; j < arr.Count; j++)
+                {
+                    int cost = first + arr[j];
+
+                    if (cost == m)
+                        return new List<int> { i+1, j+1 };
+                }
+            }
+
+            return new List<int>();
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
