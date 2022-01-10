@@ -44,7 +44,7 @@ namespace URIstudy
                 llist2 = llist2.next;
             }
 
-            var a = IsValid();
+            var a = MaxSubarray();
             Console.ReadKey();
         }
 
@@ -2331,6 +2331,53 @@ namespace URIstudy
                 sum += list[i];
             }
             return sum;
+        }
+
+        // E57 Encontra a maior somatória de subarray e subsequence dentro da array de entrada.
+        public static List<int> MaxSubarray()
+        {
+            // encontrar a maior soma de números continuos e não continuos
+            var arr = new List<int> { -2, -3, -1, -4, -6 }; //15
+            // talvez seja uma boa somar todos os elementos da array e ir subtraindo 
+            // e salvando no total sum os que passam após subtrair
+
+            int sum = SumAllElements(arr);
+            int reverseSum = sum;
+
+            int sumSubsequence = 0;
+            int partialSum = sum;
+            for(int i = 0; i<arr.Count; i++)
+            {
+                if (arr[i] > 0)
+                    sumSubsequence += arr[i];
+                if(i < arr.Count - 1)
+                {
+                    partialSum = partialSum - arr[i];
+                    sum = Math.Max(sum, partialSum);
+                }
+
+            }
+            partialSum = reverseSum;
+            // verificar a soma vindo de trás da arrray pra frente
+            for(int j = arr.Count-1; j > 0; j--)
+            {
+                if(j > 0)
+                {
+                    partialSum = partialSum - arr[j];
+                    sum = Math.Max(sum, partialSum);
+                }
+                
+            }
+
+            // se tiver uma array só com números negativs, subsequence não vai pegar dados e o sum ficará com
+            // a soma de sequencia, então esse método é pra pegar o número mais próximo do positivo em cada uma
+            if (sum <= 0 || sumSubsequence <= 0)
+            {
+                arr.Sort();
+                return new List<int> { arr[arr.Count - 1], arr[arr.Count - 1] };
+            }
+
+            return new List<int> { sum, sumSubsequence };
         }
 
         public static ListNode RemoveNthFromEnd(int B)
