@@ -26,7 +26,7 @@ namespace URIstudy
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
 
-            var list = new List<int> { 1, 3, 7};
+            var list = new List<int> { 1, 3, 7 };
             var llist = new SinglyLinkedListNode { data = list[0], next = null };
             var head = llist;
             for (int i = 1; i < list.Count; i++)
@@ -44,7 +44,7 @@ namespace URIstudy
                 llist2 = llist2.next;
             }
 
-            var a = MaxSubarray();
+            var a = Cookies();
             Console.ReadKey();
         }
 
@@ -2007,7 +2007,7 @@ namespace URIstudy
                 runner = runner.next;
             }
 
-            SinglyLinkedListNode result = new SinglyLinkedListNode { data = stack.Pop(), next = null};
+            SinglyLinkedListNode result = new SinglyLinkedListNode { data = stack.Pop(), next = null };
             SinglyLinkedListNode runner2 = result;
             while (stack.Count > 0)
             {
@@ -2059,7 +2059,7 @@ namespace URIstudy
 
             int counter = 0;
 
-            while(counter <= position)
+            while (counter <= position)
             {
                 // novo node tem que referenciar o atual e o anterior referenciar o novo node
                 // new node.next = current node
@@ -2099,11 +2099,12 @@ namespace URIstudy
             SinglyLinkedListNode headResult = null;
 
             // inicia o headResult com o menor primeiro numero das listas
-            if(runner1.data < runner2.data)
+            if (runner1.data < runner2.data)
             {
                 headResult = new SinglyLinkedListNode { data = runner1.data, next = null };
                 runner1 = runner1.next;
-            } else
+            }
+            else
             {
                 headResult = new SinglyLinkedListNode { data = runner2.data, next = null };
                 runner2 = runner2.next;
@@ -2113,7 +2114,7 @@ namespace URIstudy
             var result = headResult;
 
             // while rola até uma das listas estar no final, depois disso é só adicionar a lista restando no resultado
-            while(runner1 != null && runner2 != null)
+            while (runner1 != null && runner2 != null)
             {
                 if (runner1.data < runner2.data)
                 {
@@ -2128,7 +2129,7 @@ namespace URIstudy
                 {
                     // usar o .next ao invés do result para não alterar o endereço de memória já preenchido
                     result.next = new SinglyLinkedListNode { data = runner2.data, next = null };
-                    result = result.next ;
+                    result = result.next;
 
                     runner2 = runner2.next;
                 }
@@ -2139,7 +2140,8 @@ namespace URIstudy
             {
                 result.next = runner2;
                 return headResult;
-            }else
+            }
+            else
             {
                 result.next = runner1;
                 return headResult;
@@ -2160,13 +2162,13 @@ namespace URIstudy
 
             int bribes = 0;
 
-            for(int i = 0; i< q.Count; i++)
+            for (int i = 0; i < q.Count; i++)
             {
                 // teve bribe
-                if(q[i] > i + 1)
+                if (q[i] > i + 1)
                 {
                     int currentBribe = q[i] - (i + 1);
-                    if(currentBribe > 2)
+                    if (currentBribe > 2)
                     {
                         Console.WriteLine("Too chaotic");
                         return;
@@ -2196,7 +2198,7 @@ namespace URIstudy
             // lista que vai armazer a frequencia de todos os caracteres
             var countList = new List<int>();
 
-            while(arr.Count > 0)
+            while (arr.Count > 0)
             {
                 string current = arr[0].ToString();
                 // armazeno quantas vezes a letra apareceu
@@ -2222,7 +2224,7 @@ namespace URIstudy
             int freq2 = countList.FindAll(y => y == countList.Last()).Count;
 
             // valido se o elemento é 1, o que dá pra remover, ou se o elemento é um a menos que o elemento mais comum
-            if(freq1 == 1)
+            if (freq1 == 1)
             {
                 if (countList.First() == 1 || countList.Last() - countList.First() == 1)
                     return "YES";
@@ -2249,15 +2251,15 @@ namespace URIstudy
             // int m = 6;
             // resultado: [1, 4]
 
-            for(int i = 0; i < arr.Count - 1; i++)
+            for (int i = 0; i < arr.Count - 1; i++)
             {
                 int first = arr[i];
-                for(int j = i + 1; j < arr.Count; j++)
+                for (int j = i + 1; j < arr.Count; j++)
                 {
                     int cost = first + arr[j];
 
                     if (cost == m)
-                        return new List<int> { i+1, j+1 };
+                        return new List<int> { i + 1, j + 1 };
                 }
             }
             return new List<int>();
@@ -2293,7 +2295,7 @@ namespace URIstudy
             int sum2 = SumAllElements(h2);
             int sum3 = SumAllElements(h3);
 
-            while(sum1 > 0 || sum2 > 0 || sum3 > 0)
+            while (sum1 > 0 || sum2 > 0 || sum3 > 0)
             {
                 if (sum1 == sum2 && sum1 == sum3)
                     return sum1;
@@ -2301,24 +2303,26 @@ namespace URIstudy
                 // possui esse ternário pois alguma das listas pode ter sido zerada entre as operações
                 int c1 = h1.Count > 0 ? h1[0] : 0; // 1
                 int c2 = h2.Count > 0 ? h2[0] : 0; // 1
-                int c3 = h3.Count > 0 ? h3[0] : 0 ; // 1
+                int c3 = h3.Count > 0 ? h3[0] : 0; // 1
 
                 // verifico qual das listas tem a maior somatória no momento remove dela o cilindro 
-                if(sum1 >= sum2 && sum1 >= sum3)
+                if (sum1 >= sum2 && sum1 >= sum3)
                 {
                     h1.RemoveAt(0);
                     sum1 = sum1 - c1;
-                } else if(sum2 >= sum1 && sum2 >= sum3)
+                }
+                else if (sum2 >= sum1 && sum2 >= sum3)
                 {
                     h2.RemoveAt(0);
                     sum2 = sum2 - c2;
-                } else if(sum3 >= sum1 && sum3 >= sum2)
+                }
+                else if (sum3 >= sum1 && sum3 >= sum2)
                 {
                     h3.RemoveAt(0);
                     sum3 = sum3 - c3;
                 }
             }
-            
+
             return 0;
         }
 
@@ -2346,11 +2350,11 @@ namespace URIstudy
 
             int sumSubsequence = 0;
             int partialSum = sum;
-            for(int i = 0; i<arr.Count; i++)
+            for (int i = 0; i < arr.Count; i++)
             {
                 if (arr[i] > 0)
                     sumSubsequence += arr[i];
-                if(i < arr.Count - 1)
+                if (i < arr.Count - 1)
                 {
                     partialSum = partialSum - arr[i];
                     sum = Math.Max(sum, partialSum);
@@ -2359,14 +2363,14 @@ namespace URIstudy
             }
             partialSum = reverseSum;
             // verificar a soma vindo de trás da arrray pra frente
-            for(int j = arr.Count-1; j > 0; j--)
+            for (int j = arr.Count - 1; j > 0; j--)
             {
-                if(j > 0)
+                if (j > 0)
                 {
                     partialSum = partialSum - arr[j];
                     sum = Math.Max(sum, partialSum);
                 }
-                
+
             }
 
             // se tiver uma array só com números negativs, subsequence não vai pegar dados e o sum ficará com
@@ -2378,6 +2382,54 @@ namespace URIstudy
             }
 
             return new List<int> { sum, sumSubsequence };
+        }
+
+        // E58 Todos os itens da array precisam ser >= k, e parar isso a fórmula que deve ser seguida é:
+        // f = menor elmento + 2 * segundo menor elemento
+        // o retorno deve ser quantas vezes essa fórmula teve que ser aplicada, se não puder ser resolvida
+        // o retorno é -1.
+        public static int Cookies()
+        {
+            int k = 9;
+            var A = new List<int>() { 2, 7, 3, 6, 4, 6 };
+            // resultado: 4
+
+            if (A.Count == 0)
+                return -1;
+            A.Sort();
+
+            int count = 0;
+            bool isCorrect = false;
+
+            while (!isCorrect)
+            {
+                if (A.Count <= 1 && A[0] < k)
+                    return -1;
+                else if (A[0] >= k)
+                    return count;
+
+                // removo da lista após aplicar a fórmula
+                int f = A[0] + 2 * A[1];
+                A.RemoveRange(0, 2);
+
+                // se o resultado ainda estiver abaixo do k e o A.Count estiver com menos de dois elementos
+                // (necessário para conseguir executar as fórmulas), adiciono o resultado de volta na listas
+                if (f < k || A.Count < 2)
+                    A.Add(f);
+
+                //var a = A.FindAll(x => x >= k);
+
+                count++;
+                isCorrect = A.Count > 0 ? false : true;
+
+                if (isCorrect)
+                    return count;
+
+                // mais um sort para alinhar sempre pegar os menores da lista
+                A.Sort();
+            }
+
+            return count;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
