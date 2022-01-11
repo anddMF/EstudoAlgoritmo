@@ -43,8 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-
-            var a = Cookies();
+ CamelCase();
             Console.ReadKey();
         }
 
@@ -2430,6 +2429,96 @@ namespace URIstudy
             }
 
             return count;
+        }
+
+        // E59
+        public static void CamelCase()
+        {
+            // a linha começa com a operação S(split) ou C(combine), 
+            // depois da primeira ; tem M (method), C(class) e V(variable)
+            string input = Console.ReadLine();
+            var split = input.Split(';');
+
+            string operation = split[0];
+            string type = split[1];
+            string word = split[2];
+            string result = "";
+
+            if(operation == "S")
+            {
+                if(type == "M" || type == "V")
+                {
+                    // preciso encontrar o primeiro uppercase para separar 
+                    foreach (char item in word)
+                    {
+                        if(item.ToString() != "(" && item.ToString() != ")")
+                        {
+                            if (Char.IsUpper(item))
+                                result += " " + item.ToString().ToLower();
+                            else
+                                result += item.ToString();
+                        }
+                        
+                    }
+                    Console.WriteLine(result);
+                }
+                if(type == "C")
+                {
+                    for(int i = 0; i < word.Length; i++)
+                    {
+                        char item = word[i];
+                        if (Char.IsUpper(item))
+                        {
+                            if (i == 0)
+                                result += item.ToString();
+                            else
+                                result += " " + item.ToString().ToLower();
+                        }
+                        else
+                            result += item.ToString();
+                    }
+                    Console.WriteLine(result);
+                }
+
+            }
+
+            if(operation == "C")
+            {
+                string[] words = word.Split(' ');
+
+                if (type != "V")
+                {
+                    foreach (string item in words)
+                    {
+
+                        var word1 = char.ToUpper(item[0]);
+                        var rest = item.Remove(0, 1);
+                        result += word1 + rest;
+                    }
+
+                    if (type == "M")
+                        result += "()";
+
+                    Console.WriteLine(result);
+                } else
+                {
+                    for(int i = 0; i<words.Length; i++)
+                    {
+                        string item = words[i];
+                        if (i == 0)
+                            result += item;
+                        else
+                        {
+                            var word1 = char.ToUpper(item[0]);
+                            var rest = item.Remove(0, 1);
+                            result += word1 + rest;
+                        }
+
+                    }
+                    Console.WriteLine(result);
+                }
+
+            }
         }
 
         public static ListNode RemoveNthFromEnd(int B)
