@@ -2523,7 +2523,62 @@ namespace URIstudy
             }
         }
 
+        // E60
+        public int HorseMoves(int A, int B)
+        {
+            // recebo as posições do bishop num board de 8x8
+            // preciso retornar quantos movimentos ele consegue fazer 
 
+            // ele se move em L, duas casas para algum eixo e uma para alguma lado
+
+            // tenho 4 movimentos em eixo, e 2 movimentos em cada eixo
+
+            // movimento pra direita é B+2 e A-1 ou A-2
+            // pra esquerda é B-2 e A-1 ou A-2
+
+            // movimento pra cima é A+2 e B+1 ou B-1
+            // pra baico é A-1 e B+1 ou B-1
+
+            int moves = 0;
+            // a = 2 b = 40,
+            //andar pra direita
+            if (B <= 6)
+            {
+                if (A >= 2)
+                    moves++;
+                if (A <= 7)
+                    moves++;
+            }
+
+            // andar pra esquerda
+            if (B >= 3)
+            {
+                if (A >= 2)
+                    moves++;
+                if (A <= 7)
+                    moves++;
+            }
+
+            // andar pra cima
+            if (A >= 3)
+            {
+                if (B >= 1)
+                    moves++;
+                if (B >= 2)
+                    moves++;
+            }
+
+            // andar pra baixo
+            if (A <= 6)
+            {
+                if (B >= 1)
+                    moves++;
+                if (B >= 2)
+                    moves++;
+            }
+
+            return moves;
+        }
 
         public static ListNode RemoveNthFromEnd(int B)
         {
