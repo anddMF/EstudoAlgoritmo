@@ -124,7 +124,7 @@ namespace URIstudy
             int[,] matriz = new int[3, 3];
             int[,] array2D = new int[,] { { 1, 2, 4 }, { 3, 4, 12 }, { 5, 6, 6 } };
 
-            int higherNumber = 0;
+            int higherNumber = int.MinValue;
             int x = 0;
             int y = 0;
 
@@ -1881,7 +1881,7 @@ namespace URIstudy
             //string n = " 9875".Trim();
             //int k = 4;
             // resultado = 8
-            string digit = "";
+            string digit = n.Trim();
 
             // com recurssão
 
@@ -1952,12 +1952,15 @@ namespace URIstudy
         // E49 Identifica o mínimo de unfainess na array de input. Unfainess é definido pelo max(arr) - min(arr),
         // o MaxMin recebe k que é o length necessário da subarray para calcular o unfairness. Exemplo:
         // arr = [ 1, 4, 7, 2] ; k = 2; pegando aleatórios a = [ 1, 7] o unfairness seria 7 - 1 = 6, mas o minimo
-        // seria com [ 1, 2 ], sem utilizando subarray com length == k
+        // seria com [ 1, 2 ], sempre utilizando subarray com length == k
         public static int MaxMin(int k, List<int> arr)
         {
             // List<int> arr = new List<int> { 300, 100, 200,350,400,401,402 };
             // int k = 3;
             // resposta = 2;
+
+            // ideia é navegar pela array e utilizar uma array de suporte para colocar os números para o calculo,
+            // quanto tiver o length correto, calcular o unfairness e atualizar o response se ele for menor
 
             // ordeno para ter os numeros aproximados
             arr.Sort();
@@ -2243,7 +2246,7 @@ namespace URIstudy
 
         // E55 A lista arr contem os valores de sorvetes e o int m o dinheiro total que pretendem gastar na sorveteria.
         // Com os requisitos de que precisam gastar todo o dinheiro e em dois sabores diferentes, o método retorna os 
-        // indices (1 based) dos dois sovetes que atendam estes requisitos, caso não tenha, retorna uma lista vazia.
+        // indices (1 based) dos dois sorvetes que atendam estes requisitos, caso não tenha, retorna uma lista vazia.
         public static List<int> IceCreamParlor(int m, List<int> arr)
         {
             // var arr = new List<int> { 1, 3, 4, 5, 6 };
@@ -2369,7 +2372,6 @@ namespace URIstudy
                     partialSum = partialSum - arr[j];
                     sum = Math.Max(sum, partialSum);
                 }
-
             }
 
             // se tiver uma array só com números negativs, subsequence não vai pegar dados e o sum ficará com
@@ -2383,8 +2385,8 @@ namespace URIstudy
             return new List<int> { sum, sumSubsequence };
         }
 
-        // E58 Todos os itens da array precisam ser >= k, e parar isso a fórmula que deve ser seguida é:
-        // f = menor elmento + 2 * segundo menor elemento
+        // E58 Todos os itens da array precisam ser >= k, e para isso a fórmula que deve ser seguida é:
+        // f = menor elemento + 2 * segundo menor elemento
         // o retorno deve ser quantas vezes essa fórmula teve que ser aplicada, se não puder ser resolvida
         // o retorno é -1.
         public static int Cookies()
@@ -2520,6 +2522,8 @@ namespace URIstudy
 
             }
         }
+
+
 
         public static ListNode RemoveNthFromEnd(int B)
         {
