@@ -2580,6 +2580,31 @@ namespace URIstudy
             return moves;
         }
 
+        // E61
+        public int MaxSumWithLength(List<int> A, int B)
+        {
+            A.Sort();
+
+            int totalSum = int.MinValue;
+            int partialSum = 0;
+
+            int counter = 0;
+
+            for(int i = A.Count - 1; i > 0; i--)
+            {
+                partialSum += A[i];
+                counter++;
+                if(counter == B)
+                {
+                    totalSum = Math.Max(partialSum, totalSum);
+                    return totalSum;
+                }
+            }
+            return 0;
+        }
+
+
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
