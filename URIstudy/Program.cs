@@ -2603,7 +2603,69 @@ namespace URIstudy
             return 0;
         }
 
+        // E62 #uber# recebe dois inputs, uma frase string na name e uma lista de symbols da tabela periódica. Tem que retornar a frase destacando os elementos
+        // que existem na tabela periodica e estão no inicio das palavras, exemplo:
+        // name = copperfield f riddler
+        // symbols = [ "Co", "F", "Po", "Ct" ]
+        // resposta: [Co]pperfield [F] riddler //como riddler não possui os primeiros caracteres na tabela, retorna igual a entrada
+        // O(n+s)
+        // eu posso jogar o l2 como vazio e retirar uma cadeia de if juntando ele mesmo vazio com a palavra que eu fosse buscar na symbols;
+        // passar a lista de symbols para um hashset e melhorar o find
+        public static string BreakingBad(string name, List<string> symbols)
+        {
+            // quebra da string de input 
 
+            var words = name.Split(' ');
+
+            string result = "";
+            char l2 = 's';
+            string countTwoLetter = "";
+
+            for (int i = 0; i < words.Count(); i++)
+            {
+                string current = words[i];
+
+                // colocar validação para palavras com menos de 2 caracteres
+                char l1 = current[0];
+
+                if (current.Length >= 2)
+                {
+                    l2 = current[1];
+
+                    string twoLetter = l1.ToString() + l2.ToString();
+
+                    countTwoLetter = symbols.Find(x => x.ToLower() == twoLetter.ToLower());
+                    Console.WriteLine(countTwoLetter != null ? countTwoLetter.Length : 0);
+                }
+                else
+                {
+                    countTwoLetter = null;
+                }
+
+                if (countTwoLetter != null)
+                {
+                    result += " [" + countTwoLetter + "]" + current.Substring(2, current.Length - 2); //colocar o resto da string name
+                    Console.WriteLine("result two letter: " + result);
+                }
+                else
+                {
+                    var countOneLetter = symbols.Find(x => x.ToLower() == l1.ToString().ToLower());
+
+                    if (countOneLetter != null)
+                    {
+                        result += " [" + countOneLetter + "]" + current.Substring(1, current.Length - 1); //colocar o resto da string name
+                        Console.WriteLine("result one letter: " + result);
+                    }
+                    else
+                    {
+                        result += " " + current;
+                        Console.WriteLine("result sem find: " + result);
+                    }
+                }
+            }
+
+            return result;
+        }
 
         public static ListNode RemoveNthFromEnd(int B)
         {
