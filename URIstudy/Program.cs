@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            var res = BreakingBadSlim();
+            var res = DivisibleSumPairs();
             Console.ReadKey();
         }
 
@@ -2667,43 +2667,28 @@ namespace URIstudy
             return result;
         }
 
-        // E62-SLIM
-        public static string BreakingBadSlim()
+        // E63 Determina o números de pares da lista que são divisíveis por k
+        public static int DivisibleSumPairs(int n, int k, List<int> ar)
         {
-            string name = "copperfield f riddler";
-            var symbols = new List<string> { "Co", "F", "Po", "Ct" };
-            // ao invés de usar o find, posso comparar enquanto percorro a lista de symbols
-            string[] words = name.Split(' ');
-            string resultado = "";
+            //var ar = new List<int> { 1, 2, 3, 4, 5, 6 };
+            //int k = 5;
+            // resposta: 3,  1+3 ; 2+3 ; 4+6
+            int counter = 0;
 
-            // eu percorro a lista de symbols somente uma vez, ela é a com mais itens
-            for(int i = 0; i < symbols.Count; i++)
+            for(int i = 0; i < ar.Count - 1; i++)
             {
-                string symbol = symbols[i];
-
-                for(int j = 0; j < words.Length; j++)
+                int first = ar[i];
+                for(int j = i + 1; j < ar.Count; j++)
                 {
-                    string word = words[j];
-                    string letter = "";
-                    if (word.Length >= 2) {
-                        letter = word.Substring(0, 2);
-                        word = word.Substring(2, word.Length - 2);
-                    }
-                    else {
-                        letter = word.Substring(0, 1);
-                        word = word.Substring(1, word.Length - 1);
-                    }
+                    int sum = first + ar[j];
+                    int divisible = sum % k;
 
-                    if (letter.ToLower() == symbol.ToLower())
-                        resultado += "[" + symbol + "]" + word + " ";
-
-                    // por enquanto não está colocando no resultado as que não aparecem na lista de symbols
-                        //resultado += words[j] + " ";
+                    if (divisible == 0)
+                        counter++;
                 }
-
             }
 
-            return resultado;
+            return counter;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
