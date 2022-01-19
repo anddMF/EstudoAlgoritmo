@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
- CamelCase();
+            var res = BreakingBadSlim();
             Console.ReadKey();
         }
 
@@ -2665,6 +2665,45 @@ namespace URIstudy
             }
 
             return result;
+        }
+
+        // E62-SLIM
+        public static string BreakingBadSlim()
+        {
+            string name = "copperfield f riddler";
+            var symbols = new List<string> { "Co", "F", "Po", "Ct" };
+            // ao invés de usar o find, posso comparar enquanto percorro a lista de symbols
+            string[] words = name.Split(' ');
+            string resultado = "";
+
+            // eu percorro a lista de symbols somente uma vez, ela é a com mais itens
+            for(int i = 0; i < symbols.Count; i++)
+            {
+                string symbol = symbols[i];
+
+                for(int j = 0; j < words.Length; j++)
+                {
+                    string word = words[j];
+                    string letter = "";
+                    if (word.Length >= 2) {
+                        letter = word.Substring(0, 2);
+                        word = word.Substring(2, word.Length - 2);
+                    }
+                    else {
+                        letter = word.Substring(0, 1);
+                        word = word.Substring(1, word.Length - 1);
+                    }
+
+                    if (letter.ToLower() == symbol.ToLower())
+                        resultado += "[" + symbol + "]" + word + " ";
+
+                    // por enquanto não está colocando no resultado as que não aparecem na lista de symbols
+                        //resultado += words[j] + " ";
+                }
+
+            }
+
+            return resultado;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
