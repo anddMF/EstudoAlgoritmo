@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            var res = DivisibleSumPairs();
+            //var res = MatchingStrings();
             Console.ReadKey();
         }
 
@@ -2689,6 +2689,38 @@ namespace URIstudy
             }
 
             return counter;
+        }
+
+        // E64 Contar quantas vezes cada item da queries aparece na strings. Retorna esses
+        // contadores em forma de lista, onde cada um ocupa o index de sua respectiva querie
+        public static List<int> MatchingStrings(List<string> strings, List<string> queries)
+        {
+            //var strings = new List<string> { "aba", "baba", "aba", "xzxb" };
+            //var queries = new List<string> { "aba", "xzxb", "ab" };
+            //resultado: [2, 1, 0]
+            // tenho que contar quantas vezes cada item da queries aparece na strings, retornar 
+            // esses contadores em forma de lista, onde cada um ocupa o index de sua respectiva querie
+
+            // finxar uma querie e atravessar as strings
+            List<int> result = new List<int>(queries.Count);
+
+            for (int i = 0; i < queries.Count; i++)
+            {
+                string current = queries[i];
+                int localCounter = 0;
+                for(int j = 0; j < strings.Count; j++)
+                {
+                    if (current == strings[j])
+                        localCounter++;
+                }
+
+                result.Add(localCounter);
+
+                if(localCounter > 0)
+                    strings.RemoveAll(x => x == current);
+            }
+
+            return result;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
