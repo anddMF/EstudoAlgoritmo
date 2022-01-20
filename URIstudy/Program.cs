@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            //var res = MatchingStrings();
+            //var res = Lonelyinteger();
             Console.ReadKey();
         }
 
@@ -2755,6 +2755,31 @@ namespace URIstudy
             }
 
             return result;
+        }
+
+        // E66 A lista de input possui elementos que se repetem duas vezes, exceto um. O Algoritmo retorna o que não se repete.
+        public static int Lonelyinteger(List<int> a)
+        {
+            //var a = new List<int> { 1, 1, 2 };
+
+            // lista é par, então não tem item sobrando nela
+            if (a.Count % 2 == 0)
+                return -1;
+
+            a.Sort();
+
+            for(int i = 0; i < a.Count ; i++)
+            {
+                if (i == a.Count - 1)
+                    return a[i];
+
+                if (a[i] == a[i + 1])
+                    i++;
+                else
+                    return a[i];
+            }
+
+            return -1;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
