@@ -2608,7 +2608,7 @@ namespace URIstudy
         // name = copperfield f riddler
         // symbols = [ "Co", "F", "Po", "Ct" ]
         // resposta: [Co]pperfield [F] riddler //como riddler não possui os primeiros caracteres na tabela, retorna igual a entrada
-        // O(n+s)
+        // O(n+s) O(s^n)
         // eu posso jogar o l2 como vazio e retirar uma cadeia de if juntando ele mesmo vazio com a palavra que eu fosse buscar na symbols;
         // passar a lista de symbols para um hashset e melhorar o find
         public static string BreakingBad(string name, List<string> symbols)
@@ -2718,6 +2718,40 @@ namespace URIstudy
 
                 if(localCounter > 0)
                     strings.RemoveAll(x => x == current);
+            }
+
+            return result;
+        }
+
+        // E65 A personagem do exercicio mantem uma lista com os seus pontos em jogos de basquete da temporada. O algoritmo
+        // deve retornar em forma de lista quantas vezes essa personagem quebrou seus recordes de mais e menos pontos por partida.
+        // O retorno é em forma de lista, onde o index 0 são os recordes de mais pontos e o 1 de menos.
+        public static List<int> BreakingRecords(List<int> scores)
+        {
+            // var scores = new List<int> {10, 5, 20, 20, 4, 5, 2, 25, 1}
+            // resposta: [2, 4]
+            int min = scores[0];
+            int max = scores[0];
+            List<int> result = new List<int>(2) { 0, 0 };
+            
+            // o que tenho que fazer é retornar contadores para as vezes que ela bateu recorde
+            // de least e most pontos por jogo
+
+            for(int i = 0; i < scores.Count; i++)
+            {
+                int currentScore = scores[i];
+
+                if(currentScore < min)
+                {
+                    min = currentScore;
+                    result[1] += 1;
+                }
+
+                if(currentScore > max)
+                {
+                    max = currentScore;
+                    result[0] += 1;
+                }
             }
 
             return result;
