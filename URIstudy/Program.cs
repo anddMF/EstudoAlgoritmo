@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            //var res = Lonelyinteger();
+            var res = GradingStudents();
             Console.ReadKey();
         }
 
@@ -2780,6 +2780,58 @@ namespace URIstudy
             }
 
             return -1;
+        }
+
+        // E67 A lista de entrada possui notas de estudantes e as abaixo de 40 são reprovadas. O algoritmo arredonda
+        // para o próximo múltiplo de 5 caso a diferença da nota para o próximo multiplo de 5 é menor que 3. Se a nota
+        // for menor do que 38, não adianta arredondar. A resposta é a lista de notas atualizadas.
+        public static List<int> GradingStudents(List<int> grades)
+        {
+            //var grades = new List<int> { 75, 67,38,33 };
+            // resposta: [75, 67, 40, 33]
+            // se a (proximo multiplo de 5) - current  > 3 ? current : multiplo de 5 próximo
+            // se a nota for menor que 38, não arredonda
+
+            // como descobrir o próximo mútiplo de 5
+            for(int i = 0; i < grades.Count; i++)
+            {
+                int current = grades[i];
+                if(current > 37)
+                {
+                    int next = GetNextMultipleOf(current, 5);
+                    grades[i] = next - current < 3 ? next : current;
+                }
+            }
+
+            return grades;
+        }
+
+        public static int GetNextMultipleOf(int valueToRound, int multipleOf)
+        {
+            int result = 0;
+            string text = valueToRound.ToString();
+            var a = text[1].ToString();
+            int second = Convert.ToInt32(text[1].ToString());
+            int first = Convert.ToInt32(text[0].ToString());
+
+            if (second == 0)
+                return valueToRound;
+
+            if (second > 5)
+                second = 0;
+            else if (second < 5 && second > 0)
+            {
+                second = 5;
+                result = Convert.ToInt32("" + first + second);
+                return result;
+            }
+
+            if (second == 0)
+                first++;
+
+            result = Convert.ToInt32("" + first + second);
+
+            return result;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
