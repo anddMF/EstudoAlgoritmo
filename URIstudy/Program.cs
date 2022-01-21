@@ -2835,6 +2835,34 @@ namespace URIstudy
             return result;
         }
 
+        // E68 Dentro da string de input existe uma mensagem de SOS que foi danificada. O algoritmo retorna quantas letras
+        // da mensagem que foram danificadas. Exemplo:
+        // s = "SOSTOT", resposta: 2  SOS'T'O'T', os dois Ts deveriam ser um S.
+        public static int MarsExploration(string s)
+        {
+            int sosIndex = 0;
+            int counter = 0;
+            List<string> sos = new List<string>() { "S", "O", "S" };
+
+            char[] input = s.ToCharArray();
+
+            for(int i = 0; i < input.Length; i++)
+            {
+                // uso para reiniciar o index da mensagem de gabarito
+                if (sosIndex == 3)
+                    sosIndex = 0;
+
+                string current = s[i].ToString();
+                if(current != sos[sosIndex])
+                    counter++;
+
+                sosIndex++;
+            }
+
+            return counter;
+
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
