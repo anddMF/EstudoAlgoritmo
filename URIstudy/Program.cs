@@ -2863,6 +2863,34 @@ namespace URIstudy
 
         }
 
+        // E69 O input 'path' contém os passos dados por uma hiker em seu hiking. Os passos consistem em 'U' para subida
+        // e 'D' para descida. A caminhada é sempre iniciada e finalizada no sea level, e cada passo U ou D representa 
+        // uma unidade de altitude. Para o exercício a definição de montanha é iniciada com um passo acima de sea level
+        // e finalizada voltando para sea level após uma sequencia de subida, já o valley é definido por uma sequencia
+        // de steps abaixo de sea level, no seu start, e finalizando com a subida para sea level.
+        // O algoritmo retorna por quantos valleys o hiker passou.
+        public static int CountingValleys(int steps, string path)
+        {
+            // string path = "UDDDUDUU"
+            // resposta: 1
+            int seaLevel = 0; // a cada D eu faço -1, a cada U +1
+            int counter = 0; // a cada SUBIDA pra sea level, +1
+            char[] input = path.ToCharArray();
+
+            for(int i = 0; i < input.Length; i++)
+            {
+                string current = input[i].ToString();
+
+                seaLevel = current == "D" ? seaLevel - 1 : seaLevel + 1;
+
+                // terminei um valley pois SUBI para sea level
+                if (seaLevel == 0 && current == "U")
+                    counter++;
+            }
+
+            return counter;
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
