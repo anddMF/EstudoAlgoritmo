@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            var res = GradingStudents();
+            //var res = GradingStudents();
             Console.ReadKey();
         }
 
@@ -2806,6 +2806,7 @@ namespace URIstudy
             return grades;
         }
 
+        // E67-COMPLEMENTO
         public static int GetNextMultipleOf(int valueToRound, int multipleOf)
         {
             int result = 0;
