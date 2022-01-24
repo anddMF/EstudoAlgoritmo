@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            Test();
+            var res = RecursiveUpToN(5);
             Console.ReadKey();
         }
 
@@ -3026,6 +3026,7 @@ namespace URIstudy
             }
         }
 
+        // E74-COMPLEMENTO
         public static bool TestSubsTree(TreeNode og, TreeNode s)
         {
             if(og == null || s == null)
@@ -3045,6 +3046,26 @@ namespace URIstudy
                 return false;
             }
 
+        }
+
+        // E75 Write a RECURSIVE funcion that given an integer input n, sums all non negative integer up to n
+        public static int RecursiveUpToN(int n)
+        {
+            // 15
+            return SolveUpTo(0, n, 0);
+        }
+
+        // E75-COMPLEMENTO
+        public static int SolveUpTo(int n, int target, int currentSum)
+        {
+            if(n == target)
+            {
+                return currentSum += n;
+            } else
+            {
+                currentSum += n;
+                return SolveUpTo(n+1, target, currentSum);
+            }
         }
 
         public static void Test()
