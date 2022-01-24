@@ -2959,6 +2959,46 @@ namespace URIstudy
             return result;
         }
 
+        // E73
+        public static TreeNode InvertTree(TreeNode root)
+        {
+            //      1
+            //   2     3
+            //  4 5   6 7
+
+            //      1
+            //  3      2
+            // 7 6    5 4
+
+            // comum nesses algoritmos de arvore é utilizar recursion.
+
+            // então utilizar a validação de null pra voltar ao node com valor. depth firt search, vou até
+            // o final da árvore antes de começar a fazer o processo.
+            if (root == null)
+                return root;
+
+            // chamo o invert até chegar no útimo node da esquerda, depois o da direita e, consequentemente, estar no último
+            // galho da árvore (2) para poder começar a inverter.
+            TreeNode left = InvertTree(root.left);
+            TreeNode right = InvertTree(root.right);
+
+            root.left = right;
+            root.right = left;
+            return root;
+        }
+
+        public class TreeNode
+        {
+            public int val { get; set; }
+            public TreeNode left { get; set; }
+            public TreeNode right { get; set; }
+
+            public TreeNode(int x)
+            {
+                val = x;
+            }
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
