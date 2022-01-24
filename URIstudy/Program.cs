@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            //var res = Pangrams();
+            Test();
             Console.ReadKey();
         }
 
@@ -2959,12 +2959,16 @@ namespace URIstudy
             return result;
         }
 
-        // E73
+        // E73 Inverte bionary tree
         public static TreeNode InvertTree(TreeNode root)
         {
             //      1
-            //   2     3
+            //   2     3            
             //  4 5   6 7
+
+
+            //   2     
+            //  4 5
 
             //      1
             //  3      2
@@ -2987,6 +2991,7 @@ namespace URIstudy
             return root;
         }
 
+        // E73-COMPLEMENTO
         public class TreeNode
         {
             public int val { get; set; }
@@ -2997,6 +3002,68 @@ namespace URIstudy
             {
                 val = x;
             }
+        }
+
+        // E74 Retorna se a subtree (s) completa existe na tree og. Para ser válido, a subtree tem que terminar junto com a og, combinando também
+        // nos let=null e right=null que existem em todo final de binary tree.
+        public static bool HasSubTree(TreeNode og, TreeNode s)
+        {
+            // preciso navegar na principal e ir comparando os roots, quando existir um root igual (com left e right iguais), retorna true
+
+            // se for true, naveguei por toda a tree og e nao encontrei a subtree
+            if (og == null)
+                return false;
+
+            // verifica no level atual da tree se são iguais, caso não, vai para o else avançar pela tree og
+            else if(TestSubsTree(og, s))
+            {
+                return true;
+            }
+            else
+            {
+                // traverse da tree og, só precisa de um desses retornando true para validar que existe
+                return HasSubTree(og.left, s) || HasSubTree(og.right, s);
+            }
+        }
+
+        public static bool TestSubsTree(TreeNode og, TreeNode s)
+        {
+            if(og == null || s == null)
+            {
+                return s == null && og == null;
+            } 
+            // se encontrar os valores iguais, ele então pode continuar a recursion para ir verificando nos próximos nodes se 
+            // continuam sendo iguais
+            else if(og.val == s.val)
+            {
+                // caso sejam arvores iguais, essas chamadas vão navegar até ambas chegarem ao valor null, assim o primeiro if
+                // retorna true;
+                return TestSubsTree(og.left, s.left) && TestSubsTree(og.right, s.right);
+            } else
+            {
+                // se os valores não batem, então retorna false para todas as chamadas, até chegar na principal que vai traversar na og
+                return false;
+            }
+
+        }
+
+        public static void Test()
+        {
+            var og = new TreeNode(1);
+            og.left = new TreeNode(2);
+            og.right = new TreeNode(3);
+
+            og.left.left = new TreeNode(4);
+            og.left.right = new TreeNode(5);
+
+            og.right.left = new TreeNode(6);
+            og.right.right = new TreeNode(7);
+
+            var s = new TreeNode(2);
+            s.left = new TreeNode(4);
+            s.right = new TreeNode(5);
+
+            var result = HasSubTree(og, s);
         }
 
         public static ListNode RemoveNthFromEnd(int B)
