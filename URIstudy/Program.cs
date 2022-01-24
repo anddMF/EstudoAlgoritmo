@@ -2926,6 +2926,39 @@ namespace URIstudy
             return result;
         }
 
+        // E72-REVISAO-E15
+        public static int DiagonalDifference2(List<List<int>> arr)
+        {
+            // 1 2 3
+            // 4 5 6
+            // 9 8 9
+            //
+            // 1+5+9 = 15 ; 3+5+9 = 17
+            // |15-17| = 2;
+            var a = new List<int> { 1, 2, 3 };
+            var b = new List<int> { 4,5,6 };
+            var c = new List<int> { 9,8,9 };
+
+            arr.Add(a);
+            arr.Add(b);
+            arr.Add(c);
+
+            int left = arr[0][0];
+            int right = arr[0][arr[0].Count - 1];
+            int lastIndex = arr[0].Count-2;
+            for(int i = 1; i < arr.Count; i++)
+            {
+                List<int> current = arr[i];
+                left += current[i];
+                right += current[lastIndex];
+
+                lastIndex--;
+            }
+
+            int result = Math.Abs(left - right);
+            return result;
+        }
+
         public static ListNode RemoveNthFromEnd(int B)
         {
             var list = new List<int> { 1, 2, 3, 4, 5 };
