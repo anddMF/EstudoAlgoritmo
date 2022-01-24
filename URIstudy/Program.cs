@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            var res = Pangrams();
+            //var res = Pangrams();
             Console.ReadKey();
         }
 
@@ -2891,7 +2891,7 @@ namespace URIstudy
             return counter;
         }
 
-        // E70
+        // E70-REVISAO-E42
         public static string Pangrams(string s)
         {
             //string s = "We promptly judged antique ivory buckles for the next prize";
@@ -2914,6 +2914,16 @@ namespace URIstudy
             response = letters.Count > 0 ? "not pangram" : "pangram";
 
             return response;
+        }
+
+        // E71-REVISAO-E41
+        public static List<int> CountingSort2(List<int> arr)
+        {
+            List<int> result = new List<int>(new int[100]);
+            for(int i = 0; i < arr.Count; i++)
+                result[arr[i]] += 1;
+
+            return result;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
