@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            //var res = GradingStudents();
+            var res = Pangrams();
             Console.ReadKey();
         }
 
@@ -2889,6 +2889,31 @@ namespace URIstudy
             }
 
             return counter;
+        }
+
+        // E70
+        public static string Pangrams(string s)
+        {
+            //string s = "We promptly judged antique ivory buckles for the next prize";
+            // resultado: pangram
+            List<char> letters = "abcdefghijklmnopqrstuvwxyz".ToList();
+            List<char> arr = s.Trim().ToList();
+            string response = "";
+
+            for(int i = 0; i < arr.Count; i++)
+            {
+                string current = arr[i].ToString().ToLower();
+                if(current != " ")
+                {
+                    int index = letters.FindIndex(x => x.ToString() == current);
+                    if (index > -1)
+                        letters.RemoveAt(index);
+                }
+            }
+
+            response = letters.Count > 0 ? "not pangram" : "pangram";
+
+            return response;
         }
 
         public static ListNode RemoveNthFromEnd(int B)
