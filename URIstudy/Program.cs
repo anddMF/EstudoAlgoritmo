@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            var res = RecursiveUpToN(5);
+            //var res = CreateTreeByList();
             Console.ReadKey();
         }
 
@@ -2446,27 +2446,27 @@ namespace URIstudy
             string word = split[2];
             string result = "";
 
-            if(operation == "S")
+            if (operation == "S")
             {
-                if(type == "M" || type == "V")
+                if (type == "M" || type == "V")
                 {
                     // preciso encontrar o primeiro uppercase para separar 
                     foreach (char item in word)
                     {
-                        if(item.ToString() != "(" && item.ToString() != ")")
+                        if (item.ToString() != "(" && item.ToString() != ")")
                         {
                             if (Char.IsUpper(item))
                                 result += " " + item.ToString().ToLower();
                             else
                                 result += item.ToString();
                         }
-                        
+
                     }
                     Console.WriteLine(result);
                 }
-                if(type == "C")
+                if (type == "C")
                 {
-                    for(int i = 0; i < word.Length; i++)
+                    for (int i = 0; i < word.Length; i++)
                     {
                         char item = word[i];
                         if (Char.IsUpper(item))
@@ -2484,7 +2484,7 @@ namespace URIstudy
 
             }
 
-            if(operation == "C")
+            if (operation == "C")
             {
                 string[] words = word.Split(' ');
 
@@ -2502,9 +2502,10 @@ namespace URIstudy
                         result += "()";
 
                     Console.WriteLine(result);
-                } else
+                }
+                else
                 {
-                    for(int i = 0; i<words.Length; i++)
+                    for (int i = 0; i < words.Length; i++)
                     {
                         string item = words[i];
                         if (i == 0)
@@ -2590,11 +2591,11 @@ namespace URIstudy
 
             int counter = 0;
 
-            for(int i = A.Count - 1; i > 0; i--)
+            for (int i = A.Count - 1; i > 0; i--)
             {
                 partialSum += A[i];
                 counter++;
-                if(counter == B)
+                if (counter == B)
                 {
                     totalSum = Math.Max(partialSum, totalSum);
                     return totalSum;
@@ -2675,10 +2676,10 @@ namespace URIstudy
             // resposta: 3,  1+3 ; 2+3 ; 4+6
             int counter = 0;
 
-            for(int i = 0; i < ar.Count - 1; i++)
+            for (int i = 0; i < ar.Count - 1; i++)
             {
                 int first = ar[i];
-                for(int j = i + 1; j < ar.Count; j++)
+                for (int j = i + 1; j < ar.Count; j++)
                 {
                     int sum = first + ar[j];
                     int divisible = sum % k;
@@ -2708,7 +2709,7 @@ namespace URIstudy
             {
                 string current = queries[i];
                 int localCounter = 0;
-                for(int j = 0; j < strings.Count; j++)
+                for (int j = 0; j < strings.Count; j++)
                 {
                     if (current == strings[j])
                         localCounter++;
@@ -2716,7 +2717,7 @@ namespace URIstudy
 
                 result.Add(localCounter);
 
-                if(localCounter > 0)
+                if (localCounter > 0)
                     strings.RemoveAll(x => x == current);
             }
 
@@ -2733,21 +2734,21 @@ namespace URIstudy
             int min = scores[0];
             int max = scores[0];
             List<int> result = new List<int>(2) { 0, 0 };
-            
+
             // o que tenho que fazer é retornar contadores para as vezes que ela bateu recorde
             // de least e most pontos por jogo
 
-            for(int i = 0; i < scores.Count; i++)
+            for (int i = 0; i < scores.Count; i++)
             {
                 int currentScore = scores[i];
 
-                if(currentScore < min)
+                if (currentScore < min)
                 {
                     min = currentScore;
                     result[1] += 1;
                 }
 
-                if(currentScore > max)
+                if (currentScore > max)
                 {
                     max = currentScore;
                     result[0] += 1;
@@ -2768,7 +2769,7 @@ namespace URIstudy
 
             a.Sort();
 
-            for(int i = 0; i < a.Count ; i++)
+            for (int i = 0; i < a.Count; i++)
             {
                 if (i == a.Count - 1)
                     return a[i];
@@ -2793,10 +2794,10 @@ namespace URIstudy
             // se a nota for menor que 38, não arredonda
 
             // como descobrir o próximo mútiplo de 5
-            for(int i = 0; i < grades.Count; i++)
+            for (int i = 0; i < grades.Count; i++)
             {
                 int current = grades[i];
-                if(current > 37)
+                if (current > 37)
                 {
                     int next = GetNextMultipleOf(current, 5);
                     grades[i] = next - current < 3 ? next : current;
@@ -2846,14 +2847,14 @@ namespace URIstudy
 
             char[] input = s.ToCharArray();
 
-            for(int i = 0; i < input.Length; i++)
+            for (int i = 0; i < input.Length; i++)
             {
                 // uso para reiniciar o index da mensagem de gabarito
                 if (sosIndex == 3)
                     sosIndex = 0;
 
                 string current = s[i].ToString();
-                if(current != sos[sosIndex])
+                if (current != sos[sosIndex])
                     counter++;
 
                 sosIndex++;
@@ -2877,7 +2878,7 @@ namespace URIstudy
             int counter = 0; // a cada SUBIDA pra sea level, +1
             char[] input = path.ToCharArray();
 
-            for(int i = 0; i < input.Length; i++)
+            for (int i = 0; i < input.Length; i++)
             {
                 string current = input[i].ToString();
 
@@ -2900,10 +2901,10 @@ namespace URIstudy
             List<char> arr = s.Trim().ToList();
             string response = "";
 
-            for(int i = 0; i < arr.Count; i++)
+            for (int i = 0; i < arr.Count; i++)
             {
                 string current = arr[i].ToString().ToLower();
-                if(current != " ")
+                if (current != " ")
                 {
                     int index = letters.FindIndex(x => x.ToString() == current);
                     if (index > -1)
@@ -2920,7 +2921,7 @@ namespace URIstudy
         public static List<int> CountingSort2(List<int> arr)
         {
             List<int> result = new List<int>(new int[100]);
-            for(int i = 0; i < arr.Count; i++)
+            for (int i = 0; i < arr.Count; i++)
                 result[arr[i]] += 1;
 
             return result;
@@ -2936,8 +2937,8 @@ namespace URIstudy
             // 1+5+9 = 15 ; 3+5+9 = 17
             // |15-17| = 2;
             var a = new List<int> { 1, 2, 3 };
-            var b = new List<int> { 4,5,6 };
-            var c = new List<int> { 9,8,9 };
+            var b = new List<int> { 4, 5, 6 };
+            var c = new List<int> { 9, 8, 9 };
 
             arr.Add(a);
             arr.Add(b);
@@ -2945,8 +2946,8 @@ namespace URIstudy
 
             int left = arr[0][0];
             int right = arr[0][arr[0].Count - 1];
-            int lastIndex = arr[0].Count-2;
-            for(int i = 1; i < arr.Count; i++)
+            int lastIndex = arr[0].Count - 2;
+            for (int i = 1; i < arr.Count; i++)
             {
                 List<int> current = arr[i];
                 left += current[i];
@@ -3015,7 +3016,7 @@ namespace URIstudy
                 return false;
 
             // verifica no level atual da tree se são iguais, caso não, vai para o else avançar pela tree og
-            else if(TestSubsTree(og, s))
+            else if (TestSubsTree(og, s))
             {
                 return true;
             }
@@ -3029,18 +3030,19 @@ namespace URIstudy
         // E74-COMPLEMENTO
         public static bool TestSubsTree(TreeNode og, TreeNode s)
         {
-            if(og == null || s == null)
+            if (og == null || s == null)
             {
                 return s == null && og == null;
-            } 
+            }
             // se encontrar os valores iguais, ele então pode continuar a recursion para ir verificando nos próximos nodes se 
             // continuam sendo iguais
-            else if(og.val == s.val)
+            else if (og.val == s.val)
             {
                 // caso sejam arvores iguais, essas chamadas vão navegar até ambas chegarem ao valor null, assim o primeiro if
                 // retorna true;
                 return TestSubsTree(og.left, s.left) && TestSubsTree(og.right, s.right);
-            } else
+            }
+            else
             {
                 // se os valores não batem, então retorna false para todas as chamadas, até chegar na principal que vai traversar na og
                 return false;
@@ -3058,14 +3060,65 @@ namespace URIstudy
         // E75-COMPLEMENTO
         public static int SolveUpTo(int n, int target, int currentSum)
         {
-            if(n == target)
+            if (n == target)
             {
                 return currentSum += n;
-            } else
+            }
+            else
             {
                 currentSum += n;
-                return SolveUpTo(n+1, target, currentSum);
+                return SolveUpTo(n + 1, target, currentSum);
             }
+        }
+
+        // E76 Cria uma binary tree a partir de uma list de input. Com o exemplo arr = [ 1, 2, 3, 4, 5, 6]
+        //        1
+        //     2     3
+        //    4 5   6
+        public static TreeNode CreateTreeByList(List<int> arr)
+        {
+            //List<int> arr = new List<int> { 1, 2, 5, 6, 8, 12 };
+            TreeNode result = new TreeNode(arr[0]);
+            // shallow copy para poder correr a árvore
+            var runner = result;
+
+            Queue<TreeNode> q = new Queue<TreeNode>();
+
+            int index = 1;
+
+            // crio os primeiros nodes e utilizo a Queue para salvar o próximo level da arvore que precisa
+            // adicionar left e right
+            runner.left = new TreeNode(arr[index]);
+            q.Enqueue(runner.left);
+
+            if (index + 1 < arr.Count)
+            {
+                runner.right = new TreeNode(arr[index + 1]);
+                q.Enqueue(runner.right);
+            }
+
+
+            index = 3;
+            // esse loop vai ir navegando pela queue e adicionar os próximos elementos da arvore pela left e right
+            // até que a array termine
+            while (q.Count > 0 && index < arr.Count)
+            {
+                runner = q.Dequeue();
+
+                runner.left = new TreeNode(arr[index]);
+                // já adicionar na queue pois é o próximo level da árvore para se completada
+                q.Enqueue(runner.left);
+                index++;
+                if (index < arr.Count)
+                {
+                    runner.right = new TreeNode(arr[index]);
+                    q.Enqueue(runner.right);
+                    index++;
+                }
+
+            }
+
+            return result;
         }
 
         public static void Test()
