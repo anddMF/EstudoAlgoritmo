@@ -3154,6 +3154,40 @@ namespace URIstudy
             return counter;
         }
 
+        // E78 Cada item na lista é o id de um pássaro avistado. O método retorna o id do pássaro mais visto, caso tenha a mesma 
+        // frequencia em mais de um id, tem que retornar o menor dos ids. O(n x l) onde l é o length da lista distinct
+        public static int MigratoryBirds(List<int> arr)
+        {
+            // get the frequency from the birds ids
+            int id = 0;
+            int freq = 0;
+            // [ 1,1,2,2,3 ]
+
+            // use the distinct to get the different ids on the existing list
+            var distinct = arr.Distinct(); // 1,2,3
+            
+            // foreach because the distinct is a Ienumerable
+            foreach(int obj in distinct)
+            {
+                // get how many times the number appears on the main list
+                int count = arr.FindAll(x => x == obj).Count; //2
+                if(count >= freq)
+                {
+                    // if the frequency is the same, get the smallest id
+                    if(count == freq)
+                        id = obj < id ? obj : id;
+                    // otherwise, update the most frequent id and his frequency
+                    else
+                    {
+                        id = obj;
+                        freq = count;
+                    }
+                }
+            }
+
+            return id;
+        }
+
         public static void Test()
         {
             var og = new TreeNode(1);
