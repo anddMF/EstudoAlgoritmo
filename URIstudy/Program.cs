@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            //var res = CreateTreeByList();
+            //var res = SockMerchant2();
             Console.ReadKey();
         }
 
@@ -3188,6 +3188,37 @@ namespace URIstudy
             return id;
         }
 
+        // E79-REVISAO-E44
+        public static int SockMerchant2(int n, List<int> ar)
+        {
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+            int pairs = 0;
+
+            // add on the dictionary the number of times each sock appears
+            for (int i = 0; i < ar.Count; i++)
+            {
+                int current = ar[i];
+                if (dic.ContainsKey(current))
+                    dic[current] += 1;
+                else
+                    dic.Add(current, 1);
+            }
+
+            // for every sock, transform the number of times it appears in a even number and calculate
+            // the number os pairs by dividing by two
+            foreach (var data in dic)
+            {
+                int times = data.Value;
+
+                if (times % 2 != 0)
+                    times -= 1;
+
+                pairs += times / 2;
+            }
+
+            return pairs;
+        }
+
         public static void Test()
         {
             var og = new TreeNode(1);
@@ -3343,6 +3374,11 @@ namespace URIstudy
 
             int result = 0;
             int lastResult = 0;
+            Dictionary<int, int> dic = new Dictionary<int, int>();
+            foreach(var x in dic)
+            {
+                int a = x.Value;
+            }
 
             for (int i = 0; i < A.Count; i++)
             {
