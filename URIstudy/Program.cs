@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            //var res = SockMerchant2();
+            //var res = pageCount(6,2);
             Console.ReadKey();
         }
 
@@ -3217,6 +3217,29 @@ namespace URIstudy
             }
 
             return pairs;
+        }
+
+        // E80-REVISAO-E45
+        public static int PageCount2(int n, int p)
+        {
+            // count the min number of pages that must be turned
+            // 1 23 45 67 89 10,11
+            // n 5/ F = 2, B = 3
+
+            // transform n and p in even numbers
+            // frontFormula = n / 2;
+            // endFormula = (p - n) / 2;
+            int result = 0;
+            if (n % 2 != 0)
+                n -= 1;
+
+            if (p % 2 != 0)
+                p -= 1;
+
+            int start = p / 2;
+            int end = (n - p) / 2;
+
+            return Math.Min(start, end);
         }
 
         public static void Test()
