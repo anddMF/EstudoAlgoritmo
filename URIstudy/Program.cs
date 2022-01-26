@@ -3121,6 +3121,39 @@ namespace URIstudy
             return result;
         }
 
+        // E77-REVISAO-E43
+        public static int Birthday2()
+        {
+            // encontrar uma subarray com o length de m, que somada resulta no d
+            List<int> s = new List<int>();
+            int d = 4;
+            int m = 2;
+
+            int currentSum = 0;
+            int counter = 0;
+
+            int length = 0;
+            int firstIndex = 0;
+
+            //sliding window
+            for(int i = 0; i < s.Count; i++)
+            {
+                int current = s[i];
+                currentSum += current;
+                length++;
+
+                if(length == m)
+                {
+                    counter = currentSum == d ? counter + 1 : counter;
+                    length--;
+                    currentSum -= s[firstIndex];
+                    firstIndex++;
+                }
+            }
+
+            return counter;
+        }
+
         public static void Test()
         {
             var og = new TreeNode(1);
