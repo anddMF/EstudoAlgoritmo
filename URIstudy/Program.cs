@@ -3229,7 +3229,7 @@ namespace URIstudy
             // transform n and p in even numbers
             // frontFormula = n / 2;
             // endFormula = (p - n) / 2;
-            int result = 0;
+
             if (n % 2 != 0)
                 n -= 1;
 
@@ -3240,6 +3240,42 @@ namespace URIstudy
             int end = (n - p) / 2;
 
             return Math.Min(start, end);
+        }
+
+        // E81 Given the input array, find the pair with the smallest absolute difference and return tha pair in a array. If there is more than 
+        // one pair, return them all.
+        public static List<int> ClosestNumbers(List<int> arr)
+        {
+            //  0 1  2  3  4
+            // -5 15 25 63 71
+            // if I find a new min difference, clear the response list
+            arr.Sort();
+            int diff = int.MaxValue;
+            List<int> res = new List<int>();
+
+            for (int i = 0; i < arr.Count - 1; i++)
+            {
+                // cálculo para pegar a diferença absoluta atual. Como eu faço a conta usando i+1, o for
+                // tem a condição de arr.Count-1 para eu não atingir o index inexistente.
+                int currentDiff = Math.Abs(arr[i] - arr[i + 1]);
+
+                // se a currentDiff for menor que a diff principal até então, limpo a lista de resposta
+                // (já que não tinha a menor diff da array) e adiciono o par da diferença atual
+                if (currentDiff < diff)
+                {
+                    diff = currentDiff;
+                    res.Clear();
+                    res.Add(arr[i]);
+                    res.Add(arr[i + 1]);
+                }
+                else if (currentDiff == diff)
+                {
+                    res.Add(arr[i]);
+                    res.Add(arr[i + 1]);
+                }
+            }
+
+            return res;
         }
 
         public static void Test()
