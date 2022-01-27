@@ -3300,6 +3300,24 @@ namespace URIstudy
             return res;
         }
 
+        // E83 Verifies if a linked list have a cycle (any node is visited more than once while traversing the list).
+        // Returns true or false;
+        static bool HasCycle(SinglyLinkedListNode head)
+        {
+            // usei hashset para ir salvando cada node visitado, já que ele te uma busca eficiente,
+            // verifico se o node visitado já existe nele, se existir é porque tem um cycle
+            bool res = false;
+            HashSet<SinglyLinkedListNode> hs = new HashSet<SinglyLinkedListNode>();
+            while (head != null)
+            {
+                if (!hs.Contains(head))
+                    hs.Add(head);
+                else
+                    return true;
+            }
+            return res;
+        }
+
         public static void Test()
         {
             var og = new TreeNode(1);
