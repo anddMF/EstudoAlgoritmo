@@ -3278,6 +3278,28 @@ namespace URIstudy
             return res;
         }
 
+        // E82 Given an input array and an int d, rotate the array shifting the element d numbers to the left. Example:
+        // arr = [ 1,2,3,4,5 ] ; d = 2;
+        // response = [ 3,4,5,1,2 ]
+        public static List<int> RotateLeft(int d, List<int> arr)
+        {
+            // r = index - d
+            // if r < 0 = r + length
+            List<int> res = new List<int>(new int[arr.Count]);
+            // [0 , 0]
+
+            for (int i = 0; i < arr.Count; i++)
+            {
+                int rotation = i - d;
+                if (rotation < 0)
+                    rotation = rotation + arr.Count;
+
+                res[rotation] = arr[i];
+            }
+
+            return res;
+        }
+
         public static void Test()
         {
             var og = new TreeNode(1);
