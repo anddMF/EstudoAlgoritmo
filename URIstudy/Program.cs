@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            //var res = pageCount(6,2);
+            var res = insertNodeAtPosition(head, 20, 2);
             Console.ReadKey();
         }
 
@@ -1990,8 +1990,35 @@ namespace URIstudy
         {
             public int data { get; set; }
             public SinglyLinkedListNode next { get; set; }
+
+            public SinglyLinkedListNode(int nodeData)
+            {
+                this.data = nodeData;
+                this.next = null;
+            }
+            public SinglyLinkedListNode()
+            {
+
+            }
             //int data;
             //SinglyLinkedListNode next;
+        }
+
+        public class SinglyLinkedListNodeN
+        {
+            int data;
+            SinglyLinkedListNodeN next;
+
+            public SinglyLinkedListNodeN(int nodeData)
+            {
+                this.data = nodeData;
+                this.next = null;
+            }
+
+            public SinglyLinkedListNodeN()
+            {
+
+            }
         }
 
         // E50 Reverte uma linked list com stack
@@ -3316,6 +3343,32 @@ namespace URIstudy
                     return true;
             }
             return res;
+        }
+
+        // 
+        public static SinglyLinkedListNode insertNodeAtPosition(SinglyLinkedListNode llist, int data, int position)
+        {
+            int counter = 0;
+
+            SinglyLinkedListNode runner = llist;
+            while (runner != null)
+            {
+                if (counter == position)
+                {
+                    var next = new SinglyLinkedListNode(runner.data);
+                    next.next = runner.next;
+
+                    runner.data = data;
+                    runner.next = next;
+                    return llist;
+                }
+
+                //prev = runner;
+                runner = runner.next;
+                counter++;
+            }
+
+            return llist;
         }
 
         public static void Test()
