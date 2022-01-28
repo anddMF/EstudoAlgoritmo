@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            var res = insertNodeAtPosition(head, 20, 2);
+            var res = Alternate();
             Console.ReadKey();
         }
 
@@ -3345,8 +3345,8 @@ namespace URIstudy
             return res;
         }
 
-        // 
-        public static SinglyLinkedListNode insertNodeAtPosition(SinglyLinkedListNode llist, int data, int position)
+        // E84-REVISAO-E51
+        public static SinglyLinkedListNode InsertNodeAtPosition2(SinglyLinkedListNode llist, int data, int position)
         {
             int counter = 0;
 
@@ -3369,6 +3369,61 @@ namespace URIstudy
             }
 
             return llist;
+        }
+
+        // E85 remove characters until the string is made up of any two alternating characters. When you choose a character to remove,
+        // all instances of that character must be removed. Returns the length of the longest valid array.
+        public static int Alternate()
+        {
+            string s = "abaacdabd";
+            // get the distincts
+            // alternate choosing 2 and removing the rest, then test the array e se the length. Return the biggest length
+
+            // transform the string into a list and get the distincts so i can remove the rest on the testing
+            List<string> arr = s.ToList().ConvertAll(x => x.ToString());
+            List<string> distincts = arr.Distinct().ToList();
+
+            int length = 0;
+
+            for(int i = 0; i < distincts.Count - 1; i++)
+            {
+                string first = distincts[i];
+
+                // test the string with two of the distincts and save the length if it is valid
+                for(int j = i + 1; j < distincts.Count; j++)
+                {
+                    string second = distincts[j];
+                    // deep copy
+                    List<string> sub = new List<string>(arr);
+                    sub.RemoveAll(x => x != first && x != second);
+
+                    bool valid = IsValid(sub);
+
+                    if (valid)
+                        length = Math.Max(sub.Count, length); 
+                }
+            }
+
+            return length;
+        }
+
+        public static bool IsValid(List<string> arr)
+        {
+            bool res = false;
+            string prev = arr[0];
+            for(int i = 1; i<arr.Count; i++)
+            {
+                if(arr[i] == prev)
+                {
+                    return false;
+                } else
+                {
+                    res = true;
+                    prev = arr[i];
+                }
+            }
+
+            return res;
         }
 
         public static void Test()
