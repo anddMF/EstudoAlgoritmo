@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            var res = Alternate();
+            var res = SuperReducedString("aaabccddd");
             Console.ReadKey();
         }
 
@@ -3407,6 +3407,7 @@ namespace URIstudy
             return length;
         }
 
+        // E85-COMPLEMENTO
         public static bool IsValid(List<string> arr)
         {
             bool res = false;
@@ -3424,6 +3425,44 @@ namespace URIstudy
             }
 
             return res;
+        }
+
+        // E86 Reduz uma string removendo letras adjacentes dentro dela, faz isso em diveresas operações até não sobrar nenhuma adjacente. Em caso de string final vazia, retorna "Empty String".
+        // Exemplo: s = "abba"; a primeira operação remove b e fica s = "aa"; a segunda operação remove a e fica s = "".
+        public static string SuperReducedString(string s)
+        {
+            List<int> toRemove = new List<int>();
+            bool complete = false;
+            string left = s;
+            while (!complete)
+            {
+                s = left;
+                left = "";
+                complete = true;
+                for (int i = 0; i < s.Length; i++)
+                {
+                    string current = s[i].ToString();
+                    if (i + 1 < s.Length)
+                    {
+
+                        if (current == s[i + 1].ToString())
+                        {
+                            complete = false;
+                            i++;
+                        }
+                        else
+                        {
+                            left += current;
+                        }
+                    }
+                    else
+                    {
+                        left += current;
+                    }
+                }
+            }
+
+            return s.Length > 0 ? s : "Empty String";
         }
 
         public static void Test()
