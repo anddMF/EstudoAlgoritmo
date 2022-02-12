@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            var res = SuperReducedString("aaabccddd");
+            var res = HasCycle(head);
             Console.ReadKey();
         }
 
@@ -3331,7 +3331,7 @@ namespace URIstudy
         // Returns true or false;
         static bool HasCycle(SinglyLinkedListNode head)
         {
-            // usei hashset para ir salvando cada node visitado, já que ele te uma busca eficiente,
+            // usei hashset para ir salvando cada node visitado, já que ele tem uma busca eficiente,
             // verifico se o node visitado já existe nele, se existir é porque tem um cycle
             bool res = false;
             HashSet<SinglyLinkedListNode> hs = new HashSet<SinglyLinkedListNode>();
@@ -3341,6 +3341,8 @@ namespace URIstudy
                     hs.Add(head);
                 else
                     return true;
+
+                head = head.next;
             }
             return res;
         }
