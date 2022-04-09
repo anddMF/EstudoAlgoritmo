@@ -14,7 +14,7 @@ namespace URIstudy
         static void Main(string[] args)
         {
             Console.WriteLine("------------- S T A R T ----------------");
-            List<int> numberList = new List<int> { 4, 2, 3, 7, 2, 4, 2 };
+            List<double> numberList = new List<double> { 7, -10, 13, 8, 4, -7.2, -12, -3.7, 1.5, -1,7 };
             List<int> numberList2 = new List<int> { 2, 1, 3, 5, 3, 2 };
             List<int> arr = new List<int> { -4, 3, -9, 0, 4, 1 };
             int sum = 13;
@@ -26,7 +26,7 @@ namespace URIstudy
             //PlusMinus(arr);
             //int result = WordLadder("hit", "cog", new List<string> { "hot", "dot", "dog", "lot", "log", "cog" });
 
-            var list = new List<int> { 1, 3, 7 };
+            var list = new List<int> { 16, 13, 7 };
             var llist = new SinglyLinkedListNode { data = list[0], next = null };
             var head = llist;
             for (int i = 1; i < list.Count; i++)
@@ -43,7 +43,7 @@ namespace URIstudy
                 llist2.next = new SinglyLinkedListNode { data = list2[i], next = null };
                 llist2 = llist2.next;
             }
-            var res = HasCycle(head);
+            var res = ClosestToZero(numberList);
             Console.ReadKey();
         }
 
@@ -3163,13 +3163,13 @@ namespace URIstudy
             int firstIndex = 0;
 
             //sliding window
-            for(int i = 0; i < s.Count; i++)
+            for (int i = 0; i < s.Count; i++)
             {
                 int current = s[i];
                 currentSum += current;
                 length++;
 
-                if(length == m)
+                if (length == m)
                 {
                     counter = currentSum == d ? counter + 1 : counter;
                     length--;
@@ -3192,16 +3192,16 @@ namespace URIstudy
 
             // use the distinct to get the different ids on the existing list
             var distinct = arr.Distinct(); // 1,2,3
-            
+
             // foreach because the distinct is a Ienumerable
-            foreach(int obj in distinct)
+            foreach (int obj in distinct)
             {
                 // get how many times the number appears on the main list
                 int count = arr.FindAll(x => x == obj).Count; //2
-                if(count >= freq)
+                if (count >= freq)
                 {
                     // if the frequency is the same, get the smallest id
-                    if(count == freq)
+                    if (count == freq)
                         id = obj < id ? obj : id;
                     // otherwise, update the most frequent id and his frequency
                     else
@@ -3387,12 +3387,12 @@ namespace URIstudy
 
             int length = 0;
 
-            for(int i = 0; i < distincts.Count - 1; i++)
+            for (int i = 0; i < distincts.Count - 1; i++)
             {
                 string first = distincts[i];
 
                 // test the string with two of the distincts and save the length if it is valid
-                for(int j = i + 1; j < distincts.Count; j++)
+                for (int j = i + 1; j < distincts.Count; j++)
                 {
                     string second = distincts[j];
                     // deep copy
@@ -3402,7 +3402,7 @@ namespace URIstudy
                     bool valid = IsValid(sub);
 
                     if (valid)
-                        length = Math.Max(sub.Count, length); 
+                        length = Math.Max(sub.Count, length);
                 }
             }
 
@@ -3414,12 +3414,13 @@ namespace URIstudy
         {
             bool res = false;
             string prev = arr[0];
-            for(int i = 1; i<arr.Count; i++)
+            for (int i = 1; i < arr.Count; i++)
             {
-                if(arr[i] == prev)
+                if (arr[i] == prev)
                 {
                     return false;
-                } else
+                }
+                else
                 {
                     res = true;
                     prev = arr[i];
@@ -3465,6 +3466,259 @@ namespace URIstudy
             }
 
             return s.Length > 0 ? s : "Empty String";
+        }
+
+        // E87 Receive a list with temperature and returns the closes to zero. If two numbers are as close to zero, it returns the positive number (if ts contains -5 and 5, return 5)
+        public static double ClosestToZero(List<double> ts)
+        {
+            //List<double> ts = new List<double> { 7, -10, 13, 8, 4, -7.2, -12, -3.7, 1.5, -1, 7 };
+
+            if (ts.Count == 0)
+                return 0;
+
+            double closest = double.MaxValue;
+            double realNumber = 1.1;
+            for(int i = 0; i < ts.Count; i++)
+            {
+                var current = Math.Abs(ts[i]);
+                if (current < closest)
+                {
+                    closest = current;
+                    realNumber = ts[i];
+                }
+                else if (current == closest && ts[i] > closest)
+                {
+                    closest = current;
+                    realNumber = ts[i];
+                }
+            }
+
+            return realNumber;
+        }
+
+        public static SinglyLinkedListNode Reverse(SinglyLinkedListNode llist)
+        {
+            Stack<SinglyLinkedListNode> stack = new Stack<SinglyLinkedListNode>();
+            while (llist.next != null)
+            {
+                stack.Push(new SinglyLinkedListNode(llist.data));
+                llist = llist.next;
+            }
+            stack.Push(new SinglyLinkedListNode(llist.data));
+
+            // here llist its on his last node
+            SinglyLinkedListNode response = llist;
+            SinglyLinkedListNode head = response;
+
+            while (stack.Count > 0)
+            {
+                response.next = stack.Pop();
+                response = response.next;
+            }
+
+            return head;
+        }
+
+        public static int blocks()
+        {
+            string S = "bbbab";
+            var list = S.ToList().ConvertAll(x => x.ToString());
+            int a = list.FindAll(x => x == "a").Count;
+
+            int counterBlocks = 0;
+            int counter = 1;
+            int maxLength = 0;
+            // descobrir o max length pra depois passar pela array e ver quais blocks não estão de acordo com o max
+            for (int i = 1; i < S.Length; i++)
+            {
+                string current = S[i].ToString();
+                if (current == S[i - 1].ToString())
+                {
+                    counter++;
+                }
+                else
+                {
+                    maxLength = Math.Max(counter, maxLength);
+                    counter = 1;
+                }
+            }
+
+            maxLength = Math.Max(counter, maxLength);
+
+            counter = 1;
+            for (int i = 1; i < S.Length; i++)
+            {
+                string current = S[i].ToString();
+
+                if (current == S[i - 1].ToString())
+                {
+                    counter++;
+                } else
+                {
+                    if(counter < maxLength)
+                    {
+                        counterBlocks += maxLength - counter;
+                    }
+                }
+            }
+
+            if (counter < maxLength)
+            {
+                counterBlocks += maxLength - counter;
+            }
+
+            return counterBlocks;
+        }
+
+        public int solution(string S)
+        {
+            int counterBlocks = 0;
+            int counter = 1;
+            int maxLength = 0;
+
+            // the approach was to first find the max length on a block in the array,
+            // and after that, iterate on the array and find the blocks that didint match the
+            // max length, subtract the maxLength with the length of the block em add that to the
+            // final answer
+
+            // loop to find the maxLength
+            for (int i = 1; i < S.Length; i++)
+            {
+                string current = S[i].ToString();
+                // check if still a block. If yes, add the counter of the block
+                // if not, check the length of the block to update the maxLength
+                if (current == S[i - 1].ToString())
+                    counter++;
+                else
+                {
+                    maxLength = Math.Max(counter, maxLength);
+                    counter = 1;
+                }
+            }
+            // this is for the last block that will not get to the else
+            maxLength = Math.Max(counter, maxLength);
+
+            counter = 1;
+            for (int i = 1; i < S.Length; i++)
+            {
+                string current = S[i].ToString();
+                // check if still a block. If yes, add the counter of the block
+                // if not, check if the current block has a matching lenght with the maxLength
+                //if not, add the difference on the counterBlocks
+                //if yes, reset the counter for the next block
+                if (current == S[i - 1].ToString())
+                    counter++;
+                else
+                {
+                    if (counter < maxLength)
+                        counterBlocks += maxLength - counter;
+                    else
+                        counter = 1;
+                }
+            }
+
+            // this is for the last block that will not get to the else
+            if (counter < maxLength)
+                counterBlocks += maxLength - counter;
+
+            return counterBlocks;
+        }
+
+        public static int PickingNumbers()
+        {
+            List<int> a = new List<int> { 1, 2, 2, 3, 1, 2 };
+            int result = 0;
+            int counter = 1;
+            for (int i = 1; i < a.Count; i++)
+            {
+                int prev = a[i];
+                for (int j = i + 1; j < a.Count; j++)
+                {
+                    int current = a[j];
+                    if (Math.Abs(current - prev) <= 1)
+                    {
+                        counter++;
+                    }
+                }
+                result = Math.Max(counter, result);
+                counter = 1;
+            }
+            //result = Math.Max(counter, result);
+            return result;
+        }
+
+        public static SinglyLinkedListNode InsertNodeAtPosition3(SinglyLinkedListNode llist, int data, int position)
+        {
+            if (llist == null)
+                return null;
+
+            int counter = 0;
+            var response = llist;
+            var runner = llist;
+
+            if (position == 0)
+            {
+                var next = runner.next;
+                runner = new SinglyLinkedListNode(data);
+                runner.next.next = next;
+                return response;
+            }
+
+
+            while (runner != null)
+            {
+                if (counter == position - 1)
+                {
+                    var next = runner.next;
+                    runner.next = new SinglyLinkedListNode(data);
+                    runner.next.next = next;
+                    return response;
+                }
+                else
+                {
+                    runner = runner.next;
+                    counter++;
+                }
+            }
+            return null;
+        }
+
+
+        public static SinglyLinkedListNode MergeLinkedLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2)
+        {
+            if (head1 == null)
+                return head2;
+            if (head2 == null)
+                return head1;
+
+            var runner1 = head1;
+            var runner2 = head2;
+            var response = head1.data <= head2.data ? new SinglyLinkedListNode(head1.data) : new SinglyLinkedListNode(head2.data);
+            var responseHead = response;
+
+            if (head1.data <= head2.data)
+                runner1 = runner1.next;
+            else
+                runner2 = runner2.next;
+
+            while (runner1 != null && runner2 != null)
+            {
+                response.next = runner1.data <= runner2.data ? new SinglyLinkedListNode(runner1.data) : new SinglyLinkedListNode(runner2.data);
+
+                if (runner1.data <= runner2.data)
+                    runner1 = runner1.next;
+                else
+                    runner2 = runner2.next;
+
+                response = response.next;
+            }
+            // validate which runner is null and add the other one on the response
+            if (runner1 == null)
+                response.next = runner2;
+            else
+                response.next = runner1;
+
+            return responseHead;
         }
 
         public static void Test()
@@ -3623,7 +3877,7 @@ namespace URIstudy
             int result = 0;
             int lastResult = 0;
             Dictionary<int, int> dic = new Dictionary<int, int>();
-            foreach(var x in dic)
+            foreach (var x in dic)
             {
                 int a = x.Value;
             }
